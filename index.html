@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VN Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+
+<style>
+:root{
+  --bg:#0d0b14;--bg2:#141120;--bg3:#1b1728;--bg4:#221e33;--bg5:#2a253e;
+  --border:rgba(255,255,255,.06);--border2:rgba(255,255,255,.11);
+  --txt:#e4dff8;--txt2:#9289b8;--txt3:#5a5275;
+  --acc:#7c5cfc;--acc2:#5f3fe0;--acc-glow:rgba(124,92,252,.18);
+  --gold:#d4a843;--teal:#3ecfbd;--rose:#f06292;--green:#5ecb6f;--coral:#f07060;--amber:#f5a623;
+  --rad:8px;--rad-lg:12px;--rad-xl:18px;
+  --fs:'DM Sans',sans-serif;--ff:'Crimson Pro',serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{font-family:var(--fs);background:var(--bg);color:var(--txt);display:flex;flex-direction:column;height:100vh}
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--bg5);border-radius:2px}
+.topbar{display:flex;align-items:center;gap:5px;padding:0 14px;height:50px;border-bottom:.5px solid var(--border);background:var(--bg);flex-shrink:0;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:8px;margin-right:8px}
+.logo-mark{width:26px;height:26px;background:linear-gradient(135deg,var(--acc),var(--acc2));border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff}
+.logo-txt{font-family:var(--ff);font-size:16px;font-weight:600}.logo-txt span{color:var(--acc)}
+.tab-btn{padding:4px 12px;border-radius:var(--rad);border:.5px solid transparent;background:transparent;color:var(--txt2);font-size:12px;cursor:pointer;font-family:var(--fs);display:flex;align-items:center;gap:4px;transition:all .14s}
+.tab-btn:hover{color:var(--txt);background:var(--bg3)}.tab-btn.active{background:var(--bg3);color:var(--txt);border-color:var(--border2)}
+.ml-auto{margin-left:auto}
+.sync-bar{display:flex;align-items:center;gap:6px;font-size:11px;padding:3px 9px;border-radius:var(--rad);border:.5px solid var(--border2);background:var(--bg3)}
+.sync-dot{width:7px;height:7px;border-radius:50%;background:var(--txt3);flex-shrink:0;transition:background .3s}
+.sync-dot.ok{background:var(--green)}.sync-dot.syncing{background:var(--amber);animation:pulse .8s infinite}
+.sync-dot.err{background:var(--coral)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.btn{padding:5px 11px;border-radius:var(--rad);border:.5px solid var(--border2);background:transparent;color:var(--txt);font-size:12px;cursor:pointer;display:inline-flex;align-items:center;gap:5px;font-family:var(--fs);transition:all .14s;white-space:nowrap}
+.btn:hover{background:var(--bg3)}.btn:disabled{opacity:.35;cursor:not-allowed}
+.btn-primary{background:var(--acc);border-color:transparent;color:#fff}.btn-primary:hover{background:var(--acc2)}
+.btn-success{background:rgba(94,203,111,.12);border-color:rgba(94,203,111,.25);color:var(--green)}.btn-success:hover{background:rgba(94,203,111,.2)}
+.btn-warning{background:rgba(212,168,67,.12);border-color:rgba(212,168,67,.25);color:var(--gold)}
+.btn-danger{color:var(--coral);border-color:rgba(240,112,96,.15)}.btn-danger:hover{background:rgba(240,112,96,.1)}
+.btn-sm{padding:3px 7px;font-size:11px}.btn-icon{padding:4px 6px;min-width:28px;justify-content:center}
+.content{flex:1;overflow:hidden;display:flex}
+.tab-panel{display:none;width:100%;height:100%;overflow:auto}.tab-panel.active{display:flex}
+.sidebar{width:215px;border-right:.5px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;background:var(--bg2)}
+.sidebar-hdr{padding:10px 12px;border-bottom:.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;font-size:10px;font-weight:500;color:var(--txt3);text-transform:uppercase;letter-spacing:.07em}
+.sidebar-scroll{flex:1;overflow-y:auto;padding:6px}
+.main-area{flex:1;overflow:auto;padding:18px;display:flex;flex-direction:column;gap:14px}
+.card{background:var(--bg2);border:.5px solid var(--border);border-radius:var(--rad-lg);padding:18px;max-width:740px}
+.card-title{font-family:var(--ff);font-size:17px;font-weight:600;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.field{margin-bottom:12px}
+.field label{display:block;font-size:10px;color:var(--txt3);margin-bottom:4px;text-transform:uppercase;letter-spacing:.05em}
+.field input,.field textarea,.field select{width:100%;padding:7px 10px;border:.5px solid var(--border2);border-radius:var(--rad);background:var(--bg3);color:var(--txt);font-size:13px;outline:none;font-family:var(--fs);transition:border-color .14s}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--acc)}
+.field textarea{resize:vertical;min-height:60px}.field select option{background:var(--bg3)}
+.char-item{padding:7px 9px;border-radius:var(--rad);cursor:pointer;display:flex;align-items:center;gap:9px;border:.5px solid transparent;transition:all .12s}
+.char-item:hover{background:var(--bg3)}.char-item.active{background:var(--bg4);border-color:var(--border2)}
+.av{border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;font-weight:500;flex-shrink:0}
+.av img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.rbadge{padding:2px 7px;border-radius:999px;font-size:10px;font-weight:500}
+.r-good{background:rgba(62,207,189,.12);color:var(--teal)}.r-bad{background:rgba(240,112,96,.12);color:var(--coral)}
+.r-neutral{background:var(--bg4);color:var(--txt3)}.r-romantic{background:rgba(240,98,146,.12);color:var(--rose)}.r-rival{background:rgba(212,168,67,.12);color:var(--gold)}
+.chap-item{padding:7px 11px;cursor:pointer;border-left:2px solid transparent;font-size:13px;transition:all .12s;display:flex;align-items:center;justify-content:space-between;color:var(--txt2)}
+.chap-item:hover{background:var(--bg3);color:var(--txt)}.chap-item.active{background:var(--bg4);color:var(--txt);border-left-color:var(--acc)}
+.scene-item{padding:5px 11px 5px 22px;cursor:pointer;border-left:2px solid transparent;font-size:12px;color:var(--txt3);display:flex;align-items:center;justify-content:space-between;transition:all .12s}
+.scene-item:hover{background:var(--bg3);color:var(--txt2)}.scene-item.active{background:var(--bg4);color:var(--txt);border-left-color:var(--acc)}
+.render-block{border:.5px solid var(--border);border-radius:var(--rad-lg);background:var(--bg3);overflow:hidden;margin-bottom:10px}
+.render-block:hover{border-color:var(--border2)}
+.render-header{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg3);border-bottom:.5px solid var(--border);flex-wrap:wrap}
+.rthumb{width:80px;height:50px;border-radius:6px;background:var(--bg4);border:.5px solid var(--border2);overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:var(--txt3);cursor:pointer;position:relative;transition:border-color .14s}
+.rthumb:hover{border-color:var(--acc)}.rthumb img{width:100%;height:100%;object-fit:cover}
+.rthumb-ico{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--txt3)}.rthumb:hover .rthumb-ico{color:var(--acc)}
+.rthumb-prog{position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--amber)}
+.rinfo{flex:1;min-width:0}
+.rlabel-input{background:transparent;border:none;color:var(--txt);font-size:13px;font-weight:500;width:100%;outline:none;font-family:var(--fs);padding:0}
+.rcount{font-size:11px;color:var(--txt3);margin-top:1px}.render-body{padding:12px}
+.dlg-line{display:flex;gap:9px;align-items:flex-start;padding:8px 10px;border:.5px solid var(--border);border-radius:var(--rad);background:var(--bg4);margin-bottom:5px}
+.dlg-line:hover{border-color:var(--border2)}
+.dlg-av{border-radius:50%;flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500}
+.dlg-av img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.dlg-body{flex:1;min-width:0}.dlg-spk{font-size:11px;font-weight:500;margin-bottom:2px}
+.dlg-txt{font-size:13px;line-height:1.5;color:var(--txt)}
+.dlg-edit{width:100%;padding:5px 8px;border:.5px solid var(--acc);border-radius:var(--rad);background:var(--bg5);color:var(--txt);font-size:13px;resize:none;font-family:var(--fs);min-height:46px;outline:none}
+.dlg-action{font-size:10px;color:var(--amber);font-family:monospace;margin-top:2px}
+.dlg-controls{display:flex;gap:2px;flex-shrink:0}
+.dlg-add{display:flex;gap:7px;align-items:flex-start;margin-top:8px;flex-wrap:wrap}
+.dlg-add select{width:140px;flex-shrink:0;padding:6px 8px;border:.5px solid var(--border2);border-radius:var(--rad);background:var(--bg3);color:var(--txt);font-size:12px;font-family:var(--fs)}
+.dlg-add textarea{flex:1;min-width:120px;padding:6px 9px;border:.5px solid var(--border2);border-radius:var(--rad);background:var(--bg3);color:var(--txt);font-size:13px;resize:none;font-family:var(--fs);min-height:52px;outline:none}
+.dlg-add textarea:focus{border-color:var(--acc)}
+.add-render-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:14px;border:.5px dashed var(--border2);border-radius:var(--rad);cursor:pointer;color:var(--txt3);font-size:13px;transition:all .14s;background:transparent;font-family:var(--fs)}
+.add-render-btn:hover{border-color:var(--acc);color:var(--acc);background:var(--acc-glow)}
+.choice-block{background:var(--bg4);border:.5px solid rgba(212,168,67,.2);border-radius:var(--rad-lg);padding:14px;margin-top:16px}
+.choice-title{font-size:11px;font-weight:500;color:var(--gold);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.choice-item{display:flex;gap:8px;align-items:center;padding:7px 10px;border:.5px solid var(--border2);border-radius:var(--rad);background:var(--bg5);margin-bottom:6px}
+.choice-item input{flex:1;padding:5px 8px;border:.5px solid var(--border2);border-radius:var(--rad);background:var(--bg3);color:var(--txt);font-size:12px;outline:none;font-family:var(--fs)}
+.choice-item input:focus{border-color:var(--gold)}
+.choice-item select{width:160px;flex-shrink:0;padding:5px 7px;border:.5px solid var(--border2);border-radius:var(--rad);background:var(--bg3);color:var(--txt);font-size:12px;font-family:var(--fs)}
+.notes-block{background:rgba(212,168,67,.04);border:.5px solid rgba(212,168,67,.15);border-radius:var(--rad);padding:10px 12px;margin-top:12px}
+.notes-block textarea{width:100%;padding:0;border:none;background:transparent;color:var(--txt2);font-size:12px;resize:none;font-family:var(--fs);outline:none;line-height:1.6;min-height:52px}
+.var-item{display:flex;gap:8px;align-items:center;padding:8px 10px;border:.5px solid var(--border);border-radius:var(--rad);background:var(--bg3);margin-bottom:6px}
+.var-badge{padding:2px 7px;border-radius:999px;font-size:10px;font-weight:500;flex-shrink:0}
+.var-bool{background:rgba(62,207,189,.12);color:var(--teal)}.var-int{background:rgba(124,92,252,.12);color:var(--acc)}.var-str{background:rgba(245,166,35,.12);color:var(--amber)}
+.prev-wrap{flex:1;overflow:auto;padding:18px;display:flex;flex-direction:column;align-items:center;background:var(--bg)}
+.vn-screen{width:100%;max-width:660px;aspect-ratio:16/9;border-radius:var(--rad-xl);border:.5px solid var(--border2);overflow:hidden;position:relative;background:#08060f;flex-shrink:0;box-shadow:0 8px 48px rgba(0,0,0,.6)}
+.vn-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.vn-bg-ph{position:absolute;inset:0;background:radial-gradient(ellipse at 30% 40%,#1a0a3e,#08060f 60%);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.12);font-family:var(--ff);font-style:italic;font-size:13px}
+.vn-chars{position:absolute;bottom:90px;left:50%;transform:translateX(-50%);display:flex;align-items:flex-end;gap:16px;z-index:1}
+.vn-char-fig{display:flex;flex-direction:column;align-items:center;gap:4px;opacity:.45;transition:opacity .3s}
+.vn-char-fig.sp{opacity:1}
+.vn-char-circ{width:58px;height:58px;border-radius:50%;border:2px solid rgba(255,255,255,.1);overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:500;transition:border-color .3s}
+.vn-char-circ img{width:100%;height:100%;object-fit:cover}
+.vn-char-fig.sp .vn-char-circ{border-color:rgba(124,92,252,.8);box-shadow:0 0 14px rgba(124,92,252,.4)}
+.vn-char-nm{font-size:9px;color:rgba(255,255,255,.45);text-align:center}.vn-char-fig.sp .vn-char-nm{color:rgba(255,255,255,.85)}
+.vn-tbox{position:absolute;bottom:0;left:0;right:0;background:rgba(6,4,16,.9);padding:12px 16px 16px;border-top:.5px solid rgba(124,92,252,.2);z-index:2}
+.vn-spk{font-family:var(--ff);font-size:15px;font-weight:500;margin-bottom:5px}
+.vn-line{font-family:var(--ff);font-size:15px;line-height:1.65;color:rgba(255,255,255,.92);min-height:40px}
+.vn-choices{position:absolute;bottom:0;left:0;right:0;background:rgba(6,4,16,.95);padding:14px 16px;z-index:2;display:flex;flex-direction:column;gap:7px}
+.vn-choice-btn{padding:9px 14px;border:.5px solid rgba(212,168,67,.3);border-radius:var(--rad);background:rgba(212,168,67,.08);color:var(--gold);font-size:13px;font-family:var(--ff);cursor:pointer;text-align:left;transition:all .14s}
+.vn-choice-btn:hover{background:rgba(212,168,67,.15);border-color:rgba(212,168,67,.5)}
+.vn-rbadge{position:absolute;top:10px;left:10px;background:rgba(0,0,0,.5);border:.5px solid rgba(255,255,255,.12);border-radius:var(--rad);padding:3px 8px;font-size:10px;color:rgba(255,255,255,.5);z-index:3}
+.vn-progress{width:100%;max-width:660px;height:2px;background:var(--bg3);border-radius:1px;margin-top:8px}
+.vn-prog-bar{height:100%;background:var(--acc);border-radius:1px;transition:width .3s}
+.vn-nav{display:flex;gap:8px;margin-top:12px;align-items:center}
+.vn-ctr{font-size:11px;color:var(--txt3);min-width:70px;text-align:center}
+.board-tab{display:flex;width:100%;height:100%;flex-direction:column}
+.board-toolbar{display:flex;align-items:center;gap:6px;padding:8px 14px;border-bottom:.5px solid var(--border);flex-wrap:wrap;flex-shrink:0;background:var(--bg2)}
+.board-wrap{flex:1;overflow:auto;position:relative;background:var(--bg)}
+.board-wrap::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.03) 1px,transparent 1px);background-size:24px 24px;pointer-events:none}
+#bsvg{position:absolute;top:0;left:0;pointer-events:none;z-index:1}
+.bcanvas{position:absolute;top:0;left:0;width:4000px;height:4000px}
+.bnode{position:absolute;border-radius:var(--rad);border:.5px solid var(--border2);background:var(--bg2);padding:10px 13px;cursor:grab;user-select:none;min-width:150px;z-index:2;transition:border-color .12s}
+.bnode:hover{border-color:rgba(124,92,252,.4)}.bnode.selected{border-color:var(--acc);box-shadow:0 0 0 2px var(--acc-glow)}.bnode.dragging{cursor:grabbing;z-index:10}
+.nh{font-size:12px;font-weight:500;display:flex;align-items:center;gap:5px;margin-bottom:3px}
+.ns{font-size:11px;color:var(--txt3);margin-bottom:2px}
+.n-desc{font-size:10px;color:var(--txt3);font-style:italic;margin-top:3px;border-top:.5px solid var(--border);padding-top:3px;line-height:1.4;max-width:200px;word-break:break-word}
+.n-stats{display:flex;gap:6px;margin-top:4px;flex-wrap:wrap}
+.n-stat{font-size:10px;padding:1px 5px;border-radius:4px;background:var(--bg3);color:var(--txt3)}
+.nbadge{padding:1px 5px;border-radius:999px;font-size:10px}
+.bc-chap{background:rgba(212,168,67,.12);color:var(--gold)}.bc-scene{background:rgba(62,207,189,.12);color:var(--teal)}.bc-char{background:rgba(124,92,252,.12);color:var(--acc)}
+.cport{width:9px;height:9px;border-radius:50%;background:var(--border2);position:absolute;cursor:crosshair;z-index:3;transition:background .12s,transform .12s}
+.cport:hover{background:var(--acc);transform:scale(1.4)}
+.cport-r{right:-5px;top:50%;transform:translateY(-50%)}.cport-r:hover{transform:translateY(-50%) scale(1.4)}
+.cport-l{left:-5px;top:50%;transform:translateY(-50%)}.cport-l:hover{transform:translateY(-50%) scale(1.4)}
+.cport-t{top:-5px;left:50%;transform:translateX(-50%)}.cport-t:hover{transform:translateX(-50%) scale(1.4)}
+.cport-b{bottom:-5px;left:50%;transform:translateX(-50%)}.cport-b:hover{transform:translateX(-50%) scale(1.4)}
+.conn-legend{display:flex;gap:12px;align-items:center;font-size:11px;color:var(--txt3);padding:0 6px}
+.rpy-preview{background:#0d1117;border-radius:var(--rad);padding:14px;font-size:12px;line-height:1.75;white-space:pre;max-height:420px;overflow:auto;font-family:'Courier New',monospace;color:#c9d1d9;border:.5px solid var(--border2);tab-size:4}
+.modal-wrap{position:fixed;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;z-index:100;padding:16px}
+.modal{background:var(--bg2);border-radius:var(--rad-xl);border:.5px solid var(--border2);padding:20px;width:100%;max-width:640px;max-height:90vh;overflow-y:auto}
+.modal h2{font-family:var(--ff);font-size:17px;font-weight:600;margin-bottom:14px}
+.modal-footer{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}
+.hidden{display:none!important}
+.empty-state{display:flex;align-items:center;justify-content:center;height:180px;color:var(--txt3);font-size:13px;font-family:var(--ff);font-style:italic}
+.chip{display:inline-flex;align-items:center;gap:4px;padding:2px 9px;border-radius:999px;font-size:11px;background:var(--bg3);border:.5px solid var(--border);color:var(--txt2)}
+#dev-console{position:fixed;bottom:0;left:0;right:0;height:200px;background:#0a0810;border-top:.5px solid rgba(124,92,252,.3);display:flex;flex-direction:column;z-index:200;transition:height .2s;font-family:'Courier New',monospace}
+#dev-console.collapsed{height:28px}
+#dev-console.collapsed #console-body{display:none}
+.console-bar{display:flex;align-items:center;gap:8px;padding:0 10px;height:28px;border-bottom:.5px solid rgba(255,255,255,.06);flex-shrink:0;background:#0d0b14}
+.console-bar span{font-size:11px;color:var(--txt3);font-family:var(--fs)}
+.console-badge{padding:1px 6px;border-radius:999px;font-size:10px;font-weight:500;margin-left:2px}
+.cb-err{background:rgba(240,112,96,.2);color:var(--coral)}
+.cb-warn{background:rgba(212,168,67,.15);color:var(--gold)}
+.cb-ok{background:rgba(94,203,111,.12);color:var(--green)}
+.cb-info{background:rgba(124,92,252,.12);color:var(--acc)}
+#console-body{flex:1;overflow-y:auto;padding:6px 0}
+#console-body::-webkit-scrollbar{width:4px}
+#console-body::-webkit-scrollbar-thumb{background:var(--bg5);border-radius:2px}
+.c-line{display:flex;gap:8px;align-items:flex-start;padding:2px 10px;font-size:11px;line-height:1.5;border-bottom:.5px solid rgba(255,255,255,.03)}
+.c-line:hover{background:rgba(255,255,255,.03)}
+.c-time{color:var(--txt3);flex-shrink:0;min-width:52px}
+.c-tag{flex-shrink:0;min-width:42px;text-align:right}
+.c-msg{color:#c9d1d9;word-break:break-all;flex:1}
+.c-line.err .c-msg{color:var(--coral)}.c-line.err .c-tag{color:var(--coral)}
+.c-line.warn .c-msg{color:var(--gold)}.c-line.warn .c-tag{color:var(--gold)}
+.c-line.ok .c-msg{color:var(--green)}.c-line.ok .c-tag{color:var(--green)}
+.c-line.info .c-msg{color:var(--acc)}.c-line.info .c-tag{color:var(--acc)}
+.c-line.req .c-msg{color:#79b8ff}.c-line.req .c-tag{color:#79b8ff}
+.c-line.succ .c-msg{color:var(--teal)}.c-line.succ .c-tag{color:var(--teal)}
+.spinner{width:28px;height:28px;border:2px solid var(--border2);border-top-color:var(--acc);border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+<div id="loading-screen"><div class="spinner"></div><span id="loading-txt">Conectando ao Supabase...</span></div>
+<div id="app" style="display:none;flex-direction:column;height:100vh;overflow:hidden">
+  <div class="topbar">
+    <div class="logo"><div class="logo-mark"><i class="ti ti-writing"></i></div><div class="logo-txt">VN<span>Studio</span></div></div>
+    <button class="tab-btn active" onclick="switchTab('chars')"><i class="ti ti-user-circle"></i> Personagens</button>
+    <button class="tab-btn" onclick="switchTab('vars')"><i class="ti ti-variable"></i> Variáveis</button>
+    <button class="tab-btn" onclick="switchTab('chapters')"><i class="ti ti-books"></i> Cenas</button>
+    <button class="tab-btn" onclick="switchTab('preview')"><i class="ti ti-player-play"></i> Prévia VN</button>
+    <button class="tab-btn" onclick="switchTab('board')"><i class="ti ti-sitemap"></i> Quadro</button>
+    <div class="ml-auto" style="display:flex;align-items:center;gap:7px">
+      <div class="sync-bar" id="sync-bar">
+        <div class="sync-dot" id="sync-dot"></div>
+        <span id="sync-txt">Offline</span>
+      </div>
+      <button class="btn btn-success btn-sm" onclick="openExportModal()"><i class="ti ti-brand-python"></i> Ren'Py</button>
+    </div>
+  </div>
+  <div class="content">
+    <div class="tab-panel active" id="tab-chars">
+      <div style="display:flex;width:100%;height:100%">
+        <div class="sidebar">
+          <div class="sidebar-hdr">Personagens <button class="btn btn-primary btn-sm" onclick="openAddCharModal()"><i class="ti ti-plus"></i></button></div>
+          <div class="sidebar-scroll" id="chars-list"></div>
+        </div>
+        <div class="main-area" id="char-detail"><div class="empty-state">Selecione ou crie um personagem</div></div>
+      </div>
+    </div>
+    <div class="tab-panel" id="tab-vars">
+      <div class="main-area" style="max-width:680px;margin:0 auto;width:100%">
+        <div class="card">
+          <div class="card-title"><i class="ti ti-variable"></i> Variáveis do Projeto</div>
+          <div style="font-size:12px;color:var(--txt2);margin-bottom:14px;line-height:1.6">Flags, contadores de afinidade e strings. Declaradas no bloco <code style="background:var(--bg3);padding:1px 5px;border-radius:4px">init python</code> do Ren'Py.</div>
+          <div id="vars-list"></div>
+          <button class="btn btn-primary" style="margin-top:8px" onclick="openAddVarModal()"><i class="ti ti-plus"></i> Nova variável</button>
+        </div>
+      </div>
+    </div>
+    <div class="tab-panel" id="tab-chapters">
+      <div style="display:flex;width:100%;height:100%">
+        <div class="sidebar">
+          <div class="sidebar-hdr">Capítulos <button class="btn btn-primary btn-sm" onclick="openAddChapModal()"><i class="ti ti-plus"></i></button></div>
+          <div class="sidebar-scroll" id="chaps-scroll"></div>
+        </div>
+        <div class="main-area" id="scene-area"><div class="empty-state">Selecione uma cena para editar</div></div>
+      </div>
+    </div>
+    <div class="tab-panel" id="tab-preview">
+      <div style="display:flex;width:100%;height:100%">
+        <div class="sidebar"><div class="sidebar-hdr">Cenas</div><div class="sidebar-scroll" id="prev-list"></div></div>
+        <div class="prev-wrap" id="preview-area"><div class="empty-state">Selecione uma cena</div></div>
+      </div>
+    </div>
+    <div class="tab-panel" id="tab-board">
+      <div class="board-tab">
+        <div class="board-toolbar">
+          <button class="btn btn-sm" onclick="addBNode('chapter')"><i class="ti ti-bookmark"></i> Capítulo</button>
+          <button class="btn btn-sm" onclick="addBNode('scene')"><i class="ti ti-photo"></i> Cena</button>
+          <button class="btn btn-sm" onclick="addBNode('char')"><i class="ti ti-user"></i> Personagem</button>
+          <button class="btn btn-sm" id="conn-btn" onclick="toggleConn()"><i class="ti ti-arrows-join"></i> Conectar</button>
+          <button class="btn btn-danger btn-sm" onclick="delBNode()"><i class="ti ti-trash"></i> Excluir</button>
+          <div class="conn-legend">
+            <span style="display:flex;align-items:center;gap:4px"><span style="width:18px;height:2px;background:rgba(62,207,189,.8);display:inline-block;border-radius:1px"></span>jump</span>
+            <span style="display:flex;align-items:center;gap:4px"><span style="width:18px;height:0;border-top:2px dashed rgba(245,166,35,.8);display:inline-block"></span>call</span>
+            <span style="display:flex;align-items:center;gap:4px"><span style="width:18px;height:2px;background:rgba(240,98,146,.8);display:inline-block;border-radius:1px"></span>menu</span>
+          </div>
+          <span id="conn-hint" style="font-size:11px;color:var(--txt3)"></span>
+        </div>
+        <div class="board-wrap" id="board-wrap">
+          <svg id="bsvg" width="4000" height="4000"></svg>
+          <div class="bcanvas" id="bcanvas"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="modal-wrap" class="modal-wrap hidden" onclick="closeModalOut(event)">
+  <div class="modal" onclick="event.stopPropagation()"><div id="modal-content"></div></div>
+</div>
+<script>
+'use strict';
+/* ═══════════════════════════════════════
+   SUPABASE CONFIG
+═══════════════════════════════════════ */
+const SUPA_URL = 'https://txhmlblimvzidrmbjyjc.supabase.co';
+const SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR4aG1sYmxpbXZ6aWRybWJqeWpjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg3ODY0NDMsImV4cCI6MjA5NDM2MjQ0M30.ypCcYWdls1Ys0jExX3XtMK7gHvD8cp608ib6IKEUEAY';
+let PROJECT_ID = null;
+
+/* ── Pure-fetch Supabase REST helpers (no SDK, works in file://) ── */
+const REST = SUPA_URL + '/rest/v1';
+const STOR = SUPA_URL + '/storage/v1';
+const H = (extra={}) => ({'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY,'Content-Type':'application/json','Prefer':'return=representation',...extra});
+
+async function dbSelect(table, query=''){
+  const r = await fetch(`${REST}/${table}?${query}`, {headers: H()});
+  const j = await r.json();
+  if(!r.ok) throw new Error(j.message||j.hint||JSON.stringify(j));
+  return j; // array
+}
+async function dbInsert(table, body){
+  const r = await fetch(`${REST}/${table}`, {method:'POST', headers: H(), body: JSON.stringify(body)});
+  const j = await r.json();
+  if(!r.ok) throw new Error(j.message||j.hint||JSON.stringify(j));
+  return Array.isArray(j)?j[0]:j;
+}
+async function dbUpdate(table, body, query){
+  const r = await fetch(`${REST}/${table}?${query}`, {method:'PATCH', headers: H({'Prefer':'return=minimal'}), body: JSON.stringify(body)});
+  if(!r.ok){ const j=await r.json(); throw new Error(j.message||JSON.stringify(j)); }
+}
+async function dbDelete(table, query){
+  const r = await fetch(`${REST}/${table}?${query}`, {method:'DELETE', headers: H()});
+  if(!r.ok){ const j=await r.json(); throw new Error(j.message||JSON.stringify(j)); }
+}
+async function storageUpload(bucket, path, file){
+  const r = await fetch(`${STOR}/object/${bucket}/${path}`, {
+    method:'POST',
+    headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY,'x-upsert':'true'},
+    body: file
+  });
+  if(!r.ok){ const j=await r.json(); throw new Error(j.message||JSON.stringify(j)); }
+  return `${SUPA_URL}/storage/v1/object/public/${bucket}/${path}`;
+}
+async function storageDelete(bucket, path){
+  await fetch(`${STOR}/object/${bucket}`, {
+    method:'DELETE',
+    headers:{'apikey':SUPA_KEY,'Authorization':'Bearer '+SUPA_KEY,'Content-Type':'application/json'},
+    body: JSON.stringify({prefixes:[path]})
+  });
+}
+
+/* ═══════════════════════════════════════
+   INDEXED DB — offline image cache
+═══════════════════════════════════════ */
+const DB_NAME='vn-idb',DB_VER=1,IMG_STORE='images';
+let idb=null;
+function openIDB(){return new Promise((res,rej)=>{const r=indexedDB.open(DB_NAME,DB_VER);r.onupgradeneeded=e=>{if(!e.target.result.objectStoreNames.contains(IMG_STORE))e.target.result.createObjectStore(IMG_STORE);};r.onsuccess=e=>{idb=e.target.result;res();};r.onerror=e=>rej(e.target.error);});}
+function idbPut(id,blob){return new Promise((res,rej)=>{const tx=idb.transaction(IMG_STORE,'readwrite');tx.objectStore(IMG_STORE).put(blob,id);tx.oncomplete=()=>res();tx.onerror=e=>rej(e.target.error);});}
+function idbGet(id){return new Promise((res,rej)=>{if(!id){res(null);return;}const r=idb.transaction(IMG_STORE,'readonly').objectStore(IMG_STORE).get(id);r.onsuccess=e=>res(e.target.result||null);r.onerror=e=>rej(e.target.error);});}
+function idbDel(id){if(!id)return Promise.resolve();return new Promise((res,rej)=>{const tx=idb.transaction(IMG_STORE,'readwrite');tx.objectStore(IMG_STORE).delete(id);tx.oncomplete=()=>res();tx.onerror=e=>rej(e.target.error);});}
+
+/* ═══════════════════════════════════════
+   IMAGE URL RESOLUTION
+   Priority: Supabase Storage URL → IDB blob → null
+═══════════════════════════════════════ */
+const urlCache={};
+async function resolveImg(imgId){
+  if(!imgId) return null;
+  if(urlCache[imgId]) return urlCache[imgId];
+  // Check if we have a Supabase public URL stored in state
+  const stored = imgUrlMap[imgId];
+  if(stored){ urlCache[imgId]=stored; return stored; }
+  // Fallback: try IDB blob
+  const blob = await idbGet(imgId);
+  if(blob){ const u=URL.createObjectURL(blob); urlCache[imgId]=u; return u; }
+  return null;
+}
+const imgUrlMap = {}; // imgId → public supabase URL
+
+/* ═══════════════════════════════════════
+   IMAGE UPLOAD — Supabase Storage + IDB cache
+═══════════════════════════════════════ */
+async function uploadImage(file, bucket, oldImgId){
+  const newId = 'img'+Date.now()+Math.random().toString(36).slice(2,6);
+  setSyncState('syncing',`Enviando ${file.name}...`);
+  // always cache in IDB first (offline-safe)
+  const blob = await file.arrayBuffer().then(ab=>new Blob([ab],{type:file.type}));
+  await idbPut(newId, blob);
+  try {
+    const ext  = file.name.split('.').pop();
+    const path = `${PROJECT_ID||'local'}/${newId}.${ext}`;
+    const publicUrl = await storageUpload(bucket, path, file);
+    imgUrlMap[newId] = publicUrl;
+    if(PROJECT_ID){
+      await dbInsert('vn_images',{id:newId,project_id:PROJECT_ID,bucket,path,url:publicUrl});
+    }
+    if(oldImgId) await deleteImage(oldImgId, bucket);
+    setSyncState('ok','Imagem salva');
+    return newId;
+  } catch(e) {
+    setSyncState('err','Upload offline — salvo localmente');
+    console.warn('Upload error (using IDB fallback):',e.message||e);
+    if(oldImgId) idbDel(oldImgId);
+    return newId;
+  }
+}
+
+async function deleteImage(imgId, bucket){
+  if(!imgId) return;
+  try {
+    const rows = await dbSelect('vn_images',`id=eq.${imgId}&select=path`);
+    if(rows?.[0]?.path) await storageDelete(bucket, rows[0].path);
+    await dbDelete('vn_images',`id=eq.${imgId}`);
+  } catch(e){ console.warn('deleteImage:',e.message||e); }
+  idbDel(imgId);
+  if(urlCache[imgId]){ URL.revokeObjectURL(urlCache[imgId]); delete urlCache[imgId]; }
+  delete imgUrlMap[imgId];
+}
+
+/* ═══════════════════════════════════════
+   STATE
+═══════════════════════════════════════ */
+const LS_KEY='vn-meta-v4';
+function defaultState(){return{
+  chars:[
+    {id:'c1',name:'Akira',role:'Protagonista',age:'17',traits:'Corajoso, impulsivo',desc:'Estudante transferido.',color:'#7c5cfc',imgId:null,rels:[],renpyId:'akira'},
+    {id:'c2',name:'Yuki',role:'Herói',age:'17',traits:'Inteligente, reservada',desc:'Melhor aluna da turma.',color:'#3ecfbd',imgId:null,rels:[{with:'c1',type:'neutral',note:'Colegas'}],renpyId:'yuki'}
+  ],
+  vars:[
+    {id:'v1',name:'afin_yuki',type:'int',defaultVal:'0',desc:'Afinidade com Yuki'},
+    {id:'v2',name:'flag_conheceu_yuki',type:'bool',defaultVal:'False',desc:'Conheceu Yuki'}
+  ],
+  chapters:[{id:'ch1',name:'Capítulo 1 — O Começo',desc:'Chegada à academia.',scenes:[
+    {id:'s1',name:'Entrada da Academia',desc:'Primeiro dia de Akira.',notes:'Tom levemente ansioso.',chars:['c1','c2'],
+     renders:[
+       {id:'r1',label:'Vista da entrada',imgId:null,transition:'dissolve',bgName:'bg_entrada',dialogues:[
+         {char:'c1',text:'Essa escola parece enorme...',action:''},
+         {char:'c2',text:'Você é o novo aluno? Chegou atrasado.',action:'$ afin_yuki -= 1'}
+       ]},
+       {id:'r2',label:'Interior do corredor',imgId:null,transition:'dissolve',bgName:'bg_corredor',dialogues:[
+         {char:'c1',text:'Desculpe, me perdi no caminho.',action:''},
+         {char:'c2',text:'Típico. Me chamo Yuki.',action:'$ flag_conheceu_yuki = True'}
+       ]}
+     ],choices:[]}
+  ]}],
+  boardNodes:[
+    {id:'bn1',type:'chapter',label:'Cap. 1',sub:'O Começo',x:60,y:80},
+    {id:'bn2',type:'scene',label:'Entrada',sub:'Academia',x:280,y:80,sceneRef:'s1'},
+    {id:'bn3',type:'char',label:'Akira',sub:'Protagonista',x:160,y:240,charId:'c1'},
+    {id:'bn4',type:'char',label:'Yuki',sub:'Herói',x:380,y:240,charId:'c2'}
+  ],
+  boardConns:[
+    {id:'bc1',from:'bn1',to:'bn2',type:'jump',label:''},
+    {id:'bc2',from:'bn2',to:'bn3',type:'jump',label:''},
+    {id:'bc3',from:'bn2',to:'bn4',type:'jump',label:''}
+  ],
+  selChar:null,selChap:null,selScene:null,selBNode:null,connMode:false,
+  prevState:{sceneRef:null,idx:0}
+};}
+
+let S = (()=>{try{const r=localStorage.getItem(LS_KEY);if(r)return Object.assign(defaultState(),JSON.parse(r));}catch(e){}return defaultState();})();
+
+/* ═══════════════════════════════════════
+   SYNC — save metadata to Supabase
+═══════════════════════════════════════ */
+let syncTimer=null;
+function markDirty(){
+  // always save to localStorage immediately
+  try{
+    const c=JSON.parse(JSON.stringify(S));
+    ['selChar','selChap','selScene','selBNode','connMode','prevState'].forEach(k=>delete c[k]);
+    localStorage.setItem(LS_KEY,JSON.stringify(c));
+  }catch(e){}
+  // debounce Supabase sync
+  setSyncState('syncing','Salvando...');
+  clearTimeout(syncTimer);
+  syncTimer=setTimeout(syncToSupabase,1500);
+}
+
+async function syncToSupabase(){
+  if(!PROJECT_ID){ setSyncState('err','Sem projeto'); _devLog('err','SYN','PROJECT_ID não definido'); return; }
+  _devLog('info','SYN','Sincronizando metadata...');
+  try {
+    const payload={
+      chars:S.chars, vars:S.vars, chapters:S.chapters,
+      board_nodes:S.boardNodes, board_conns:S.boardConns,
+      updated_at:new Date().toISOString()
+    };
+    const existing = await dbSelect('vn_metadata',`project_id=eq.${PROJECT_ID}&select=id`);
+    if(existing?.length){
+      await dbUpdate('vn_metadata', payload, `project_id=eq.${PROJECT_ID}`);
+      _devLog('succ','SYN','Metadata atualizada (UPDATE)');
+    } else {
+      await dbInsert('vn_metadata', {...payload, project_id:PROJECT_ID});
+      _devLog('succ','SYN','Metadata criada (INSERT)');
+    }
+    setSyncState('ok','Sincronizado · '+new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'}));
+  } catch(e){
+    console.error('Sync error: '+(e.message||e));
+    setSyncState('err','Erro: '+(e.message||'').slice(0,30));
+  }
+}
+
+function setSyncState(state,txt){
+  const dot=document.getElementById('sync-dot');
+  const label=document.getElementById('sync-txt');
+  if(!dot||!label)return;
+  dot.className='sync-dot'+(state==='ok'?' ok':state==='syncing'?' syncing':state==='err'?' err':'');
+  label.textContent=txt;
+}
+
+/* ═══════════════════════════════════════
+   SUPABASE BOOT — load project + metadata + images
+═══════════════════════════════════════ */
+async function bootSupabase(){
+  document.getElementById('loading-txt').textContent='Conectando ao Supabase...';
+  _devLog('info','SUP','Iniciando boot do Supabase...');
+  try {
+    // 1. get or create project
+    _devLog('info','SUP','Buscando projeto em vn_project...');
+    let projects = await dbSelect('vn_project','select=id,name&limit=1');
+    if(!projects?.length){
+      _devLog('warn','SUP','Nenhum projeto encontrado — criando novo...');
+      const np = await dbInsert('vn_project',{name:'VN Studio'});
+      projects = [np];
+      _devLog('ok','SUP','Projeto criado: '+np.id);
+    } else {
+      _devLog('succ','SUP','Projeto carregado: '+projects[0].id);
+    }
+    PROJECT_ID = projects[0].id;
+
+    // 2. load metadata
+    document.getElementById('loading-txt').textContent='Carregando projeto...';
+    _devLog('info','SUP','Buscando metadata...');
+    const metas = await dbSelect('vn_metadata',`project_id=eq.${PROJECT_ID}&limit=1`);
+    const meta = metas?.[0];
+    if(meta){
+      const saved={chars:meta.chars||[],vars:meta.vars||[],chapters:meta.chapters||[],boardNodes:meta.board_nodes||[],boardConns:meta.board_conns||[]};
+      S=Object.assign(defaultState(),saved);
+      _devLog('succ','SUP',`Metadata carregada — ${S.chars.length} personagens, ${S.chapters.length} capítulos`);
+    } else {
+      _devLog('warn','SUP','Sem metadata salva — usando estado padrão');
+    }
+
+    // 3. load image URLs
+    document.getElementById('loading-txt').textContent='Carregando imagens...';
+    _devLog('info','SUP','Buscando URLs de imagens...');
+    const imgs = await dbSelect('vn_images',`project_id=eq.${PROJECT_ID}&select=id,url`);
+    if(imgs){
+      imgs.forEach(img=>{ imgUrlMap[img.id]=img.url; });
+      _devLog('succ','SUP',`${imgs.length} imagem(ns) carregada(s)`);
+    }
+
+    setSyncState('ok','Sincronizado');
+    _devLog('succ','APP','Boot concluído com sucesso');
+    return true;
+  } catch(e){
+    const msg = e?.message || JSON.stringify(e);
+    console.error('Supabase boot failed: '+msg);
+    setSyncState('err','Offline — dados locais');
+    document.getElementById('loading-txt').textContent='⚠ Supabase: '+msg.slice(0,80);
+    await new Promise(r=>setTimeout(r,3000));
+    return false;
+  }
+}
+
+/* ═══════════════════════════════════════
+   HELPERS
+═══════════════════════════════════════ */
+const uid=()=>'id'+Math.random().toString(36).slice(2,8);
+const esc=s=>{const d=document.createElement('div');d.textContent=s||'';return d.innerHTML;};
+const gc=id=>S.chars.find(c=>c.id===id);
+const gch=id=>S.chapters.find(c=>c.id===id);
+const gs=(cId,sId)=>{const ch=gch(cId);return ch&&ch.scenes.find(s=>s.id===sId);};
+const gr=(sc,rId)=>sc&&sc.renders.find(r=>r.id===rId);
+const gv=id=>S.vars.find(v=>v.id===id);
+const ini=n=>{if(!n)return'?';const p=n.trim().split(' ');return p.length>1?p[0][0]+p[1][0]:p[0].slice(0,2).toUpperCase();};
+const relLbl=t=>({good:'Boa',bad:'Ruim',neutral:'Neutra',romantic:'Romântica',rival:'Rival'}[t]||t);
+const relCls=t=>({good:'r-good',bad:'r-bad',neutral:'r-neutral',romantic:'r-romantic',rival:'r-rival'}[t]||'r-neutral');
+const TRANS=['dissolve','fade','pixellate','blinds','squares','pushright','pushleft','slideup','slidedown','wipeleft','wiperight','None'];
+const findScene=sId=>{for(const ch of S.chapters){const sc=ch.scenes.find(s=>s.id===sId);if(sc)return{ch,sc};}return null;};
+const allScenes=()=>S.chapters.flatMap(ch=>ch.scenes);
+
+function switchTab(t){
+  document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active',['chars','vars','chapters','preview','board'][i]===t));
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('tab-'+t).classList.add('active');
+  if(t==='board')renderBoard();
+  if(t==='preview')renderPrevList();
+  if(t==='vars')renderVarsList();
+}
+
+/* ═══ PERSONAGENS ═══ */
+async function renderCharList(){
+  const el=document.getElementById('chars-list');
+  const items=await Promise.all(S.chars.map(async c=>{
+    const imgUrl=await resolveImg(c.imgId);
+    return`<div class="char-item${S.selChar===c.id?' active':''}" onclick="selChar('${c.id}')">
+      <div class="av" style="width:34px;height:34px;font-size:12px;background:${c.color}22;color:${c.color}">
+        ${imgUrl?`<img src="${imgUrl}">`:`<span>${ini(c.name)}</span>`}</div>
+      <div><div style="font-size:13px;font-weight:500">${esc(c.name)}</div>
+        <div style="font-size:11px;color:var(--txt3)">${esc(c.role)}</div></div>
+    </div>`;
+  }));
+  el.innerHTML=items.join('');
+}
+function selChar(id){S.selChar=id;renderCharList();renderCharDetail();}
+async function renderCharDetail(){
+  const el=document.getElementById('char-detail');const c=gc(S.selChar);
+  if(!c){el.innerHTML=`<div class="empty-state">Selecione ou crie um personagem</div>`;return;}
+  const imgUrl=await resolveImg(c.imgId);
+  const opts=S.chars.filter(x=>x.id!==c.id).map(x=>`<option value="${x.id}">${esc(x.name)}</option>`).join('');
+  const relsHTML=(await Promise.all(c.rels.map(async(r,ri)=>{
+    const oc=gc(r.with);if(!oc)return'';
+    const ou=await resolveImg(oc.imgId);
+    return`<div style="display:flex;align-items:center;gap:7px;padding:6px 9px;border:.5px solid var(--border);border-radius:var(--rad);background:var(--bg3)">
+      <div class="av" style="width:22px;height:22px;font-size:9px;background:${oc.color}22;color:${oc.color}">${ou?`<img src="${ou}">`:`${ini(oc.name)}`}</div>
+      <span style="flex:1;font-size:12px">${esc(oc.name)}</span>
+      <span class="rbadge ${relCls(r.type)}">${relLbl(r.type)}</span>
+      <span style="font-size:11px;color:var(--txt3)">${esc(r.note||'')}</span>
+      <button class="btn btn-danger btn-sm btn-icon" onclick="delRel('${c.id}',${ri})"><i class="ti ti-x"></i></button>
+    </div>`;
+  }))).join('');
+  el.innerHTML=`<div class="card" style="max-width:560px">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px">
+      <div style="display:flex;align-items:center;gap:12px">
+        <div class="av" style="width:58px;height:58px;font-size:20px;background:${c.color}22;color:${c.color};cursor:pointer;border:2px solid ${c.color}44" onclick="trigAv('${c.id}')">
+          ${imgUrl?`<img src="${imgUrl}">`:`<span>${ini(c.name)}</span>`}</div>
+        <div><div style="font-family:var(--ff);font-size:17px;font-weight:600">${esc(c.name)}</div>
+          <div style="font-size:11px;color:var(--txt3);cursor:pointer;text-decoration:underline" onclick="trigAv('${c.id}')">Alterar imagem</div>
+          <input type="file" id="av-${c.id}" accept="image/*" style="display:none" onchange="setAv('${c.id}',this)">
+        </div>
+      </div>
+      <button class="btn btn-danger btn-sm" onclick="delChar('${c.id}')"><i class="ti ti-trash"></i></button>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div class="field"><label>Nome</label><input value="${esc(c.name)}" oninput="upC('${c.id}','name',this.value)"></div>
+      <div class="field"><label>Papel</label><input value="${esc(c.role)}" oninput="upC('${c.id}','role',this.value)"></div>
+      <div class="field"><label>Idade</label><input value="${esc(c.age)}" oninput="upC('${c.id}','age',this.value)"></div>
+      <div class="field"><label>Cor</label><input type="color" value="${c.color}" oninput="upC('${c.id}','color',this.value)" style="height:33px;padding:2px 4px;cursor:pointer"></div>
+    </div>
+    <div class="field"><label>Traços</label><input value="${esc(c.traits)}" oninput="upC('${c.id}','traits',this.value)"></div>
+    <div class="field"><label>Descrição</label><textarea oninput="upC('${c.id}','desc',this.value)">${esc(c.desc)}</textarea></div>
+    <div class="field"><label>ID Ren'Py</label><input value="${esc(c.renpyId||c.name.toLowerCase().replace(/\s+/g,'_'))}" oninput="upC('${c.id}','renpyId',this.value)"></div>
+    <div style="margin-top:14px">
+      <div style="font-size:10px;font-weight:500;color:var(--txt3);margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em">Relações</div>
+      <div style="display:flex;flex-direction:column;gap:5px;margin-bottom:8px">${relsHTML}</div>
+      <div style="display:flex;gap:5px;flex-wrap:wrap;align-items:flex-end">
+        <select id="rch-${c.id}" style="padding:5px 7px;border:.5px solid var(--border2);border-radius:var(--rad);background:var(--bg3);color:var(--txt);font-size:12px;font-family:var(--fs)">${opts||'<option>—</option>'}</select>
+        <select id="rty-${c.id}" style="padding:5px 7px;border:.5px solid var(--border2);border-radius:var(--rad);background:var(--bg3);color:var(--txt);font-size:12px;font-family:var(--fs)">
+          <option value="good">Boa</option><option value="bad">Ruim</option><option value="neutral">Neutra</option><option value="romantic">Romântica</option><option value="rival">Rival</option>
+        </select>
+        <input id="rnt-${c.id}" placeholder="Obs." style="flex:1;min-width:70px;padding:5px 8px;border:.5px solid var(--border2);border-radius:var(--rad);background:var(--bg3);color:var(--txt);font-size:12px;outline:none;font-family:var(--fs)">
+        <button class="btn btn-primary btn-sm" onclick="addRel('${c.id}')"><i class="ti ti-plus"></i> Rel</button>
+      </div>
+    </div>
+  </div>`;
+}
+function upC(id,f,v){const c=gc(id);if(c){c[f]=v;markDirty();}renderCharList();}
+function delChar(id){if(!confirm('Excluir personagem?'))return;const c=gc(id);if(c&&c.imgId)deleteImage(c.imgId,'avatars');S.chars=S.chars.filter(x=>x.id!==id);if(S.selChar===id)S.selChar=null;markDirty();renderCharList();renderCharDetail();}
+function addRel(id){const c=gc(id);if(!c)return;const w=document.getElementById('rch-'+id)?.value,t=document.getElementById('rty-'+id)?.value,n=document.getElementById('rnt-'+id)?.value||'';if(!w)return;c.rels.push({with:w,type:t,note:n});markDirty();renderCharDetail();}
+function delRel(id,ri){const c=gc(id);if(c){c.rels.splice(ri,1);markDirty();renderCharDetail();}}
+function trigAv(id){document.getElementById('av-'+id)?.click();}
+async function setAv(id,inp){const f=inp.files[0];if(!f)return;const c=gc(id);if(!c)return;c.imgId=await uploadImage(f,'avatars',c.imgId);markDirty();renderCharList();renderCharDetail();}
+function openAddCharModal(){showModal(`<h2>Novo Personagem</h2>
+  <div class="field"><label>Nome</label><input id="nc-n" placeholder="Nome"></div>
+  <div class="field"><label>Papel</label><input id="nc-r" placeholder="Protagonista, herói..."></div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+    <div class="field"><label>Idade</label><input id="nc-a"></div>
+    <div class="field"><label>Cor</label><input type="color" id="nc-c" value="#7c5cfc" style="height:33px;padding:2px 4px;cursor:pointer"></div>
+  </div>
+  <div class="field"><label>ID Ren'Py</label><input id="nc-rid" placeholder="nome_personagem"></div>
+  <div class="modal-footer"><button class="btn" onclick="closeModal()">Cancelar</button><button class="btn btn-primary" onclick="confirmAddChar()">Criar</button></div>`);}
+function confirmAddChar(){const name=(document.getElementById('nc-n')?.value||'').trim();if(!name)return;const rid=document.getElementById('nc-rid')?.value||name.toLowerCase().replace(/\s+/g,'_');S.chars.push({id:uid(),name,role:document.getElementById('nc-r')?.value||'',age:document.getElementById('nc-a')?.value||'',traits:'',desc:'',color:document.getElementById('nc-c')?.value||'#7c5cfc',imgId:null,rels:[],renpyId:rid});markDirty();renderCharList();closeModal();selChar(S.chars[S.chars.length-1].id);}
+
+/* ═══ VARIÁVEIS ═══ */
+function renderVarsList(){
+  const el=document.getElementById('vars-list');
+  if(!S.vars.length){el.innerHTML=`<div style="color:var(--txt3);font-size:13px;padding:10px 0;font-style:italic">Nenhuma variável criada.</div>`;return;}
+  el.innerHTML=S.vars.map((v,i)=>`<div class="var-item">
+    <span class="var-badge ${v.type==='bool'?'var-bool':v.type==='int'?'var-int':'var-str'}">${v.type}</span>
+    <code style="font-size:13px;color:var(--amber);flex:1;min-width:0">${esc(v.name)}</code>
+    <span style="font-size:12px;color:var(--txt3)">= ${esc(v.defaultVal)}</span>
+    <span style="font-size:11px;color:var(--txt3);flex:1;padding:0 8px">${esc(v.desc)}</span>
+    <button class="btn btn-sm btn-icon" onclick="openAddVarModal('${v.id}')"><i class="ti ti-edit"></i></button>
+    <button class="btn btn-danger btn-sm btn-icon" onclick="delVar('${v.id}')"><i class="ti ti-trash"></i></button>
+  </div>`).join('');
+}
+function openAddVarModal(editId){
+  const v=editId?gv(editId):null;
+  showModal(`<h2>${v?'Editar':'Nova'} Variável</h2>
+    <div class="field"><label>Nome</label><input id="nv-n" placeholder="afin_yuki" value="${esc(v?.name||'')}"></div>
+    <div class="field"><label>Tipo</label><select id="nv-t">
+      <option value="bool"${v?.type==='bool'?' selected':''}>bool — Flag (True/False)</option>
+      <option value="int"${v?.type==='int'?' selected':''}>int — Inteiro (afinidade, pontos)</option>
+      <option value="str"${v?.type==='str'?' selected':''}>str — Texto</option>
+    </select></div>
+    <div class="field"><label>Valor padrão</label><input id="nv-d" placeholder="0 / False / ''" value="${esc(v?.defaultVal||'')}"></div>
+    <div class="field"><label>Descrição</label><input id="nv-desc" placeholder="Para que serve?" value="${esc(v?.desc||'')}"></div>
+    <div class="modal-footer"><button class="btn" onclick="closeModal()">Cancelar</button><button class="btn btn-primary" onclick="confirmVar('${editId||''}')">Salvar</button></div>`);}
+function confirmVar(editId){const name=(document.getElementById('nv-n')?.value||'').trim().replace(/\s+/g,'_');if(!name)return;const t=document.getElementById('nv-t')?.value,d=document.getElementById('nv-d')?.value||'',desc=document.getElementById('nv-desc')?.value||'';if(editId){const v=gv(editId);if(v){v.name=name;v.type=t;v.defaultVal=d;v.desc=desc;}}else{S.vars.push({id:uid(),name,type:t,defaultVal:d,desc});}markDirty();renderVarsList();closeModal();}
+function delVar(id){if(!confirm('Excluir variável?'))return;S.vars=S.vars.filter(v=>v.id!==id);markDirty();renderVarsList();}
+/* ═══ CHAPTERS + SCENES ═══ */
+function renderChapTree(){
+  document.getElementById('chaps-scroll').innerHTML=S.chapters.map(ch=>`
+    <div class="chap-item${S.selChap===ch.id&&!S.selScene?' active':''}" onclick="selChap('${ch.id}')">
+      <span style="display:flex;align-items:center;gap:4px"><i class="ti ti-bookmark" style="font-size:10px"></i>${esc(ch.name)}</span>
+      <button class="btn btn-sm btn-icon" onclick="event.stopPropagation();openAddSceneModal('${ch.id}')"><i class="ti ti-plus"></i></button>
+    </div>
+    ${ch.scenes.map(sc=>`<div class="scene-item${S.selScene===sc.id?' active':''}" onclick="selScene('${ch.id}','${sc.id}')">
+      <span><i class="ti ti-photo" style="font-size:10px;margin-right:3px"></i>${esc(sc.name)}</span>
+      <span style="font-size:10px;color:var(--txt3)">${(sc.renders||[]).length}r</span>
+    </div>`).join('')}`).join('');
+}
+function selChap(id){S.selChap=id;S.selScene=null;renderChapTree();renderSceneArea();}
+function selScene(cId,sId){S.selChap=cId;S.selScene=sId;renderChapTree();renderSceneArea();}
+
+async function renderSceneArea(){
+  const area=document.getElementById('scene-area');
+  if(!S.selScene&&!S.selChap){area.innerHTML=`<div class="empty-state">Selecione uma cena</div>`;return;}
+  if(S.selChap&&!S.selScene){
+    const ch=gch(S.selChap);
+    area.innerHTML=`<div class="card"><div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px">
+      <div class="card-title"><i class="ti ti-bookmark"></i>${esc(ch.name)}</div>
+      <button class="btn btn-danger btn-sm" onclick="delChap('${ch.id}')"><i class="ti ti-trash"></i></button>
+    </div>
+    <div class="field"><label>Descrição</label><textarea oninput="upCh('${ch.id}','desc',this.value)">${esc(ch.desc||'')}</textarea></div>
+    <button class="btn btn-primary" onclick="openAddSceneModal('${ch.id}')"><i class="ti ti-plus"></i> Nova cena</button></div>`;
+    return;
+  }
+  const sc=gs(S.selChap,S.selScene);const ch=gch(S.selChap);if(!sc)return;
+  const chkBoxes=S.chars.map(c=>`<label style="display:flex;align-items:center;gap:6px;font-size:12px;cursor:pointer;padding:2px 0">
+    <input type="checkbox" ${sc.chars.includes(c.id)?'checked':''} onchange="togScChar('${ch.id}','${sc.id}','${c.id}',this.checked)">
+    <div class="av" style="width:18px;height:18px;font-size:8px;background:${c.color}22;color:${c.color}">${ini(c.name)}</div>
+    ${esc(c.name)}</label>`).join('');
+  const renderBlocksHTML=(await Promise.all((sc.renders||[]).map((ren,ri)=>renderBlockHTML(ch.id,sc.id,ren,ri,sc)))).join('');
+  const sceneOpts=allScenes().filter(x=>x.id!==sc.id).map(x=>`<option value="${x.id}">${esc(x.name)}</option>`).join('');
+  const choicesHTML=(sc.choices||[]).map((c2,ci)=>`<div class="choice-item">
+    <span style="font-size:11px;color:var(--txt3);flex-shrink:0">${ci+1}.</span>
+    <input placeholder="Texto da opção..." value="${esc(c2.text)}" oninput="upChoice('${sc.id}',${ci},'text',this.value)">
+    <select onchange="upChoice('${sc.id}',${ci},'jumpTo',this.value)">
+      <option value="">— nenhum (return) —</option>
+      ${allScenes().map(x=>`<option value="${x.id}"${c2.jumpTo===x.id?' selected':''}>${esc(x.name)}</option>`).join('')}
+    </select>
+    <button class="btn btn-danger btn-sm btn-icon" onclick="delChoice('${sc.id}',${ci})"><i class="ti ti-x"></i></button>
+  </div>`).join('');
+  area.innerHTML=`<div class="card">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px">
+      <div class="card-title"><i class="ti ti-photo"></i>${esc(sc.name)}</div>
+      <div style="display:flex;gap:6px">
+        <button class="btn btn-sm" onclick="openPrevScene('${ch.id}','${sc.id}')"><i class="ti ti-player-play"></i> Prévia</button>
+        <button class="btn btn-danger btn-sm" onclick="delScene('${ch.id}','${sc.id}')"><i class="ti ti-trash"></i></button>
+      </div>
+    </div>
+    <div class="field"><label>Descrição</label><textarea oninput="upSc('${ch.id}','${sc.id}','desc',this.value)">${esc(sc.desc||'')}</textarea></div>
+    <div class="notes-block">
+      <div style="font-size:10px;color:var(--gold);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;display:flex;align-items:center;gap:5px">
+        <i class="ti ti-notes"></i> Anotações <span style="font-size:10px;color:var(--txt3);text-transform:none;font-weight:400">(não aparecem no jogo)</span>
+      </div>
+      <textarea placeholder="Notas de produção, lembretes, ideias..." oninput="upSc('${ch.id}','${sc.id}','notes',this.value)">${esc(sc.notes||'')}</textarea>
+    </div>
+    <div class="field" style="margin-top:12px;margin-bottom:16px"><label>Personagens na cena</label><div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:5px">${chkBoxes}</div></div>
+    <div style="font-size:10px;font-weight:500;color:var(--txt3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px"><i class="ti ti-layers-intersect"></i> Sequência de Renders &amp; Falas</div>
+    ${renderBlocksHTML}
+    <button class="add-render-btn" onclick="addRender('${ch.id}','${sc.id}')"><i class="ti ti-plus" style="font-size:16px"></i> Adicionar Render</button>
+    <div class="choice-block">
+      <div class="choice-title"><i class="ti ti-git-branch"></i> Escolhas ao final da cena (menu)</div>
+      ${choicesHTML||`<div style="font-size:12px;color:var(--txt3);font-style:italic;padding:4px 0">Sem escolhas — jump automático.</div>`}
+      <button class="btn btn-sm" style="margin-top:8px;border-color:rgba(212,168,67,.3);color:var(--gold)" onclick="addChoice('${sc.id}')"><i class="ti ti-plus"></i> Adicionar escolha</button>
+    </div>
+  </div>`;
+}
+
+async function renderBlockHTML(chId,scId,ren,ri,sc){
+  const imgUrl=await resolveImg(ren.imgId);
+  const dlgCharOpts=sc.chars.length?sc.chars.map(cid=>{const c=gc(cid);return c?`<option value="${c.id}">${esc(c.name)}</option>`:''}).join(''):`<option value="">— adicione personagens —</option>`;
+  const transOpts=TRANS.map(t=>`<option value="${t}"${ren.transition===t?' selected':''}>${t}</option>`).join('');
+  const dlgItems=(await Promise.all((ren.dialogues||[]).map(async(d,di)=>{
+    const dc=gc(d.char)||{name:'Narrador',color:'#5a5275',imgId:null};
+    const dcUrl=await resolveImg(dc.imgId);
+    return`<div class="dlg-line">
+      <div class="dlg-av" style="width:34px;height:34px;background:${dc.color}22;color:${dc.color}">${dcUrl?`<img src="${dcUrl}">`:ini(dc.name)}</div>
+      <div class="dlg-body">
+        <div class="dlg-spk" style="color:${dc.color}">${esc(dc.name)}</div>
+        <div class="dlg-txt" id="dt-${ren.id}-${di}">${esc(d.text)}</div>
+        <textarea class="dlg-edit hidden" id="dte-${ren.id}-${di}" oninput="upDlg('${chId}','${scId}','${ren.id}',${di},'text',this.value)">${esc(d.text)}</textarea>
+        ${d.action?`<div class="dlg-action"><i class="ti ti-code"></i> ${esc(d.action)}</div>`:''}
+      </div>
+      <div class="dlg-controls">
+        <button class="btn btn-sm btn-icon" onclick="togEditDlg('${ren.id}',${di})"><i class="ti ti-edit"></i></button>
+        <button class="btn btn-sm btn-icon" onclick="openDlgAction('${chId}','${scId}','${ren.id}',${di})"><i class="ti ti-code"></i></button>
+        <button class="btn btn-sm btn-icon" onclick="mvDlg('${chId}','${scId}','${ren.id}',${di},-1)"><i class="ti ti-arrow-up"></i></button>
+        <button class="btn btn-sm btn-icon" onclick="mvDlg('${chId}','${scId}','${ren.id}',${di},1)"><i class="ti ti-arrow-down"></i></button>
+        <button class="btn btn-danger btn-sm btn-icon" onclick="delDlg('${chId}','${scId}','${ren.id}',${di})"><i class="ti ti-x"></i></button>
+      </div>
+    </div>`;}))).join('');
+  return`<div class="render-block" id="rb-${ren.id}">
+    <div class="render-header">
+      <div class="rthumb" onclick="trigRenderImg('${chId}','${scId}','${ren.id}')" title="Clique para imagem">
+        ${imgUrl?`<img src="${imgUrl}" alt="render">`:`<div class="rthumb-ico"><i class="ti ti-photo-plus"></i></div>`}
+        <input type="file" id="ri-${ren.id}" accept="image/*" style="display:none" onchange="setRenderImg('${chId}','${scId}','${ren.id}',this)">
+      </div>
+      <div class="rinfo">
+        <input class="rlabel-input" value="${esc(ren.label)}" oninput="upRen('${chId}','${scId}','${ren.id}','label',this.value)" placeholder="Nome do render">
+        <div class="rcount">${(ren.dialogues||[]).length} fala${(ren.dialogues||[]).length!==1?'s':''}</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:5px;flex-shrink:0;flex-wrap:wrap">
+        <div style="display:flex;align-items:center;gap:4px">
+          <span style="font-size:10px;color:var(--txt3)">bgName:</span>
+          <input value="${esc(ren.bgName||'bg_cena')}" oninput="upRen('${chId}','${scId}','${ren.id}','bgName',this.value)" style="width:110px;padding:3px 6px;border:.5px solid var(--border2);border-radius:var(--rad);background:var(--bg4);color:var(--txt);font-size:11px;outline:none;font-family:var(--fs)">
+        </div>
+        <div style="display:flex;align-items:center;gap:4px">
+          <span style="font-size:10px;color:var(--txt3)">Trans:</span>
+          <select style="padding:3px 6px;border:.5px solid var(--border2);border-radius:var(--rad);background:var(--bg4);color:var(--txt);font-size:11px;font-family:var(--fs)" onchange="upRen('${chId}','${scId}','${ren.id}','transition',this.value)">${transOpts}</select>
+        </div>
+        <button class="btn btn-sm btn-icon" onclick="mvRen('${chId}','${scId}','${ren.id}',-1)"><i class="ti ti-arrow-up"></i></button>
+        <button class="btn btn-sm btn-icon" onclick="mvRen('${chId}','${scId}','${ren.id}',1)"><i class="ti ti-arrow-down"></i></button>
+        <button class="btn btn-danger btn-sm btn-icon" onclick="delRen('${chId}','${scId}','${ren.id}')"><i class="ti ti-trash"></i></button>
+      </div>
+    </div>
+    <div class="render-body">
+      ${dlgItems||`<div style="font-size:12px;color:var(--txt3);padding:4px 0;font-style:italic">Sem falas neste render.</div>`}
+      <div class="dlg-add">
+        <select id="dc-${ren.id}">${dlgCharOpts}</select>
+        <textarea id="dt-add-${ren.id}" placeholder="Digite a fala..." rows="2"></textarea>
+        <button class="btn btn-primary btn-sm" onclick="addDlg('${chId}','${scId}','${ren.id}')"><i class="ti ti-send"></i></button>
+      </div>
+    </div>
+  </div>`;
+}
+
+function addRender(chId,scId){const sc=gs(chId,scId);if(!sc)return;if(!sc.renders)sc.renders=[];sc.renders.push({id:uid(),label:'Render '+(sc.renders.length+1),imgId:null,transition:'dissolve',bgName:'bg_cena_'+(sc.renders.length+1),dialogues:[]});markDirty();renderSceneArea();}
+function upRen(chId,scId,rId,f,v){const sc=gs(chId,scId);const ren=gr(sc,rId);if(ren){ren[f]=v;markDirty();}}
+function delRen(chId,scId,rId){const sc=gs(chId,scId);if(!sc)return;const ren=gr(sc,rId);if(ren?.imgId)deleteImage(ren.imgId,'renders');sc.renders=sc.renders.filter(r=>r.id!==rId);markDirty();renderSceneArea();}
+function mvRen(chId,scId,rId,dir){const sc=gs(chId,scId);if(!sc)return;const i=sc.renders.findIndex(r=>r.id===rId);const ni=i+dir;if(ni<0||ni>=sc.renders.length)return;[sc.renders[i],sc.renders[ni]]=[sc.renders[ni],sc.renders[i]];markDirty();renderSceneArea();}
+function trigRenderImg(chId,scId,rId){document.getElementById('ri-'+rId)?.click();}
+async function setRenderImg(chId,scId,rId,inp){const f=inp.files[0];if(!f)return;const sc=gs(chId,scId);const ren=gr(sc,rId);if(!ren)return;ren.imgId=await uploadImage(f,'renders',ren.imgId);markDirty();renderSceneArea();}
+function addDlg(chId,scId,rId){const sc=gs(chId,scId);const ren=gr(sc,rId);if(!ren)return;const charId=document.getElementById('dc-'+rId)?.value;const text=(document.getElementById('dt-add-'+rId)?.value||'').trim();if(!text)return;ren.dialogues.push({char:charId,text,action:''});document.getElementById('dt-add-'+rId).value='';markDirty();renderSceneArea();}
+function delDlg(chId,scId,rId,idx){const sc=gs(chId,scId);const ren=gr(sc,rId);if(ren){ren.dialogues.splice(idx,1);markDirty();renderSceneArea();}}
+function upDlg(chId,scId,rId,idx,f,v){const sc=gs(chId,scId);const ren=gr(sc,rId);if(ren?.dialogues[idx]){ren.dialogues[idx][f]=v;markDirty();}}
+function mvDlg(chId,scId,rId,idx,dir){const sc=gs(chId,scId);const ren=gr(sc,rId);if(!ren)return;const ni=idx+dir;if(ni<0||ni>=ren.dialogues.length)return;[ren.dialogues[idx],ren.dialogues[ni]]=[ren.dialogues[ni],ren.dialogues[idx]];markDirty();renderSceneArea();}
+function togEditDlg(rId,idx){const disp=document.getElementById('dt-'+rId+'-'+idx);const edit=document.getElementById('dte-'+rId+'-'+idx);if(!disp||!edit)return;if(!edit.classList.contains('hidden')){disp.textContent=edit.value;disp.classList.remove('hidden');edit.classList.add('hidden');}else{edit.value=disp.textContent;disp.classList.add('hidden');edit.classList.remove('hidden');edit.focus();}}
+function openDlgAction(chId,scId,rId,idx){const sc=gs(chId,scId);const ren=gr(sc,rId);const d=ren?.dialogues[idx];if(!d)return;const varOpts=S.vars.map(v=>`<option value="$ ${v.name} = ${v.defaultVal}">$ ${v.name} (${v.type})</option>`).join('');showModal(`<h2><i class="ti ti-code"></i> Ação Python</h2>
+  <div class="field"><label>Atalho</label><select onchange="document.getElementById('dlg-act-inp').value=this.value" style="width:100%;padding:6px 9px;border:.5px solid var(--border2);border-radius:var(--rad);background:var(--bg3);color:var(--txt);font-size:12px;font-family:var(--fs)"><option value="">— escolha variável —</option>${varOpts}</select></div>
+  <div class="field"><label>Ação</label><input id="dlg-act-inp" value="${esc(d.action||'')}" placeholder="$ afin_yuki += 1" style="font-family:monospace"></div>
+  <div class="modal-footer"><button class="btn" onclick="closeModal()">Cancelar</button><button class="btn btn-primary" onclick="saveDlgAction('${chId}','${scId}','${rId}',${idx})">Salvar</button></div>`);}
+function saveDlgAction(chId,scId,rId,idx){const v=(document.getElementById('dlg-act-inp')?.value||'').trim();const sc=gs(chId,scId);const ren=gr(sc,rId);if(ren?.dialogues[idx]){ren.dialogues[idx].action=v;markDirty();}renderSceneArea();closeModal();}
+function addChoice(scId){const r=findScene(scId);if(!r)return;if(!r.sc.choices)r.sc.choices=[];r.sc.choices.push({id:uid(),text:'',jumpTo:''});markDirty();renderSceneArea();}
+function upChoice(scId,idx,f,v){const r=findScene(scId);if(r?.sc.choices?.[idx]){r.sc.choices[idx][f]=v;markDirty();}}
+function delChoice(scId,idx){const r=findScene(scId);if(r?.sc.choices){r.sc.choices.splice(idx,1);markDirty();renderSceneArea();}}
+function upCh(id,f,v){const ch=gch(id);if(ch){ch[f]=v;markDirty();}}
+function upSc(chId,scId,f,v){const sc=gs(chId,scId);if(sc){sc[f]=v;markDirty();}}
+function delChap(id){if(!confirm('Excluir capítulo?'))return;S.chapters=S.chapters.filter(c=>c.id!==id);if(S.selChap===id){S.selChap=null;S.selScene=null;}markDirty();renderChapTree();renderSceneArea();}
+function delScene(chId,scId){if(!confirm('Excluir cena?'))return;const ch=gch(chId);if(ch)ch.scenes=ch.scenes.filter(s=>s.id!==scId);S.selScene=null;markDirty();renderChapTree();renderSceneArea();}
+function togScChar(chId,scId,charId,on){const sc=gs(chId,scId);if(!sc)return;if(on&&!sc.chars.includes(charId))sc.chars.push(charId);else if(!on)sc.chars=sc.chars.filter(x=>x!==charId);markDirty();renderSceneArea();}
+function openAddChapModal(){showModal(`<h2>Novo Capítulo</h2>
+  <div class="field"><label>Nome</label><input id="nch-n" placeholder="Capítulo 1 — ..."></div>
+  <div class="field"><label>Descrição</label><textarea id="nch-d" style="min-height:56px;width:100%;padding:6px 9px;border:.5px solid var(--border2);border-radius:var(--rad);background:var(--bg3);color:var(--txt);font-size:13px;font-family:var(--fs);resize:vertical;outline:none"></textarea></div>
+  <div class="modal-footer"><button class="btn" onclick="closeModal()">Cancelar</button><button class="btn btn-primary" onclick="confChap()">Criar</button></div>`);}
+function confChap(){const n=(document.getElementById('nch-n')?.value||'').trim();if(!n)return;S.chapters.push({id:uid(),name:n,desc:document.getElementById('nch-d')?.value||'',scenes:[]});markDirty();renderChapTree();closeModal();selChap(S.chapters[S.chapters.length-1].id);}
+function openAddSceneModal(chId){showModal(`<h2>Nova Cena</h2>
+  <div class="field"><label>Nome</label><input id="nsc-n" placeholder="Nome da cena"></div>
+  <div class="field"><label>Descrição</label><textarea id="nsc-d" style="min-height:56px;width:100%;padding:6px 9px;border:.5px solid var(--border2);border-radius:var(--rad);background:var(--bg3);color:var(--txt);font-size:13px;font-family:var(--fs);resize:vertical;outline:none"></textarea></div>
+  <div class="modal-footer"><button class="btn" onclick="closeModal()">Cancelar</button><button class="btn btn-primary" onclick="confScene('${chId}')">Criar</button></div>`);}
+function confScene(chId){const n=(document.getElementById('nsc-n')?.value||'').trim();if(!n)return;const ch=gch(chId);if(!ch)return;const bgBase=n.toLowerCase().replace(/\s+/g,'_').slice(0,20);ch.scenes.push({id:uid(),name:n,desc:document.getElementById('nsc-d')?.value||'',notes:'',chars:[],renders:[{id:uid(),label:'Render 1',imgId:null,transition:'dissolve',bgName:'bg_'+bgBase,dialogues:[]}],choices:[]});markDirty();renderChapTree();closeModal();selScene(chId,ch.scenes[ch.scenes.length-1].id);}
+
+/* ═══ PREVIEW VN ═══ */
+function renderPrevList(){document.getElementById('prev-list').innerHTML=S.chapters.map(ch=>`<div style="padding:6px 10px;font-size:10px;color:var(--txt3);text-transform:uppercase;letter-spacing:.06em">${esc(ch.name)}</div>${ch.scenes.map(sc=>`<div class="scene-item" onclick="openPrevScene('${ch.id}','${sc.id}')">${esc(sc.name)}</div>`).join('')}`).join('');}
+function openPrevScene(chId,scId){S.prevState={sceneRef:{chId,scId},idx:0};switchTab('preview');renderPrevList();renderVNScreen();}
+async function renderVNScreen(){
+  const area=document.getElementById('preview-area');
+  if(!S.prevState?.sceneRef){area.innerHTML=`<div class="empty-state">Selecione uma cena</div>`;return;}
+  const {chId,scId}=S.prevState.sceneRef;
+  const sc=gs(chId,scId);if(!sc){area.innerHTML=`<div class="empty-state">Cena não encontrada</div>`;return;}
+  const seq=[];(sc.renders||[]).forEach(ren=>{if(ren.dialogues?.length)ren.dialogues.forEach(d=>seq.push({ren,dlg:d}));else seq.push({ren,dlg:null});});
+  const hasChoices=sc.choices?.length>0;
+  const idx=Math.min(S.prevState.idx,Math.max(seq.length-1+(hasChoices?1:0),0));
+  const total=seq.length+(hasChoices?1:0);
+  const showChoices=hasChoices&&idx>=seq.length;
+  const cur=showChoices?null:seq[idx];
+  const ren=cur?.ren||(seq.length?seq[seq.length-1].ren:null);
+  const dlg=cur?.dlg||null;
+  const bgUrl=ren?.imgId?await resolveImg(ren.imgId):null;
+  const speaker=dlg?gc(dlg.char):null;
+  const spColor=speaker?speaker.color:'#8a84a8';
+  const pct=total>1?Math.round(idx/(total-1)*100):100;
+  const charsHTML=(await Promise.all((sc.chars||[]).map(async cid=>{
+    const c=gc(cid);if(!c)return'';
+    const curl=await resolveImg(c.imgId);
+    return`<div class="vn-char-fig${c.id===dlg?.char?' sp':''}">
+      <div class="vn-char-circ" style="background:${c.color}33;color:${c.color}">${curl?`<img src="${curl}">`:ini(c.name)}</div>
+      <div class="vn-char-nm">${esc(c.name)}</div>
+    </div>`; }))).join('');
+  area.innerHTML=`
+    <div style="font-size:11px;color:var(--txt3);margin-bottom:10px;text-align:center;letter-spacing:.05em;text-transform:uppercase">${esc(sc.name)}</div>
+    <div class="vn-screen">
+      ${bgUrl?`<img class="vn-bg" src="${bgUrl}" alt="bg">`:`<div class="vn-bg-ph">${esc(ren?.label||'Sem render')}</div>`}
+      ${ren?`<div class="vn-rbadge"><i class="ti ti-photo" style="font-size:10px"></i> ${esc(ren.label)}</div>`:''}
+      <div class="vn-chars">${charsHTML}</div>
+      ${showChoices?`<div class="vn-choices"><div style="font-size:11px;color:rgba(255,255,255,.4);margin-bottom:8px;font-family:var(--ff);font-style:italic">O que fazer?</div>${sc.choices.map(c2=>`<button class="vn-choice-btn" onclick="prevJumpTo('${c2.jumpTo}')">${esc(c2.text)||'...'}</button>`).join('')}</div>`:dlg?`<div class="vn-tbox"><div class="vn-spk" style="color:${spColor}">${esc(speaker?speaker.name:'Narrador')}</div><div class="vn-line">${esc(dlg.text)}</div></div>`:`<div style="position:absolute;bottom:0;left:0;right:0;background:rgba(6,4,16,.7);padding:10px 16px;text-align:center;color:rgba(255,255,255,.3);font-family:var(--ff);font-style:italic;font-size:14px">[${esc(ren?.transition||'')} → próximo render]</div>`}
+    </div>
+    <div class="vn-progress"><div class="vn-prog-bar" style="width:${pct}%"></div></div>
+    <div class="vn-nav">
+      <button class="btn" onclick="vnNav(-1)" ${idx<=0?'disabled style="opacity:.3"':''}><i class="ti ti-arrow-left"></i> Anterior</button>
+      <span class="vn-ctr">${idx+1} / ${total}</span>
+      <button class="btn btn-primary" onclick="vnNav(1)" ${idx>=total-1?'disabled style="opacity:.3"':''}>Próxima <i class="ti ti-arrow-right"></i></button>
+    </div>
+    <div style="margin-top:12px;width:100%;max-width:660px"><div style="font-size:10px;color:var(--txt3);margin-bottom:5px;text-transform:uppercase;letter-spacing:.05em">Personagens na cena</div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">${(sc.chars||[]).map(cid=>{const c=gc(cid);return c?`<span class="chip" style="border-color:${c.color}33;color:${c.color}">${esc(c.name)}</span>`:''}).join('')}</div>
+    </div>`;
+}
+function vnNav(d){const {chId,scId}=S.prevState.sceneRef;const sc=gs(chId,scId);if(!sc)return;let t=0;(sc.renders||[]).forEach(r=>{t+=r.dialogues?.length||1;});if(sc.choices?.length)t++;S.prevState.idx=Math.max(0,Math.min(t-1,S.prevState.idx+d));renderVNScreen();}
+function prevJumpTo(scId){if(!scId)return;const r=findScene(scId);if(r)openPrevScene(r.ch.id,scId);}
+
+/* ═══ RENPY EXPORT ═══ */
+function buildRenpy(){
+  let out='';
+  out+=`################################################################################\n# script.rpy — Gerado pelo VN Studio\n# ${new Date().toLocaleString('pt-BR')}\n################################################################################\n\n`;
+  out+=`init python:\n`;
+  S.vars.length?S.vars.forEach(v=>{out+=`    ${v.name.replace(/[^a-z0-9_]/gi,'_')} = ${v.defaultVal||'None'}  # ${v.desc}\n`;}):out+=`    pass\n`;
+  out+=`\n# ── Personagens ──────────────────────────────────────────────────────────────\n`;
+  S.chars.forEach(c=>{const rid=(c.renpyId||c.name.toLowerCase().replace(/\s+/g,'_')).replace(/[^a-z0-9_]/gi,'_');out+=`define ${rid} = Character(_("${c.name}"), color="${c.color||'#ffffff'}")\n`;});
+  out+=`\n# ── Imagens ───────────────────────────────────────────────────────────────────\n`;
+  const bgs=new Set();S.chapters.forEach(ch=>ch.scenes.forEach(sc=>(sc.renders||[]).forEach(r=>{if(r.bgName)bgs.add(r.bgName);})));
+  bgs.forEach(bg=>{out+=`image ${bg} = "${bg}.png"\n`;});
+  out+=`\n# ── Início ───────────────────────────────────────────────────────────────────\nlabel start:\n`;
+  const fsc=S.chapters[0]?.scenes[0];out+=fsc?`    jump ${fsc.id.replace(/-/g,'_')}\n\n`:`    return\n\n`;
+  S.chapters.forEach(ch=>{
+    out+=`################################################################################\n# ${ch.name}\n${ch.desc?'# '+ch.desc+'\n':''}################################################################################\n\n`;
+    ch.scenes.forEach(sc=>{
+      const lbl=sc.id.replace(/-/g,'_');
+      out+=`label ${lbl}:\n`;
+      if(sc.desc)out+=`    # ${sc.desc}\n`;
+      if(sc.notes)sc.notes.split('\n').forEach(l=>{if(l.trim())out+=`    # NOTE: ${l}\n`;});
+      out+=`\n`;
+      (sc.renders||[]).forEach((ren,ri)=>{
+        const bg=ren.bgName||`bg_${sc.id}_${ri}`;
+        const trans=ren.transition==='None'?'':` with ${ren.transition}`;
+        out+=`    # ── ${ren.label} ──\n    scene ${bg}${trans}\n`;
+        const spks=[...new Set((ren.dialogues||[]).map(d=>d.char).filter(Boolean))];
+        spks.forEach((cid,ci)=>{const c=gc(cid);if(!c)return;const rid=(c.renpyId||c.name.toLowerCase().replace(/\s+/g,'_')).replace(/[^a-z0-9_]/gi,'_');out+=`    show ${rid} at ${['left','center','right'][ci]||'center'}\n`;});
+        out+=`\n`;
+        (ren.dialogues||[]).forEach(d=>{const c=gc(d.char);const rid=c?(c.renpyId||c.name.toLowerCase().replace(/\s+/g,'_')).replace(/[^a-z0-9_]/gi,'_'):null;const safe=d.text.replace(/\\/g,'\\\\').replace(/"/g,'\\"');out+=rid?`    ${rid} "${safe}"\n`:`    "${safe}"\n`;if(d.action?.trim())out+=`    ${d.action.trim()}\n`;});
+        out+=`\n`;
+      });
+      const spkAll=[...new Set((sc.renders||[]).flatMap(r=>(r.dialogues||[]).map(d=>d.char).filter(Boolean)))];
+      spkAll.forEach(cid=>{const c=gc(cid);if(!c)return;const rid=(c.renpyId||c.name.toLowerCase().replace(/\s+/g,'_')).replace(/[^a-z0-9_]/gi,'_');out+=`    hide ${rid}\n`;});
+      if(spkAll.length)out+=`\n`;
+      if(sc.choices?.length){
+        out+=`    menu:\n`;
+        sc.choices.forEach(c2=>{const safe=(c2.text||'...').replace(/"/g,'\\"');out+=`        "${safe}":\n${c2.jumpTo?`            jump ${c2.jumpTo.replace(/-/g,'_')}\n`:`            pass\n`}`;});
+        out+=`\n    return\n\n`;
+      } else {
+        const scenes=allScenes();const si=scenes.findIndex(x=>x.id===sc.id);const next=si>=0&&si<scenes.length-1?scenes[si+1]:null;
+        out+=next?`    jump ${next.id.replace(/-/g,'_')}\n\n`:`    return\n\n`;
+      }
+    });
+  });
+  return out;
+}
+function openExportModal(){const code=buildRenpy();showModal(`<h2><i class="ti ti-brand-python"></i> Exportar Ren'Py</h2>
+  <div style="font-size:11px;padding:8px 10px;background:rgba(212,168,67,.08);border:.5px solid rgba(212,168,67,.2);border-radius:var(--rad);color:var(--gold);margin-bottom:10px"><i class="ti ti-info-circle"></i> Coloque os renders em <code>game/images/</code> com os nomes do campo <b>bgName</b>.</div>
+  <div class="rpy-preview">${esc(code)}</div>
+  <div class="modal-footer"><button class="btn" onclick="closeModal()">Fechar</button><button class="btn" onclick="copyRpy()"><i class="ti ti-copy"></i> Copiar</button><button class="btn btn-success" onclick="dlRpy()"><i class="ti ti-download"></i> script.rpy</button></div>`);}
+function copyRpy(){navigator.clipboard?.writeText(buildRenpy());alert('Script copiado!');}
+function dlRpy(){const b=new Blob([buildRenpy()],{type:'text/plain;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='script.rpy';a.click();URL.revokeObjectURL(a.href);}
+
+/* ═══ BOARD ═══ */
+let bDrag={active:false,id:null,sx:0,sy:0,ox:0,oy:0,moved:false};
+let cDraw={active:false,fromId:null,x1:0,y1:0,x2:0,y2:0};
+const CONN_C={jump:'rgba(62,207,189,.8)',call:'rgba(245,166,35,.8)',menu:'rgba(240,98,146,.8)'};
+const CONN_D={jump:'none',call:'6 3',menu:'none'};
+function renderBoard(){
+  const canvas=document.getElementById('bcanvas');canvas.innerHTML='';
+  S.boardNodes.forEach(n=>{
+    const el=document.createElement('div');
+    el.className='bnode'+(S.selBNode===n.id?' selected':'');
+    el.id='bn-'+n.id;el.style.left=n.x+'px';el.style.top=n.y+'px';
+    const bc={'chapter':'bc-chap','scene':'bc-scene','char':'bc-char'}[n.type]||'bc-char';
+    const bl={'chapter':'Capítulo','scene':'Cena','char':'Personagem'}[n.type];
+    let av='';if(n.type==='char'&&n.charId){const c=gc(n.charId);if(c)av=`<div class="av" style="width:22px;height:22px;font-size:9px;background:${c.color}22;color:${c.color}">${ini(c.name)}</div>`;}
+    let extra='';
+    if(n.type==='scene'&&n.sceneRef){const r=findScene(n.sceneRef);if(r){const sc=r.sc;const tdlg=(sc.renders||[]).reduce((a,r2)=>a+(r2.dialogues?.length||0),0);extra=`<div class="n-stats"><span class="n-stat"><i class="ti ti-layers-intersect" style="font-size:9px"></i> ${(sc.renders||[]).length}</span><span class="n-stat"><i class="ti ti-message-circle" style="font-size:9px"></i> ${tdlg}</span>${sc.choices?.length?`<span class="n-stat" style="color:var(--gold)"><i class="ti ti-git-branch" style="font-size:9px"></i> ${sc.choices.length}</span>`:''}</div>${sc.desc?`<div class="n-desc">${esc(sc.desc.slice(0,80)+(sc.desc.length>80?'...':''))}</div>`:''}${sc.notes?`<div class="n-desc" style="color:var(--gold);opacity:.7"><i class="ti ti-notes" style="font-size:9px"></i> ${esc(sc.notes.slice(0,50)+(sc.notes.length>50?'...':''))}</div>`:''}`}}
+    el.innerHTML=`<div class="cport cport-t" data-n="${n.id}" data-p="t"></div><div class="cport cport-b" data-n="${n.id}" data-p="b"></div><div class="cport cport-l" data-n="${n.id}" data-p="l"></div><div class="cport cport-r" data-n="${n.id}" data-p="r"></div><div class="nh">${av}<span>${esc(n.label)}</span><span class="nbadge ${bc}">${bl}</span></div>${n.sub?`<div class="ns">${esc(n.sub)}</div>`:''}${extra}`;
+    el.addEventListener('mousedown',e=>startBDrag(e,n.id));
+    el.querySelectorAll('.cport').forEach(p=>p.addEventListener('mousedown',e=>{e.stopPropagation();startCDraw(e,n.id,p.dataset.p);}));
+    canvas.appendChild(el);
+  });
+  renderBSVG();
+}
+function portXY(nid,p){const el=document.getElementById('bn-'+nid);const n=S.boardNodes.find(x=>x.id===nid);if(!el||!n)return{x:0,y:0};const w=el.offsetWidth||150,h=el.offsetHeight||60;if(p==='r')return{x:n.x+w,y:n.y+h/2};if(p==='l')return{x:n.x,y:n.y+h/2};if(p==='t')return{x:n.x+w/2,y:n.y};return{x:n.x+w/2,y:n.y+h};}
+function autoPort(fId,tId){const f=S.boardNodes.find(x=>x.id===fId),t=S.boardNodes.find(x=>x.id===tId);if(!f||!t)return{f:'r',t:'l'};if(t.x>f.x+40)return{f:'r',t:'l'};if(t.x<f.x-40)return{f:'l',t:'r'};if(t.y>f.y+20)return{f:'b',t:'t'};return{f:'t',t:'b'};}
+function renderBSVG(){
+  const svg=document.getElementById('bsvg');
+  svg.innerHTML=`<defs><marker id="arr-jump" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="rgba(62,207,189,.9)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker><marker id="arr-call" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="rgba(245,166,35,.9)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker><marker id="arr-menu" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="rgba(240,98,146,.9)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>`;
+  S.boardConns.forEach(c=>{
+    const ap=autoPort(c.from,c.to);const p1=portXY(c.from,ap.f),p2=portXY(c.to,ap.t);
+    const dx=(p2.x-p1.x)*.5,dy=(p2.y-p1.y)*.5;let cx1=p1.x,cy1=p1.y,cx2=p2.x,cy2=p2.y;
+    if(ap.f==='r'||ap.f==='l')cx1=p1.x+dx;else cy1=p1.y+dy;if(ap.t==='r'||ap.t==='l')cx2=p2.x-dx;else cy2=p2.y-dy;
+    const type=c.type||'jump';const path=document.createElementNS('http://www.w3.org/2000/svg','path');
+    path.setAttribute('d',`M${p1.x},${p1.y} C${cx1},${cy1} ${cx2},${cy2} ${p2.x},${p2.y}`);
+    path.setAttribute('fill','none');path.setAttribute('stroke',CONN_C[type]||CONN_C.jump);path.setAttribute('stroke-width','1.8');path.setAttribute('stroke-dasharray',CONN_D[type]);path.setAttribute('marker-end',`url(#arr-${type})`);path.style.cursor='pointer';path.addEventListener('click',()=>openConnModal(c.id));svg.appendChild(path);
+    const lbl=c.label||(type==='call'?'call':'');if(lbl){const mx=(p1.x+p2.x)/2,my=(p1.y+p2.y)/2;const tw=lbl.length*6+10;const bg=document.createElementNS('http://www.w3.org/2000/svg','rect');bg.setAttribute('x',mx-tw/2);bg.setAttribute('y',my-10);bg.setAttribute('width',tw);bg.setAttribute('height',16);bg.setAttribute('rx',4);bg.setAttribute('fill',CONN_C[type].replace('.8','.15'));svg.appendChild(bg);const t2=document.createElementNS('http://www.w3.org/2000/svg','text');t2.setAttribute('x',mx);t2.setAttribute('y',my+1);t2.setAttribute('text-anchor','middle');t2.setAttribute('dominant-baseline','middle');t2.setAttribute('font-size','10');t2.setAttribute('fill',CONN_C[type].replace('.8','1'));t2.textContent=lbl;svg.appendChild(t2);}
+  });
+  if(cDraw.active){const line=document.createElementNS('http://www.w3.org/2000/svg','line');['x1','y1','x2','y2'].forEach(a=>line.setAttribute(a,cDraw[a]));line.setAttribute('stroke','var(--acc)');line.setAttribute('stroke-width','1.5');line.setAttribute('stroke-dasharray','5 3');svg.appendChild(line);}
+}
+function openConnModal(connId){const c=S.boardConns.find(x=>x.id===connId);if(!c)return;showModal(`<h2>Conexão</h2>
+  <div class="field"><label>Tipo</label><select id="cm-t" style="width:100%;padding:7px 10px;border:.5px solid var(--border2);border-radius:var(--rad);background:var(--bg3);color:var(--txt);font-size:13px;outline:none;font-family:var(--fs)"><option value="jump"${c.type==='jump'?' selected':''}>jump — direto para a cena</option><option value="call"${c.type==='call'?' selected':''}>call — chama e retorna</option><option value="menu"${c.type==='menu'?' selected':''}>menu — via escolha do player</option></select></div>
+  <div class="field"><label>Label (texto na seta)</label><input id="cm-l" value="${esc(c.label||'')}" placeholder="Opcional"></div>
+  <div class="modal-footer"><button class="btn btn-danger" onclick="delConn('${connId}')"><i class="ti ti-trash"></i> Remover</button><button class="btn" onclick="closeModal()">Cancelar</button><button class="btn btn-primary" onclick="saveConn('${connId}')">Salvar</button></div>`);}
+function saveConn(id){const c=S.boardConns.find(x=>x.id===id);if(!c)return;c.type=document.getElementById('cm-t')?.value||'jump';c.label=document.getElementById('cm-l')?.value||'';markDirty();closeModal();renderBSVG();}
+function delConn(id){S.boardConns=S.boardConns.filter(x=>x.id!==id);markDirty();closeModal();renderBSVG();}
+function startBDrag(e,id){if(e.target.classList.contains('cport'))return;bDrag={active:true,id,sx:e.clientX,sy:e.clientY,moved:false};const n=S.boardNodes.find(x=>x.id===id);bDrag.ox=n.x;bDrag.oy=n.y;document.getElementById('bn-'+id)?.classList.add('dragging');e.preventDefault();}
+function startCDraw(e,nid,port){const p=portXY(nid,port);cDraw={active:true,fromId:nid,x1:p.x,y1:p.y,x2:p.x,y2:p.y};e.preventDefault();}
+document.addEventListener('mousemove',e=>{
+  const wrap=document.getElementById('board-wrap');if(!wrap)return;const wr=wrap.getBoundingClientRect();
+  if(bDrag.active&&bDrag.id){bDrag.moved=true;const n=S.boardNodes.find(x=>x.id===bDrag.id);if(!n)return;n.x=Math.max(0,bDrag.ox+(e.clientX-bDrag.sx));n.y=Math.max(0,bDrag.oy+(e.clientY-bDrag.sy));const el=document.getElementById('bn-'+bDrag.id);if(el){el.style.left=n.x+'px';el.style.top=n.y+'px';}renderBSVG();markDirty();}
+  if(cDraw.active){cDraw.x2=e.clientX-wr.left+wrap.scrollLeft;cDraw.y2=e.clientY-wr.top+wrap.scrollTop;renderBSVG();}
+});
+document.addEventListener('mouseup',e=>{
+  if(bDrag.active){document.getElementById('bn-'+bDrag.id)?.classList.remove('dragging');bDrag.active=false;}
+  if(cDraw.active){const tgt=document.elementFromPoint(e.clientX,e.clientY);if(tgt?.classList.contains('cport')&&tgt.dataset.n!==cDraw.fromId){const to=tgt.dataset.n;if(!S.boardConns.some(c=>(c.from===cDraw.fromId&&c.to===to)||(c.from===to&&c.to===cDraw.fromId))){const nc={id:uid(),from:cDraw.fromId,to,type:'jump',label:''};S.boardConns.push(nc);markDirty();setTimeout(()=>openConnModal(nc.id),50);}}cDraw.active=false;renderBSVG();}
+});
+function toggleConn(){S.connMode=!S.connMode;const b=document.getElementById('conn-btn');b.style.background=S.connMode?'rgba(124,92,252,.15)':'';b.style.borderColor=S.connMode?'var(--acc)':'';b.style.color=S.connMode?'var(--acc)':'';document.getElementById('conn-hint').textContent=S.connMode?'Arraste de ◯ até outra porta para conectar':'';}
+function delBNode(){if(!S.selBNode||!confirm('Excluir nó?'))return;S.boardConns=S.boardConns.filter(c=>c.from!==S.selBNode&&c.to!==S.selBNode);S.boardNodes=S.boardNodes.filter(n=>n.id!==S.selBNode);S.selBNode=null;markDirty();renderBoard();}
+function addBNode(type){const wrap=document.getElementById('board-wrap');const x=(wrap?.scrollLeft||0)+60+Math.random()*120,y=(wrap?.scrollTop||0)+60+Math.random()*100;let label='Novo',sub='',charId=null,sceneRef=null;if(type==='chapter'){label='Capítulo';sub='Descrição';}if(type==='scene'){label='Cena';sub='Local';const sc=allScenes()[0];if(sc){label=sc.name;sceneRef=sc.id;}}if(type==='char'&&S.chars.length){const c=S.chars[0];label=c.name;sub=c.role;charId=c.id;}else if(type==='char'){label='Personagem';sub='Papel';}S.boardNodes.push({id:uid(),type,label,sub,x,y,charId,sceneRef});markDirty();renderBoard();}
+
+/* ═══ MODAL ═══ */
+function showModal(html){document.getElementById('modal-content').innerHTML=html;document.getElementById('modal-wrap').classList.remove('hidden');}
+function closeModal(){document.getElementById('modal-wrap').classList.add('hidden');}
+function closeModalOut(e){if(e.target===document.getElementById('modal-wrap'))closeModal();}
+
+/* ═══════════════════════════════════════
+   DEV CONSOLE
+═══════════════════════════════════════ */
+const _devCounts = {err:0, warn:0, req:0};
+
+function _devLog(type, tag, msg){
+  const body = document.getElementById('console-body');
+  if(!body) return;
+  const now = new Date();
+  const time = now.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  const line = document.createElement('div');
+  line.className = 'c-line '+type;
+  // truncate very long messages for display
+  const display = typeof msg === 'string' ? msg : JSON.stringify(msg, null, 0);
+  const short = display.length > 300 ? display.slice(0,300)+'…' : display;
+  line.innerHTML = `<span class="c-time">${time}</span><span class="c-tag">[${tag}]</span><span class="c-msg">${esc(short)}</span>`;
+  line.title = display; // full message on hover
+  body.appendChild(line);
+  body.scrollTop = body.scrollHeight;
+  // update badges
+  if(type==='err'){
+    _devCounts.err++;
+    const b=document.getElementById('cb-err-badge');
+    if(b){b.textContent=_devCounts.err+' erro'+((_devCounts.err!==1)?'s':'');b.classList.remove('hidden');}
+    // auto-expand on error
+    const cons=document.getElementById('dev-console');
+    if(cons?.classList.contains('collapsed')) toggleConsole();
+  }
+  if(type==='warn'){
+    _devCounts.warn++;
+    const b=document.getElementById('cb-warn-badge');
+    if(b){b.textContent=_devCounts.warn+' aviso'+((_devCounts.warn!==1)?'s':'');b.classList.remove('hidden');}
+  }
+  if(type==='req'){
+    _devCounts.req++;
+    const b=document.getElementById('cb-req-badge');
+    if(b) b.textContent=_devCounts.req+' req';
+  }
+}
+
+function toggleConsole(){
+  const el=document.getElementById('dev-console');
+  const btn=document.getElementById('console-toggle-btn');
+  if(!el)return;
+  el.classList.toggle('collapsed');
+  const collapsed=el.classList.contains('collapsed');
+  if(btn) btn.innerHTML=collapsed?'<i class="ti ti-chevron-up"></i> Expandir':'<i class="ti ti-chevron-down"></i> Recolher';
+  // resize app content
+  const app=document.getElementById('app');
+  if(app) app.style.paddingBottom=collapsed?'28px':'200px';
+}
+
+function clearConsole(){
+  const body=document.getElementById('console-body');
+  if(body) body.innerHTML='';
+  _devCounts.err=0;_devCounts.warn=0;_devCounts.req=0;
+  ['cb-err-badge','cb-warn-badge'].forEach(id=>{const el=document.getElementById(id);if(el)el.classList.add('hidden');});
+  const b=document.getElementById('cb-req-badge');if(b)b.textContent='0 req';
+  _devLog('info','CON','Console limpo.');
+}
+
+// Intercept console.log / warn / error
+(()=>{
+  const _log=console.log.bind(console);
+  const _warn=console.warn.bind(console);
+  const _err=console.error.bind(console);
+  console.log=(...a)=>{_log(...a);_devLog('info','LOG',a.map(x=>typeof x==='object'?JSON.stringify(x):x).join(' '));};
+  console.warn=(...a)=>{_warn(...a);_devLog('warn','WRN',a.map(x=>typeof x==='object'?JSON.stringify(x):x).join(' '));};
+  console.error=(...a)=>{_err(...a);_devLog('err','ERR',a.map(x=>typeof x==='object'?JSON.stringify(x):x).join(' '));};
+})();
+
+// Intercept unhandled errors
+window.addEventListener('error',e=>{_devLog('err','ERR',`${e.message} (${e.filename?.split('/').pop()}:${e.lineno})`)});
+window.addEventListener('unhandledrejection',e=>{_devLog('err','ERR','Unhandled Promise: '+(e.reason?.message||JSON.stringify(e.reason)));});
+
+// Intercept fetch — log all requests + responses
+const _origFetch = window.fetch.bind(window);
+window.fetch = async (url, opts={})=>{
+  const method=(opts.method||'GET').toUpperCase();
+  const short=typeof url==='string'?url.replace(SUPA_URL,'[SUPA]').split('?')[0]:String(url);
+  const query=typeof url==='string'&&url.includes('?')?'?'+url.split('?')[1].slice(0,60):'';
+  _devLog('req','REQ',`${method} ${short}${query}`);
+  const t0=Date.now();
+  try {
+    const res = await _origFetch(url, opts);
+    const ms=Date.now()-t0;
+    const type=res.ok?'succ':'err';
+    _devLog(type,'RES',`${res.status} ${short} (${ms}ms)`);
+    return res;
+  } catch(e){
+    _devLog('err','NET',`FAILED ${short} — ${e.message}`);
+    throw e;
+  }
+};
+
+_devLog('info','APP','VN Studio iniciando...');
+
+(async()=>{
+  try {
+    _devLog('info','IDB','Abrindo IndexedDB...');
+    await openIDB();
+    _devLog('succ','IDB','IndexedDB pronto');
+    await bootSupabase();
+    document.getElementById('loading-screen').style.display='none';
+    const app=document.getElementById('app');
+    app.style.display='flex';
+    app.style.paddingBottom='28px'; // space for collapsed console
+    _devLog('succ','APP','Interface carregada');
+    renderCharList();renderCharDetail();renderChapTree();renderSceneArea();
+  } catch(e){
+    console.error('Boot fatal: '+(e.message||e));
+    document.getElementById('loading-txt').textContent='Erro fatal: '+(e.message||e);
+  }
+})();
+</script>
+<!-- DEV CONSOLE -->
+<div id="dev-console" class="collapsed">
+  <div class="console-bar">
+    <span style="font-weight:500;color:var(--txt2)">Console</span>
+    <span id="cb-err-badge" class="console-badge cb-err hidden">0 erros</span>
+    <span id="cb-warn-badge" class="console-badge cb-warn hidden">0 avisos</span>
+    <span id="cb-req-badge" class="console-badge cb-info">0 req</span>
+    <div style="margin-left:auto;display:flex;gap:6px">
+      <button class="btn btn-sm" onclick="clearConsole()" style="font-size:10px;padding:1px 7px;color:var(--txt3)"><i class="ti ti-trash"></i></button>
+      <button class="btn btn-sm" onclick="toggleConsole()" id="console-toggle-btn" style="font-size:10px;padding:1px 7px;color:var(--txt3)"><i class="ti ti-chevron-up"></i> Expandir</button>
+    </div>
+  </div>
+  <div id="console-body"></div>
+</div>
+</body>
+</html>
