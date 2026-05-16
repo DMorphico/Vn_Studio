@@ -29,6 +29,25 @@ body{font-family:var(--fs);background:var(--bg);color:var(--txt);display:flex;fl
 .logo{display:flex;align-items:center;gap:8px;margin-right:8px}
 .logo-mark{width:26px;height:26px;background:linear-gradient(135deg,var(--acc),var(--acc2));border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff}
 .logo-txt{font-family:var(--ff);font-size:16px;font-weight:600}.logo-txt span{color:var(--acc)}
+
+/* DROPDOWN MENU */
+.nav-group{position:relative;display:inline-flex}
+.nav-group-btn{padding:4px 12px;border-radius:var(--rad);border:.5px solid transparent;background:transparent;color:var(--txt2);font-size:12px;cursor:pointer;font-family:var(--fs);display:flex;align-items:center;gap:5px;transition:all .14s;white-space:nowrap}
+.nav-group-btn:hover,.nav-group-btn.open{color:var(--txt);background:var(--bg3)}
+.nav-group-btn.has-active{color:var(--txt);background:var(--bg3);border-color:var(--border2)}
+.nav-group-btn .nav-arrow{font-size:9px;opacity:.5;transition:transform .14s}
+.nav-group-btn.open .nav-arrow{transform:rotate(180deg)}
+.nav-dropdown{position:absolute;top:calc(100% + 6px);left:0;background:var(--bg2);border:.5px solid var(--border2);border-radius:var(--rad-lg);padding:5px;min-width:170px;z-index:200;box-shadow:0 8px 24px rgba(0,0,0,.4);display:none;flex-direction:column;gap:2px}
+.nav-dropdown.open{display:flex}
+.nav-dd-item{padding:7px 10px;border-radius:var(--rad);cursor:pointer;display:flex;align-items:center;gap:8px;font-size:12px;color:var(--txt2);transition:all .12s;border:.5px solid transparent}
+.nav-dd-item:hover{background:var(--bg3);color:var(--txt)}
+.nav-dd-item.active{background:var(--bg4);color:var(--txt);border-color:var(--border2)}
+.nav-dd-item i{font-size:13px;width:16px;text-align:center;flex-shrink:0}
+.nav-dd-sep{height:.5px;background:var(--border);margin:3px 0}
+/* Progress bar global */
+.global-progress{position:fixed;top:0;left:0;right:0;height:2px;background:transparent;z-index:300}
+.global-progress-bar{height:100%;background:linear-gradient(90deg,var(--acc),var(--teal));border-radius:0 1px 1px 0;transition:width .6s ease}
+
 .tab-btn{padding:4px 12px;border-radius:var(--rad);border:.5px solid transparent;background:transparent;color:var(--txt2);font-size:12px;cursor:pointer;font-family:var(--fs);display:flex;align-items:center;gap:4px;transition:all .14s}
 .tab-btn:hover{color:var(--txt);background:var(--bg3)}.tab-btn.active{background:var(--bg3);color:var(--txt);border-color:var(--border2)}
 .ml-auto{margin-left:auto}
@@ -66,6 +85,42 @@ body{font-family:var(--fs);background:var(--bg);color:var(--txt);display:flex;fl
 .r-neutral{background:var(--bg4);color:var(--txt3)}.r-romantic{background:rgba(240,98,146,.12);color:var(--rose)}.r-rival{background:rgba(212,168,67,.12);color:var(--gold)}
 .chap-item{padding:7px 11px;cursor:pointer;border-left:2px solid transparent;font-size:13px;transition:all .12s;display:flex;align-items:center;justify-content:space-between;color:var(--txt2)}
 .chap-item:hover{background:var(--bg3);color:var(--txt)}.chap-item.active{background:var(--bg4);color:var(--txt);border-left-color:var(--acc)}
+
+/* SCENE CARDS IN SIDEBAR */
+
+/* DRAG & DROP */
+.scene-card-item.dragging{opacity:.4;border:1.5px dashed var(--acc)}
+.scene-card-item.drag-over{border-color:var(--acc);background:var(--acc-glow);transform:translateY(2px)}
+
+/* RENDER COLLAPSE */
+.render-block.collapsed .render-body{display:none}
+.render-block.collapsed .render-header{border-bottom:none}
+.render-block.collapsed{opacity:.85}
+.render-collapse-btn{padding:2px 5px;font-size:11px;transition:transform .15s;flex-shrink:0}
+.render-block.collapsed .render-collapse-btn i{transform:rotate(-90deg)}
+/* SUBCAPTERS */
+.subchap-item{padding:5px 11px 5px 18px;cursor:pointer;border-left:2px solid transparent;font-size:12px;color:var(--txt3);display:flex;align-items:center;justify-content:space-between;transition:all .12s;background:var(--bg2)}
+.subchap-item:hover{background:var(--bg3);color:var(--txt2)}
+.subchap-item.active{background:var(--bg4);color:var(--acc);border-left-color:var(--acc)}
+.subchap-scenes{padding-left:8px}
+.subcap-badge{padding:1px 6px;border-radius:999px;font-size:10px;background:rgba(124,92,252,.12);color:var(--acc);flex-shrink:0}
+
+.render-block.dragging{opacity:.35;border:1.5px dashed var(--acc)}
+.render-block.drag-over{border-color:var(--acc);background:var(--acc-glow)}
+.drag-handle{cursor:grab;color:var(--txt3);padding:0 4px;display:flex;align-items:center;font-size:14px;flex-shrink:0}
+.drag-handle:hover{color:var(--txt2)}
+.drag-handle:active{cursor:grabbing}
+
+.scene-card-item{padding:0;border-radius:var(--rad);cursor:pointer;border:.5px solid transparent;transition:all .12s;overflow:hidden;margin-bottom:5px;background:var(--bg3)}
+.scene-card-item:hover{border-color:var(--border2)}
+.scene-card-item.active{border-color:var(--acc);background:var(--bg4)}
+.scene-card-thumb{width:100%;height:52px;background:var(--bg4);overflow:hidden;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:18px;flex-shrink:0;position:relative}
+.scene-card-thumb img{width:100%;height:100%;object-fit:cover}
+.scene-card-status{position:absolute;top:4px;right:4px;width:8px;height:8px;border-radius:50%}
+.scene-card-body{padding:6px 8px}
+.scene-card-name{font-size:12px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:2px}
+.scene-card-meta{display:flex;align-items:center;gap:6px;font-size:10px;color:var(--txt3)}
+
 .scene-item{padding:5px 11px 5px 22px;cursor:pointer;border-left:2px solid transparent;font-size:12px;color:var(--txt3);display:flex;align-items:center;justify-content:space-between;transition:all .12s}
 .scene-item:hover{background:var(--bg3);color:var(--txt2)}.scene-item.active{background:var(--bg4);color:var(--txt);border-left-color:var(--acc)}
 .render-block{border:.5px solid var(--border);border-radius:var(--rad-lg);background:var(--bg3);overflow:hidden;margin-bottom:10px}
@@ -284,23 +339,71 @@ body{font-family:var(--fs);background:var(--bg);color:var(--txt);display:flex;fl
 <body>
 <div id="loading-screen"><div class="spinner"></div><span id="loading-txt">Conectando ao Supabase...</span></div>
 <div id="app" style="display:none;flex-direction:column;height:100vh;overflow:hidden">
+  <!-- Global progress bar -->
+  <div class="global-progress"><div class="global-progress-bar" id="global-prog" style="width:0%"></div></div>
+
   <div class="topbar">
     <div class="logo"><div class="logo-mark"><i class="ti ti-writing"></i></div><div class="logo-txt">VN<span>Studio</span></div></div>
-    <button class="tab-btn active" onclick="switchTab('chars')"><i class="ti ti-user-circle"></i> Personagens</button>
-    <button class="tab-btn" onclick="switchTab('vars')"><i class="ti ti-variable"></i> Variáveis</button>
-    <button class="tab-btn" onclick="switchTab('chapters')"><i class="ti ti-books"></i> Cenas</button>
-    <button class="tab-btn" onclick="switchTab('preview')"><i class="ti ti-player-play"></i> Prévia VN</button>
-    <button class="tab-btn" onclick="switchTab('board')"><i class="ti ti-sitemap"></i> Quadro</button>
-    <button class="tab-btn" onclick="switchTab('checklist')"><i class="ti ti-checklist"></i> Checklist</button>
-    <button class="tab-btn" onclick="switchTab('review')"><i class="ti ti-book"></i> Revisão</button>
-    <button class="tab-btn" onclick="switchTab('library')"><i class="ti ti-photos"></i> Renders</button>
+
+    <!-- Grupo: Projeto -->
+    <div class="nav-group" id="ng-projeto">
+      <button class="nav-group-btn" onclick="toggleNavGroup('ng-projeto')">
+        <i class="ti ti-user-circle"></i> Projeto <i class="ti ti-chevron-down nav-arrow"></i>
+      </button>
+      <div class="nav-dropdown" id="nd-projeto">
+        <div class="nav-dd-item" onclick="switchTab('chars');closeNavGroups()" id="ndi-chars">
+          <i class="ti ti-user-circle"></i> Personagens
+        </div>
+        <div class="nav-dd-item" onclick="switchTab('vars');closeNavGroups()" id="ndi-vars">
+          <i class="ti ti-variable"></i> Variáveis
+        </div>
+      </div>
+    </div>
+
+    <!-- Grupo: Roteiro -->
+    <div class="nav-group" id="ng-roteiro">
+      <button class="nav-group-btn" onclick="toggleNavGroup('ng-roteiro')">
+        <i class="ti ti-books"></i> Roteiro <i class="ti ti-chevron-down nav-arrow"></i>
+      </button>
+      <div class="nav-dropdown" id="nd-roteiro">
+        <div class="nav-dd-item" onclick="switchTab('chapters');closeNavGroups()" id="ndi-chapters">
+          <i class="ti ti-books"></i> Cenas
+        </div>
+        <div class="nav-dd-item" onclick="switchTab('library');closeNavGroups()" id="ndi-library">
+          <i class="ti ti-photos"></i> Biblioteca de Renders
+        </div>
+        <div class="nav-dd-sep"></div>
+        <div class="nav-dd-item" onclick="switchTab('preview');closeNavGroups()" id="ndi-preview">
+          <i class="ti ti-player-play"></i> Prévia VN
+        </div>
+        <div class="nav-dd-item" onclick="switchTab('review');closeNavGroups()" id="ndi-review">
+          <i class="ti ti-book"></i> Revisão
+        </div>
+      </div>
+    </div>
+
+    <!-- Grupo: Produção -->
+    <div class="nav-group" id="ng-producao">
+      <button class="nav-group-btn" onclick="toggleNavGroup('ng-producao')">
+        <i class="ti ti-checklist"></i> Produção <i class="ti ti-chevron-down nav-arrow"></i>
+      </button>
+      <div class="nav-dropdown" id="nd-producao">
+        <div class="nav-dd-item" onclick="switchTab('checklist');closeNavGroups()" id="ndi-checklist">
+          <i class="ti ti-checklist"></i> Checklist
+        </div>
+        <div class="nav-dd-item" onclick="switchTab('board');closeNavGroups()" id="ndi-board">
+          <i class="ti ti-sitemap"></i> Quadro
+        </div>
+      </div>
+    </div>
+
     <div class="ml-auto" style="display:flex;align-items:center;gap:7px">
       <div class="sync-bar" id="sync-bar">
         <div class="sync-dot" id="sync-dot"></div>
         <span id="sync-txt">Offline</span>
       </div>
       <button class="btn btn-success btn-sm" onclick="openExportModal()"><i class="ti ti-brand-python"></i> Ren'Py</button>
-      <button class="btn btn-warning btn-sm" onclick="openZipExportModal()"><i class="ti ti-file-zip"></i> Export ZIP</button>
+      <button class="btn btn-warning btn-sm" onclick="openZipExportModal()"><i class="ti ti-file-zip"></i> ZIP</button>
     </div>
   </div>
   <div class="content">
@@ -422,6 +525,29 @@ body{font-family:var(--fs);background:var(--bg);color:var(--txt);display:flex;fl
 </div>
 <script>
 'use strict';
+
+// Render collapse state — per session only
+const _collapsedRenders = new Set();
+function isRenCollapsed(rId){ return _collapsedRenders.has(rId); }
+function toggleRenCollapse(rId){
+  if(_collapsedRenders.has(rId)) _collapsedRenders.delete(rId);
+  else _collapsedRenders.add(rId);
+  const block = document.getElementById('rb-'+rId);
+  if(block) block.classList.toggle('collapsed', _collapsedRenders.has(rId));
+  // update button icon
+  const btn = block?.querySelector('.render-collapse-btn i');
+  if(btn) btn.className = _collapsedRenders.has(rId) ? 'ti ti-chevron-right' : 'ti ti-chevron-down';
+}
+function collapseAllRenders(collapse){
+  document.querySelectorAll('.render-block').forEach(block=>{
+    const rId = block.id.replace('rb-','');
+    if(collapse) _collapsedRenders.add(rId); else _collapsedRenders.delete(rId);
+    block.classList.toggle('collapsed', collapse);
+    const btn = block.querySelector('.render-collapse-btn i');
+    if(btn) btn.className = collapse ? 'ti ti-chevron-right' : 'ti ti-chevron-down';
+  });
+}
+
 /* ═══ MODAL (defined early so all functions can use it) ═══ */
 function showModal(html){document.getElementById('modal-content').innerHTML=html;document.getElementById('modal-wrap').classList.remove('hidden');}
 function closeModal(){document.getElementById('modal-wrap').classList.add('hidden');}
@@ -557,7 +683,7 @@ function defaultState(){return{
     {id:'v1',name:'afin_yuki',type:'int',defaultVal:'0',desc:'Afinidade com Yuki'},
     {id:'v2',name:'flag_conheceu_yuki',type:'bool',defaultVal:'False',desc:'Conheceu Yuki'}
   ],
-  chapters:[{id:'ch1',name:'Capítulo 1 — O Começo',desc:'Chegada à academia.',scenes:[
+  chapters:[{id:'ch1',name:'Capítulo 1 — O Começo',desc:'Chegada à academia.',subcaps:[],scenes:[
     {id:'s1',name:'Entrada da Academia',desc:'Primeiro dia de Akira.',notes:'Tom levemente ansioso.',chars:['c1','c2'],
      renders:[
        {id:'r1',label:'Vista da entrada',imgId:null,transition:'dissolve',bgName:'bg_entrada',dialogues:[
@@ -599,6 +725,8 @@ function markDirty(){
     ['selChar','selChap','selScene','selBNode','connMode','prevState'].forEach(k=>delete c[k]);
     localStorage.setItem(LS_KEY,JSON.stringify(c));
   }catch(e){}
+  // update global progress bar
+  updateGlobalProgress();
   // debounce Supabase sync
   setSyncState('syncing','Salvando...');
   clearTimeout(syncTimer);
@@ -707,19 +835,325 @@ const TRANS=['dissolve','fade','pixellate','blinds','squares','pushright','pushl
 const findScene=sId=>{for(const ch of S.chapters){const sc=ch.scenes.find(s=>s.id===sId);if(sc)return{ch,sc};}return null;};
 const allScenes=()=>S.chapters.flatMap(ch=>ch.scenes);
 
+/* ═══════════════════════════════════════
+   NAV GROUPS — dropdown menus
+═══════════════════════════════════════ */
+const TAB_GROUP = {
+  chars:'projeto', vars:'projeto',
+  chapters:'roteiro', library:'roteiro', preview:'roteiro', review:'roteiro',
+  checklist:'producao', board:'producao'
+};
+
+function toggleNavGroup(groupId){
+  const isOpen = document.getElementById('nd-'+groupId.replace('ng-',''))?.classList.contains('open');
+  closeNavGroups();
+  if(!isOpen){
+    document.getElementById('nd-'+groupId.replace('ng-',''))?.classList.add('open');
+    document.getElementById(groupId)?.querySelector('.nav-group-btn')?.classList.add('open');
+  }
+}
+function closeNavGroups(){
+  document.querySelectorAll('.nav-dropdown').forEach(d=>d.classList.remove('open'));
+  document.querySelectorAll('.nav-group-btn').forEach(b=>b.classList.remove('open'));
+}
+// Close on outside click
+document.addEventListener('click',e=>{
+  if(!e.target.closest('.nav-group')) closeNavGroups();
+});
+
+function updateNavActive(t){
+  // Reset all
+  document.querySelectorAll('.nav-dd-item').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.nav-group-btn').forEach(el=>el.classList.remove('has-active'));
+  // Set active item
+  const item = document.getElementById('ndi-'+t);
+  if(item) item.classList.add('active');
+  // Set active group
+  const group = TAB_GROUP[t];
+  if(group){
+    const btn = document.querySelector(`#ng-${group} .nav-group-btn`);
+    if(btn) btn.classList.add('has-active');
+  }
+}
+
 function switchTab(t){
-  document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active',['chars','vars','chapters','preview','board','checklist','review','library'][i]===t));
   document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
-  document.getElementById('tab-'+t).classList.add('active');
+  document.getElementById('tab-'+t)?.classList.add('active');
+  updateNavActive(t);
   if(t==='board')renderBoard();
   if(t==='preview')renderPrevList();
   if(t==='vars')renderVarsList();
-  if(t==='checklist')renderChecklist();
+  if(t==='checklist'){renderChecklist();updateGlobalProgress();}
   if(t==='review')renderReview();
   if(t==='library')renderLibrary();
 }
 
-/* ═══ PERSONAGENS ═══ */
+/* ═══════════════════════════════════════
+   GLOBAL PROGRESS BAR
+═══════════════════════════════════════ */
+function updateGlobalProgress(){
+  const scenes = allScenes();
+  if(!scenes.length) return;
+  let complete = 0;
+  scenes.forEach(sc=>{
+    const renders = sc.renders||[];
+    const hasImg = renders.some(r=>r.imgId);
+    const hasDlg = renders.some(r=>r.dialogues?.length>0);
+    const hasChars = (sc.chars||[]).length>0;
+    if(hasImg && hasDlg && hasChars) complete++;
+  });
+  const pct = Math.round(complete/scenes.length*100);
+  const bar = document.getElementById('global-prog');
+  if(bar) bar.style.width = pct+'%';
+}
+
+/* ═══════════════════════════════════════
+   SCENE CARDS IN SIDEBAR
+═══════════════════════════════════════ */
+function renderChapTree(){
+  const el = document.getElementById('chaps-scroll');
+  if(!el) return;
+
+  el.innerHTML = S.chapters.map(ch=>{
+    ensureSubcaps(ch);
+    const hasSubcaps = ch.subcaps.length > 0;
+
+    // Scenes not assigned to any subcap
+    const unassigned = ch.scenes.filter(sc=>!sc.subcapId);
+
+    // Subcap blocks
+    const subcapHTML = ch.subcaps.map(sub=>{
+      const subScenes = ch.scenes.filter(sc=>sc.subcapId===sub.id);
+      return `<div class="subchap-item${S.selScene&&subScenes.some(s=>s.id===S.selScene)?' active':''}"
+        onclick="event.stopPropagation()">
+        <span style="display:flex;align-items:center;gap:5px">
+          <i class="ti ti-folder" style="font-size:10px;color:var(--acc)"></i>
+          <span style="font-size:12px;font-weight:500;color:var(--txt2)">${esc(sub.name)}</span>
+          <span class="subcap-badge">${subScenes.length}</span>
+        </span>
+        <div style="display:flex;gap:2px">
+          <button class="btn btn-sm btn-icon" style="padding:1px 4px;font-size:10px" onclick="event.stopPropagation();renameSubcap('${ch.id}','${sub.id}')" title="Renomear"><i class="ti ti-edit"></i></button>
+          <button class="btn btn-danger btn-sm btn-icon" style="padding:1px 4px;font-size:10px" onclick="event.stopPropagation();delSubcap('${ch.id}','${sub.id}')" title="Excluir subcapítulo"><i class="ti ti-x"></i></button>
+        </div>
+      </div>
+      <div class="subchap-scenes">
+        ${subScenes.map(sc=>sceneCardHTML(ch.id, sc, sub.id)).join('')}
+      </div>`;
+    }).join('');
+
+    return `<div class="chap-item${S.selChap===ch.id&&!S.selScene?' active':''}" onclick="selChap('${ch.id}')">
+      <span style="display:flex;align-items:center;gap:4px"><i class="ti ti-bookmark" style="font-size:10px"></i>${esc(ch.name)}</span>
+      <div style="display:flex;gap:2px">
+        <button class="btn btn-sm btn-icon" style="padding:1px 4px;font-size:10px" onclick="event.stopPropagation();addSubcap('${ch.id}')" title="Novo subcapítulo"><i class="ti ti-folder-plus"></i></button>
+        <button class="btn btn-sm btn-icon" style="padding:1px 4px;font-size:10px" onclick="event.stopPropagation();openAddSceneModal('${ch.id}')"><i class="ti ti-plus"></i></button>
+      </div>
+    </div>
+    <div id="scene-cards-${ch.id}">
+      ${subcapHTML}
+      ${unassigned.map(sc=>sceneCardHTML(ch.id, sc, null)).join('')}
+    </div>`;
+  }).join('');
+
+  // Load thumbnails async
+  S.chapters.forEach(ch=>{
+    ch.scenes.forEach(sc=>{
+      const firstImgId = (sc.renders||[]).find(r=>r.imgId)?.imgId;
+      if(firstImgId){
+        resolveImg(firstImgId).then(url=>{
+          const thumb = document.getElementById('sct-'+sc.id);
+          if(thumb && url) thumb.innerHTML = `<img src="${url}">`;
+        });
+      }
+    });
+  });
+
+  updateGlobalProgress();
+}
+
+function sceneCardHTML(chId, sc, subId=null){
+  const renders = sc.renders||[];
+  const totalDlg = renders.reduce((a,r)=>a+(r.dialogues?.length||0),0);
+  const hasImg = renders.some(r=>r.imgId);
+  const hasDlg = totalDlg > 0;
+  const hasChars = (sc.chars||[]).length > 0;
+  const choices = renders.flatMap(r=>r.choices||[]).filter(c=>c.text).length;
+  const statusColor = hasImg&&hasDlg&&hasChars ? 'var(--green)' : hasImg||hasDlg ? 'var(--gold)' : 'var(--coral)';
+  const isActive = S.selScene===sc.id;
+
+  return `<div class="scene-card-item${isActive?' active':''}"
+    draggable="true"
+    data-scene-id="${sc.id}"
+    data-chap-id="${chId}"
+    onclick="selScene('${chId}','${sc.id}')"
+    ondragstart="sceneDragStart(event,'${chId}','${sc.id}')"
+    ondragover="sceneDragOver(event)"
+    ondragleave="sceneDragLeave(event)"
+    ondrop="sceneDrop(event,'${chId}','${sc.id}')">
+    <div class="scene-card-thumb" id="sct-${sc.id}">
+      <i class="ti ti-photo"></i>
+      <div class="scene-card-status" style="background:${statusColor}"></div>
+    </div>
+    <div class="scene-card-body">
+      <div style="display:flex;align-items:center;gap:4px">
+        <div class="scene-card-name" title="${esc(sc.name)}" style="flex:1">${esc(sc.name)}</div>
+        <i class="ti ti-grip-vertical drag-handle" title="Arrastar para reordenar"></i>
+      </div>
+      <div class="scene-card-meta">
+        <span><i class="ti ti-layers-intersect" style="font-size:9px"></i> ${renders.length}</span>
+        <span><i class="ti ti-message-circle" style="font-size:9px"></i> ${totalDlg}</span>
+        ${choices?`<span><i class="ti ti-git-branch" style="font-size:9px;color:var(--gold)"></i> ${choices}</span>`:''}
+        ${hasImg?`<span style="color:var(--teal)"><i class="ti ti-photo" style="font-size:9px"></i></span>`:''}
+      </div>
+    </div>
+  </div>`;
+}
+
+
+
+/* ═══════════════════════════════════════
+   SUBCAPÍTULOS
+═══════════════════════════════════════ */
+const gsc2 = (chId, subId) => { const ch=gch(chId); return ch?.subcaps?.find(s=>s.id===subId); };
+
+function ensureSubcaps(ch){ if(!ch.subcaps) ch.subcaps=[]; }
+
+function addSubcap(chId){
+  const ch=gch(chId); if(!ch) return;
+  ensureSubcaps(ch);
+  const name=prompt('Nome do subcapítulo:','Ato 1');
+  if(!name) return;
+  ch.subcaps.push({id:uid(), name, sceneIds:[]});
+  markDirty(); renderChapTree();
+}
+function delSubcap(chId, subId){
+  if(!confirm('Excluir subcapítulo? As cenas NÃO serão excluídas.')) return;
+  const ch=gch(chId); if(!ch) return;
+  ensureSubcaps(ch);
+  // unlink scenes
+  const sub=gsc2(chId,subId);
+  if(sub) (sub.sceneIds||[]).forEach(sid=>{
+    const sc=gs(chId,sid); if(sc) delete sc.subcapId;
+  });
+  ch.subcaps=ch.subcaps.filter(s=>s.id!==subId);
+  markDirty(); renderChapTree();
+}
+function renameSubcap(chId, subId){
+  const ch=gch(chId); const sub=gsc2(chId,subId); if(!sub) return;
+  const name=prompt('Novo nome:', sub.name);
+  if(!name) return;
+  sub.name=name; markDirty(); renderChapTree();
+}
+function assignSceneToSubcap(chId, scId, subId){
+  const ch=gch(chId); if(!ch) return;
+  ensureSubcaps(ch);
+  const sc=gs(chId,scId); if(!sc) return;
+  // remove from old subcap
+  ch.subcaps.forEach(s=>{ s.sceneIds=(s.sceneIds||[]).filter(id=>id!==scId); });
+  if(subId){
+    const sub=gsc2(chId,subId);
+    if(sub){ if(!sub.sceneIds)sub.sceneIds=[]; sub.sceneIds.push(scId); }
+    sc.subcapId=subId;
+  } else {
+    delete sc.subcapId;
+  }
+  markDirty(); renderChapTree();
+}
+
+/* ═══════════════════════════════════════
+   DRAG & DROP — scenes + renders
+═══════════════════════════════════════ */
+let _sceneDrag = null; // {chId, scId}
+let _renderDrag = null; // {chId, scId, rId}
+
+/* ── Scene DnD ── */
+function sceneDragStart(e, chId, scId){
+  _sceneDrag = {chId, scId};
+  e.dataTransfer.effectAllowed = 'move';
+  setTimeout(()=>{ const el=e.target.closest('.scene-card-item'); if(el) el.classList.add('dragging'); }, 0);
+}
+function sceneDragOver(e){
+  e.preventDefault();
+  e.dataTransfer.dropEffect = 'move';
+  const el = e.target.closest('.scene-card-item');
+  if(el && _sceneDrag && el.dataset.sceneId !== _sceneDrag.scId){
+    document.querySelectorAll('.scene-card-item.drag-over').forEach(x=>x.classList.remove('drag-over'));
+    el.classList.add('drag-over');
+  }
+}
+function sceneDragLeave(e){
+  const el = e.target.closest('.scene-card-item');
+  if(el) el.classList.remove('drag-over');
+}
+function sceneDrop(e, targetChId, targetScId){
+  e.preventDefault();
+  document.querySelectorAll('.scene-card-item').forEach(x=>{x.classList.remove('drag-over');x.classList.remove('dragging');});
+  if(!_sceneDrag || _sceneDrag.scId === targetScId){ _sceneDrag=null; return; }
+
+  const srcCh = gch(_sceneDrag.chId);
+  const tgtCh = gch(targetChId);
+  if(!srcCh || !tgtCh){ _sceneDrag=null; return; }
+
+  // Remove from source
+  const srcIdx = srcCh.scenes.findIndex(s=>s.id===_sceneDrag.scId);
+  if(srcIdx < 0){ _sceneDrag=null; return; }
+  const [moved] = srcCh.scenes.splice(srcIdx, 1);
+
+  // Insert before target
+  const tgtIdx = tgtCh.scenes.findIndex(s=>s.id===targetScId);
+  tgtCh.scenes.splice(tgtIdx < 0 ? tgtCh.scenes.length : tgtIdx, 0, moved);
+
+  _sceneDrag = null;
+  markDirty();
+  renderChapTree();
+  syncBoardFromChoices();
+  _devLog('succ','DND',`Cena "${moved.name}" reordenada`);
+}
+
+/* ── Render DnD ── */
+function renderDragStart(e, chId, scId, rId){
+  _renderDrag = {chId, scId, rId};
+  e.dataTransfer.effectAllowed = 'move';
+  e.stopPropagation();
+  setTimeout(()=>{ const el=document.getElementById('rb-'+rId); if(el) el.classList.add('dragging'); }, 0);
+}
+function renderDragOver(e){
+  e.preventDefault();
+  e.stopPropagation();
+  e.dataTransfer.dropEffect = 'move';
+  const el = e.target.closest('.render-block');
+  if(el && _renderDrag && el.id !== 'rb-'+_renderDrag.rId){
+    document.querySelectorAll('.render-block.drag-over').forEach(x=>x.classList.remove('drag-over'));
+    el.classList.add('drag-over');
+  }
+}
+function renderDragLeave(e){
+  e.stopPropagation();
+  const el = e.target.closest('.render-block');
+  if(el && !el.contains(e.relatedTarget)) el.classList.remove('drag-over');
+}
+function renderDrop(e, chId, scId, targetRId){
+  e.preventDefault();
+  e.stopPropagation();
+  document.querySelectorAll('.render-block').forEach(x=>{x.classList.remove('drag-over');x.classList.remove('dragging');});
+  if(!_renderDrag || _renderDrag.rId === targetRId){ _renderDrag=null; return; }
+
+  const sc = gs(_renderDrag.chId, _renderDrag.scId);
+  const tgtSc = gs(chId, scId);
+  if(!sc || !tgtSc || sc.id !== tgtSc.id){ _renderDrag=null; return; } // only within same scene
+
+  const srcIdx = sc.renders.findIndex(r=>r.id===_renderDrag.rId);
+  if(srcIdx < 0){ _renderDrag=null; return; }
+  const [moved] = sc.renders.splice(srcIdx, 1);
+
+  const tgtIdx = tgtSc.renders.findIndex(r=>r.id===targetRId);
+  tgtSc.renders.splice(tgtIdx < 0 ? tgtSc.renders.length : tgtIdx, 0, moved);
+
+  _renderDrag = null;
+  markDirty();
+  renderSceneArea();
+  _devLog('succ','DND',`Render "${moved.label}" reordenado`);
+}
+
 async function renderCharList(){
   const el=document.getElementById('chars-list');
   const items=await Promise.all(S.chars.map(async c=>{
@@ -830,17 +1264,6 @@ function openAddVarModal(editId){
 function confirmVar(editId){const name=(document.getElementById('nv-n')?.value||'').trim().replace(/\s+/g,'_');if(!name)return;const t=document.getElementById('nv-t')?.value,d=document.getElementById('nv-d')?.value||'',desc=document.getElementById('nv-desc')?.value||'';if(editId){const v=gv(editId);if(v){v.name=name;v.type=t;v.defaultVal=d;v.desc=desc;}}else{S.vars.push({id:uid(),name,type:t,defaultVal:d,desc});}markDirty();renderVarsList();closeModal();}
 function delVar(id){if(!confirm('Excluir variável?'))return;S.vars=S.vars.filter(v=>v.id!==id);markDirty();renderVarsList();}
 /* ═══ CHAPTERS + SCENES ═══ */
-function renderChapTree(){
-  document.getElementById('chaps-scroll').innerHTML=S.chapters.map(ch=>`
-    <div class="chap-item${S.selChap===ch.id&&!S.selScene?' active':''}" onclick="selChap('${ch.id}')">
-      <span style="display:flex;align-items:center;gap:4px"><i class="ti ti-bookmark" style="font-size:10px"></i>${esc(ch.name)}</span>
-      <button class="btn btn-sm btn-icon" onclick="event.stopPropagation();openAddSceneModal('${ch.id}')"><i class="ti ti-plus"></i></button>
-    </div>
-    ${ch.scenes.map(sc=>`<div class="scene-item${S.selScene===sc.id?' active':''}" onclick="selScene('${ch.id}','${sc.id}')">
-      <span><i class="ti ti-photo" style="font-size:10px;margin-right:3px"></i>${esc(sc.name)}</span>
-      <span style="font-size:10px;color:var(--txt3)">${(sc.renders||[]).length}r</span>
-    </div>`).join('')}`).join('');
-}
 function selChap(id){S.selChap=id;S.selScene=null;renderChapTree();renderSceneArea();}
 function selScene(cId,sId){S.selChap=cId;S.selScene=sId;renderChapTree();renderSceneArea();}
 
@@ -873,6 +1296,17 @@ async function renderSceneArea(){
       </div>
     </div>
     <div class="field"><label>Descrição</label><textarea oninput="upSc('${ch.id}','${sc.id}','desc',this.value)">${esc(sc.desc||'')}</textarea></div>
+    ${(()=>{
+      ensureSubcaps(ch);
+      if(!ch.subcaps.length) return '';
+      const opts=`<option value="">— sem subcapítulo —</option>`+ch.subcaps.map(s=>`<option value="${s.id}"${sc.subcapId===s.id?' selected':''}>${esc(s.name)}</option>`).join('');
+      return `<div class="field"><label>Subcapítulo</label>
+        <select onchange="assignSceneToSubcap('${ch.id}','${sc.id}',this.value)"
+          style="width:100%;padding:7px 10px;border:.5px solid var(--border2);border-radius:var(--rad);background:var(--bg3);color:var(--txt);font-size:13px;outline:none;font-family:var(--fs)">
+          ${opts}
+        </select>
+      </div>`;
+    })()}
     <div class="notes-block">
       <div style="font-size:10px;color:var(--gold);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;display:flex;align-items:center;gap:5px">
         <i class="ti ti-notes"></i> Anotações <span style="font-size:10px;color:var(--txt3);text-transform:none;font-weight:400">(não aparecem no jogo)</span>
@@ -880,7 +1314,13 @@ async function renderSceneArea(){
       <textarea placeholder="Notas de produção, lembretes, ideias..." oninput="upSc('${ch.id}','${sc.id}','notes',this.value)">${esc(sc.notes||'')}</textarea>
     </div>
     <div class="field" style="margin-top:12px;margin-bottom:16px"><label>Personagens na cena</label><div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:5px">${chkBoxes}</div></div>
-    <div style="font-size:10px;font-weight:500;color:var(--txt3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px"><i class="ti ti-layers-intersect"></i> Sequência de Renders &amp; Falas</div>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+      <div style="font-size:10px;font-weight:500;color:var(--txt3);text-transform:uppercase;letter-spacing:.06em"><i class="ti ti-layers-intersect"></i> Sequência de Renders &amp; Falas</div>
+      <div style="display:flex;gap:5px">
+        <button class="btn btn-sm" style="font-size:10px;padding:2px 8px" onclick="collapseAllRenders(true)" title="Minimizar todos"><i class="ti ti-minus"></i> Min. todos</button>
+        <button class="btn btn-sm" style="font-size:10px;padding:2px 8px" onclick="collapseAllRenders(false)" title="Expandir todos"><i class="ti ti-plus"></i> Exp. todos</button>
+      </div>
+    </div>
     ${renderBlocksHTML}
     <button class="add-render-btn" onclick="addRender('${ch.id}','${sc.id}')"><i class="ti ti-plus" style="font-size:16px"></i> Adicionar Render</button>
 
@@ -910,34 +1350,65 @@ async function renderBlockHTML(chId,scId,ren,ri,sc){
         <button class="btn btn-danger btn-sm btn-icon" onclick="delDlg('${chId}','${scId}','${ren.id}',${di})"><i class="ti ti-x"></i></button>
       </div>
     </div>`;}))).join('');
-  return`<div class="render-block" id="rb-${ren.id}">
+  const isCollapsed = isRenCollapsed(ren.id);
+  return`<div class="render-block${isCollapsed?' collapsed':''}" id="rb-${ren.id}"
+    draggable="true"
+    ondragstart="renderDragStart(event,'${chId}','${scId}','${ren.id}')"
+    ondragover="renderDragOver(event)"
+    ondragleave="renderDragLeave(event)"
+    ondrop="renderDrop(event,'${chId}','${scId}','${ren.id}')">
     <div class="render-header">
-      <div class="rthumb" onclick="trigRenderImg('${chId}','${scId}','${ren.id}')" title="Clique para imagem">
-        ${imgUrl?`<img src="${imgUrl}" alt="render">`:`<div class="rthumb-ico"><i class="ti ti-photo-plus"></i></div>`}
-        <input type="file" id="ri-${ren.id}" accept="image/*" style="display:none" onchange="setRenderImg('${chId}','${scId}','${ren.id}',this)">
-        <div style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,.5);display:flex;justify-content:center;padding:2px;gap:3px;opacity:0;transition:opacity .14s" class="rthumb-actions">
-          <button class="btn btn-sm" style="padding:1px 5px;font-size:9px;background:var(--acc);border-color:transparent;color:#fff" onclick="event.stopPropagation();openLibPicker('${chId}','${scId}','${ren.id}')" title="Selecionar da biblioteca"><i class="ti ti-photos"></i></button>
-          <button class="btn btn-sm" style="padding:1px 5px;font-size:9px" onclick="event.stopPropagation();trigRenderImg('${chId}','${scId}','${ren.id}')" title="Upload direto"><i class="ti ti-upload"></i></button>
+      <!-- IMAGE AREA -->
+      <div style="display:flex;flex-direction:column;gap:4px;flex-shrink:0">
+        <div class="rthumb" style="cursor:default;width:90px;height:58px">
+          ${imgUrl
+            ? `<img src="${imgUrl}" alt="render">`
+            : `<div class="rthumb-ico"><i class="ti ti-photo" style="font-size:18px"></i></div>`}
+          <input type="file" id="ri-${ren.id}" accept="image/*" style="display:none" onchange="setRenderImgAndLib('${chId}','${scId}','${ren.id}',this)">
+        </div>
+        <!-- VISIBLE BUTTONS BELOW THUMB -->
+        <div style="display:flex;gap:3px;width:90px">
+          <button class="btn btn-sm" style="flex:1;padding:2px 0;font-size:10px;justify-content:center"
+            onclick="openLibPicker('${chId}','${scId}','${ren.id}')"
+            title="Selecionar da biblioteca">
+            <i class="ti ti-photos"></i>
+          </button>
+          <button class="btn btn-sm" style="flex:1;padding:2px 0;font-size:10px;justify-content:center"
+            onclick="trigRenderImg('${chId}','${scId}','${ren.id}')"
+            title="Upload direto">
+            <i class="ti ti-upload"></i>
+          </button>
         </div>
       </div>
       <div class="rinfo">
         <input class="rlabel-input" value="${esc(ren.label)}" oninput="upRen('${chId}','${scId}','${ren.id}','label',this.value)" placeholder="Nome do render">
-        <div style="display:flex;align-items:center;gap:6px;margin-top:3px">
+        <div style="display:flex;align-items:center;gap:6px;margin-top:3px;flex-wrap:wrap">
           <div class="rcount">${(ren.dialogues||[]).length} fala${(ren.dialogues||[]).length!==1?'s':''}</div>
-          ${ren.libId?`<span style="font-size:10px;color:var(--teal);display:flex;align-items:center;gap:3px"><i class="ti ti-link" style="font-size:10px"></i>Da biblioteca</span>`:''}
+          ${ren.libId
+            ? `<span style="font-size:10px;color:var(--teal);display:flex;align-items:center;gap:3px;cursor:pointer" onclick="openEditRenderLibModal('${ren.libId}')" title="Ver na biblioteca">
+                <i class="ti ti-link" style="font-size:10px"></i>Biblioteca
+               </span>`
+            : `<span style="font-size:10px;color:var(--txt3)">Upload direto</span>`}
         </div>
       </div>
       <div style="display:flex;align-items:center;gap:5px;flex-shrink:0;flex-wrap:wrap">
         <div style="display:flex;align-items:center;gap:4px">
           <span style="font-size:10px;color:var(--txt3)">bgName:</span>
-          <input value="${esc(ren.bgName||'bg_cena')}" oninput="upRen('${chId}','${scId}','${ren.id}','bgName',this.value)" style="width:110px;padding:3px 6px;border:.5px solid var(--border2);border-radius:var(--rad);background:var(--bg4);color:var(--txt);font-size:11px;outline:none;font-family:var(--fs)">
+          <input value="${esc(ren.bgName||'bg_cena')}" oninput="upRen('${chId}','${scId}','${ren.id}','bgName',this.value)"
+            style="width:110px;padding:3px 6px;border:.5px solid var(--border2);border-radius:var(--rad);background:var(--bg4);color:var(--txt);font-size:11px;outline:none;font-family:var(--fs)"
+            ${ren.libId?'readonly title="Gerenciado pela biblioteca"':''}>
         </div>
         <div style="display:flex;align-items:center;gap:4px">
           <span style="font-size:10px;color:var(--txt3)">Trans:</span>
-          <select style="padding:3px 6px;border:.5px solid var(--border2);border-radius:var(--rad);background:var(--bg4);color:var(--txt);font-size:11px;font-family:var(--fs)" onchange="upRen('${chId}','${scId}','${ren.id}','transition',this.value)">${transOpts}</select>
+          <select style="padding:3px 6px;border:.5px solid var(--border2);border-radius:var(--rad);background:var(--bg4);color:var(--txt);font-size:11px;font-family:var(--fs)"
+            onchange="upRen('${chId}','${scId}','${ren.id}','transition',this.value)">${transOpts}</select>
         </div>
+        <button class="btn btn-sm btn-icon render-collapse-btn" onclick="toggleRenCollapse('${ren.id}')" title="Minimizar/expandir render">
+          <i class="${isCollapsed?'ti ti-chevron-right':'ti ti-chevron-down'}"></i>
+        </button>
         <button class="btn btn-sm btn-icon" onclick="mvRen('${chId}','${scId}','${ren.id}',-1)"><i class="ti ti-arrow-up"></i></button>
         <button class="btn btn-sm btn-icon" onclick="mvRen('${chId}','${scId}','${ren.id}',1)"><i class="ti ti-arrow-down"></i></button>
+        <button class="btn btn-sm btn-icon" onclick="cloneRender('${chId}','${scId}','${ren.id}')" title="Clonar render — mesma imagem, diálogos independentes"><i class="ti ti-copy"></i></button>
         <button class="btn btn-danger btn-sm btn-icon" onclick="delRen('${chId}','${scId}','${ren.id}')"><i class="ti ti-trash"></i></button>
       </div>
     </div>
@@ -957,8 +1428,70 @@ function addRender(chId,scId){const sc=gs(chId,scId);if(!sc)return;if(!sc.render
 function upRen(chId,scId,rId,f,v){const sc=gs(chId,scId);const ren=gr(sc,rId);if(ren){ren[f]=v;markDirty();}}
 function delRen(chId,scId,rId){const sc=gs(chId,scId);if(!sc)return;const ren=gr(sc,rId);if(ren?.imgId)deleteImage(ren.imgId,'renders');sc.renders=sc.renders.filter(r=>r.id!==rId);markDirty();renderSceneArea();}
 function mvRen(chId,scId,rId,dir){const sc=gs(chId,scId);if(!sc)return;const i=sc.renders.findIndex(r=>r.id===rId);const ni=i+dir;if(ni<0||ni>=sc.renders.length)return;[sc.renders[i],sc.renders[ni]]=[sc.renders[ni],sc.renders[i]];markDirty();renderSceneArea();}
+
+function cloneRender(chId,scId,rId){
+  const sc=gs(chId,scId); const ren=gr(sc,rId); if(!ren) return;
+  const clone={
+    id: uid(),
+    label: ren.label+' (cópia)',
+    imgId:  ren.imgId,   // mesma referência de imagem
+    libId:  ren.libId,   // mesmo entry da biblioteca
+    bgName: ren.bgName,  // mesmo bgName — mesmo render no Ren'Py
+    transition: ren.transition,
+    dialogues: ren.dialogues.map(d=>({...d})), // diálogos independentes
+    choices: (ren.choices||[]).map(c=>({...c, id:uid()}))
+  };
+  // insert right after the original
+  const idx = sc.renders.findIndex(r=>r.id===rId);
+  sc.renders.splice(idx+1, 0, clone);
+  markDirty();
+  renderSceneArea();
+  _devLog('succ','SCN',`Render "${ren.label}" clonado — mesma imagem, diálogos independentes`);
+}
 function trigRenderImg(chId,scId,rId){document.getElementById('ri-'+rId)?.click();}
-async function setRenderImg(chId,scId,rId,inp){const f=inp.files[0];if(!f)return;const sc=gs(chId,scId);const ren=gr(sc,rId);if(!ren)return;ren.imgId=await uploadImage(f,'renders',ren.imgId);markDirty();renderSceneArea();}
+
+async function setRenderImgAndLib(chId,scId,rId,inp){
+  const f=inp.files[0]; if(!f) return;
+  const sc=gs(chId,scId); const ren=gr(sc,rId); if(!ren) return;
+
+  // Upload image
+  const newImgId = await uploadImage(f,'renders',ren.imgId);
+  ren.imgId = newImgId;
+
+  // Auto-add to library if not already linked
+  if(!ren.libId){
+    ensureLib();
+    // Check if a library entry with same bgName already exists
+    const existing = S.renderLib.find(r=>r.bgName===ren.bgName);
+    if(existing){
+      // Link to existing entry and update its image
+      ren.libId = existing.id;
+      existing.imgId = newImgId;
+      _devLog('succ','LIB',`Render vinculado à entrada existente "${existing.name}"`);
+    } else {
+      // Create new library entry
+      const libId = uid();
+      const libName = ren.label || ren.bgName || 'Render '+S.renderLib.length+1;
+      S.renderLib.push({
+        id: libId,
+        name: libName,
+        bgName: ren.bgName||'bg_render_'+libId.slice(0,4),
+        tags: [],
+        imgId: newImgId,
+        createdAt: new Date().toISOString()
+      });
+      ren.libId = libId;
+      _devLog('succ','LIB',`Render "${libName}" adicionado automaticamente à biblioteca`);
+    }
+  } else {
+    // Already linked — update library entry image too
+    const libEntry = S.renderLib.find(r=>r.id===ren.libId);
+    if(libEntry) libEntry.imgId = newImgId;
+  }
+
+  markDirty();
+  renderSceneArea();
+}
 function addDlg(chId,scId,rId){const sc=gs(chId,scId);const ren=gr(sc,rId);if(!ren)return;const charId=document.getElementById('dc-'+rId)?.value;const text=(document.getElementById('dt-add-'+rId)?.value||'').trim();if(!text)return;ren.dialogues.push({char:charId,text,action:''});document.getElementById('dt-add-'+rId).value='';markDirty();renderSceneArea();}
 function delDlg(chId,scId,rId,idx){const sc=gs(chId,scId);const ren=gr(sc,rId);if(ren){ren.dialogues.splice(idx,1);markDirty();renderSceneArea();}}
 function upDlg(chId,scId,rId,idx,f,v){const sc=gs(chId,scId);const ren=gr(sc,rId);if(ren?.dialogues[idx]){ren.dialogues[idx][f]=v;markDirty();}}
@@ -981,14 +1514,13 @@ function openAddChapModal(){showModal(`<h2>Novo Capítulo</h2>
   <div class="field"><label>Nome</label><input id="nch-n" placeholder="Capítulo 1 — ..."></div>
   <div class="field"><label>Descrição</label><textarea id="nch-d" style="min-height:56px;width:100%;padding:6px 9px;border:.5px solid var(--border2);border-radius:var(--rad);background:var(--bg3);color:var(--txt);font-size:13px;font-family:var(--fs);resize:vertical;outline:none"></textarea></div>
   <div class="modal-footer"><button class="btn" onclick="closeModal()">Cancelar</button><button class="btn btn-primary" onclick="confChap()">Criar</button></div>`);}
-function confChap(){const n=(document.getElementById('nch-n')?.value||'').trim();if(!n)return;S.chapters.push({id:uid(),name:n,desc:document.getElementById('nch-d')?.value||'',scenes:[]});markDirty();renderChapTree();closeModal();selChap(S.chapters[S.chapters.length-1].id);}
+function confChap(){const n=(document.getElementById('nch-n')?.value||'').trim();if(!n)return;S.chapters.push({id:uid(),name:n,desc:document.getElementById('nch-d')?.value||'',subcaps:[],scenes:[]});markDirty();renderChapTree();closeModal();selChap(S.chapters[S.chapters.length-1].id);}
 function openAddSceneModal(chId){showModal(`<h2>Nova Cena</h2>
   <div class="field"><label>Nome</label><input id="nsc-n" placeholder="Nome da cena"></div>
   <div class="field"><label>Descrição</label><textarea id="nsc-d" style="min-height:56px;width:100%;padding:6px 9px;border:.5px solid var(--border2);border-radius:var(--rad);background:var(--bg3);color:var(--txt);font-size:13px;font-family:var(--fs);resize:vertical;outline:none"></textarea></div>
   <div class="modal-footer"><button class="btn" onclick="closeModal()">Cancelar</button><button class="btn btn-primary" onclick="confScene('${chId}')">Criar</button></div>`);}
 function confScene(chId){const n=(document.getElementById('nsc-n')?.value||'').trim();if(!n)return;const ch=gch(chId);if(!ch)return;const bgBase=n.toLowerCase().replace(/\s+/g,'_').slice(0,20);ch.scenes.push({id:uid(),name:n,desc:document.getElementById('nsc-d')?.value||'',notes:'',chars:[],renders:[{id:uid(),label:'Render 1',imgId:null,transition:'dissolve',bgName:'bg_'+bgBase,dialogues:[],choices:[]}],choices:[]});markDirty();renderChapTree();closeModal();selScene(chId,ch.scenes[ch.scenes.length-1].id);syncBoardFromChoices();if(document.getElementById('tab-board')?.classList.contains('active'))renderBoard();}
 
-/* ═══ PREVIEW VN ═══ */
 function renderPrevList(){document.getElementById('prev-list').innerHTML=S.chapters.map(ch=>`<div style="padding:6px 10px;font-size:10px;color:var(--txt3);text-transform:uppercase;letter-spacing:.06em">${esc(ch.name)}</div>${ch.scenes.map(sc=>`<div class="scene-item" onclick="openPrevScene('${ch.id}','${sc.id}')">${esc(sc.name)}</div>`).join('')}`).join('');}
 function openPrevScene(chId,scId){S.prevState={sceneRef:{chId,scId},idx:0};switchTab('preview');renderPrevList();renderVNScreen();}
 async function renderVNScreen(){
@@ -1037,58 +1569,225 @@ function vnNav(d){const {chId,scId}=S.prevState.sceneRef;const sc=gs(chId,scId);
 function prevJumpTo(scId){if(!scId)return;const r=findScene(scId);if(r)openPrevScene(r.ch.id,scId);}
 
 /* ═══ RENPY EXPORT ═══ */
-function buildRenpy(){
-  let out='';
-  out+=`################################################################################\n# script.rpy — Gerado pelo VN Studio\n# ${new Date().toLocaleString('pt-BR')}\n################################################################################\n\n`;
-  out+=`init python:\n`;
-  S.vars.length?S.vars.forEach(v=>{out+=`    ${v.name.replace(/[^a-z0-9_]/gi,'_')} = ${v.defaultVal||'None'}  # ${v.desc}\n`;}):out+=`    pass\n`;
-  out+=`\n# ── Personagens ──────────────────────────────────────────────────────────────\n`;
-  S.chars.forEach(c=>{const rid=(c.renpyId||c.name.toLowerCase().replace(/\s+/g,'_')).replace(/[^a-z0-9_]/gi,'_');out+=`define ${rid} = Character(_("${c.name}"), color="${c.color||'#ffffff'}")\n`;});
-  out+=`\n# ── Imagens ───────────────────────────────────────────────────────────────────\n`;
-  const bgs=new Set();S.chapters.forEach(ch=>ch.scenes.forEach(sc=>(sc.renders||[]).forEach(r=>{if(r.bgName)bgs.add(r.bgName);})));
-  bgs.forEach(bg=>{out+=`image ${bg} = "${bg}.png"\n`;});
-  out+=`\n# ── Início ───────────────────────────────────────────────────────────────────\nlabel start:\n`;
-  const fsc=S.chapters[0]?.scenes[0];out+=fsc?`    jump ${fsc.id.replace(/-/g,'_')}\n\n`:`    return\n\n`;
-  S.chapters.forEach(ch=>{
-    out+=`################################################################################\n# ${ch.name}\n${ch.desc?'# '+ch.desc+'\n':''}################################################################################\n\n`;
-    ch.scenes.forEach(sc=>{
-      const lbl=sc.id.replace(/-/g,'_');
-      out+=`label ${lbl}:\n`;
-      if(sc.desc)out+=`    # ${sc.desc}\n`;
-      if(sc.notes)sc.notes.split('\n').forEach(l=>{if(l.trim())out+=`    # NOTE: ${l}\n`;});
-      out+=`\n`;
-      (sc.renders||[]).forEach((ren,ri)=>{
-        const bg=ren.bgName||`bg_${sc.id}_${ri}`;
-        const trans=ren.transition==='None'?'':` with ${ren.transition}`;
-        out+=`    # ── ${ren.label} ──\n    scene ${bg}${trans}\n`;
-        const spks=[...new Set((ren.dialogues||[]).map(d=>d.char).filter(Boolean))];
-        spks.forEach((cid,ci)=>{const c=gc(cid);if(!c)return;const rid=(c.renpyId||c.name.toLowerCase().replace(/\s+/g,'_')).replace(/[^a-z0-9_]/gi,'_');out+=`    show ${rid} at ${['left','center','right'][ci]||'center'}\n`;});
-        out+=`\n`;
-        (ren.dialogues||[]).forEach(d=>{const c=gc(d.char);const rid=c?(c.renpyId||c.name.toLowerCase().replace(/\s+/g,'_')).replace(/[^a-z0-9_]/gi,'_'):null;const safe=d.text.replace(/\\/g,'\\\\').replace(/"/g,'\\"');out+=rid?`    ${rid} "${safe}"\n`:`    "${safe}"\n`;if(d.action?.trim())out+=`    ${d.action.trim()}\n`;});
-        out+=`\n`;
-      });
-      const spkAll=[...new Set((sc.renders||[]).flatMap(r=>(r.dialogues||[]).map(d=>d.char).filter(Boolean)))];
-      spkAll.forEach(cid=>{const c=gc(cid);if(!c)return;const rid=(c.renpyId||c.name.toLowerCase().replace(/\s+/g,'_')).replace(/[^a-z0-9_]/gi,'_');out+=`    hide ${rid}\n`;});
-      if(spkAll.length)out+=`\n`;
-      const allRCh=(sc.renders||[]).flatMap(r=>r.choices||[]).filter(c2=>c2.text);
-      if(allRCh.length){
-        out+=`    menu:\n`;
-        allRCh.forEach(c2=>{const safe=(c2.text||'...').replace(/"/g,'\\"');out+=`        "${safe}":\n`;if(c2.condition)out+=`            if ${c2.condition}:\n`;out+=c2.jumpTo?`            jump ${c2.jumpTo.replace(/-/g,'_')}\n`:`            pass\n`;});
-        out+=`\n    return\n\n`;
-      } else {
-        const scenes=allScenes();const si=scenes.findIndex(x=>x.id===sc.id);const next=si>=0&&si<scenes.length-1?scenes[si+1]:null;
-        out+=next?`    jump ${next.id.replace(/-/g,'_')}\n\n`:`    return\n\n`;
-      }
+/* ═══════════════════════════════════════
+   REN'PY EXPORT — multi-file per chapter
+═══════════════════════════════════════ */
+
+// Slugify chapter name for filename
+function chapSlug(ch, idx){
+  const num = String(idx+1).padStart(2,'0');
+  const name = ch.name.toLowerCase()
+    .replace(/[àáâãä]/g,'a').replace(/[èéêë]/g,'e')
+    .replace(/[ìíîï]/g,'i').replace(/[òóôõö]/g,'o')
+    .replace(/[ùúûü]/g,'u').replace(/[ç]/g,'c')
+    .replace(/[^a-z0-9]+/g,'_').replace(/^_+|_+$/g,'').slice(0,30);
+  return `capitulo_${num}_${name}`;
+}
+
+// Image subfolder for a chapter
+function chapImgFolder(ch, idx){
+  return `cap${String(idx+1).padStart(2,'0')}`;
+}
+
+// Build scene label content (shared between single and multi file)
+function buildSceneLabel(sc, ch, chIdx){
+  let out = '';
+  const lbl = sc.id.replace(/-/g,'_');
+  out += `label ${lbl}:\n`;
+  if(sc.name)  out += `    # ${sc.name}\n`;
+  if(sc.desc)  out += `    # ${sc.desc}\n`;
+  if(sc.notes) sc.notes.split('\n').forEach(l=>{if(l.trim()) out+=`    # NOTE: ${l}\n`;});
+  out += '\n';
+
+  const imgFolder = chapImgFolder(ch, chIdx);
+
+  (sc.renders||[]).forEach((ren,ri)=>{
+    const bgRef = `${imgFolder}/${ren.bgName||`bg_${sc.id}_${ri}`}`;
+    const trans = ren.transition==='None' ? '' : ` with ${ren.transition}`;
+    out += `    # ── ${ren.label} ──\n`;
+    out += `    scene ${bgRef}${trans}\n`;
+    const spks = [...new Set((ren.dialogues||[]).map(d=>d.char).filter(Boolean))];
+    spks.forEach((cid,ci)=>{
+      const c=gc(cid); if(!c) return;
+      const rid=(c.renpyId||c.name.toLowerCase().replace(/\s+/g,'_')).replace(/[^a-z0-9_]/gi,'_');
+      out += `    show ${rid} at ${['left','center','right'][ci]||'center'}\n`;
     });
+    out += '\n';
+    (ren.dialogues||[]).forEach(d=>{
+      const c=gc(d.char);
+      const rid=c?(c.renpyId||c.name.toLowerCase().replace(/\s+/g,'_')).replace(/[^a-z0-9_]/gi,'_'):null;
+      const safe=d.text.replace(/\\/g,'\\\\').replace(/"/g,'\\"');
+      out += rid ? `    ${rid} "${safe}"\n` : `    "${safe}"\n`;
+      if(d.action?.trim()) out += `    ${d.action.trim()}\n`;
+    });
+    out += '\n';
   });
+
+  // Hide all speakers
+  const spkAll=[...new Set((sc.renders||[]).flatMap(r=>(r.dialogues||[]).map(d=>d.char).filter(Boolean)))];
+  spkAll.forEach(cid=>{
+    const c=gc(cid); if(!c) return;
+    const rid=(c.renpyId||c.name.toLowerCase().replace(/\s+/g,'_')).replace(/[^a-z0-9_]/gi,'_');
+    out += `    hide ${rid}\n`;
+  });
+  if(spkAll.length) out += '\n';
+
+  // Choices or auto-jump
+  const allRCh=(sc.renders||[]).flatMap(r=>r.choices||[]).filter(c2=>c2.text);
+  if(allRCh.length){
+    out += `    menu:\n`;
+    allRCh.forEach(c2=>{
+      const safe=(c2.text||'...').replace(/"/g,'\\"');
+      out += `        "${safe}":\n`;
+      if(c2.condition) out += `            if ${c2.condition}:\n`;
+      out += c2.jumpTo ? `            jump ${c2.jumpTo.replace(/-/g,'_')}\n` : `            pass\n`;
+    });
+    out += `\n    return\n\n`;
+  } else {
+    const scenes=allScenes();
+    const si=scenes.findIndex(x=>x.id===sc.id);
+    const next=si>=0&&si<scenes.length-1?scenes[si+1]:null;
+    out += next ? `    jump ${next.id.replace(/-/g,'_')}\n\n` : `    return\n\n`;
+  }
   return out;
 }
-function openExportModal(){const code=buildRenpy();showModal(`<h2><i class="ti ti-brand-python"></i> Exportar Ren'Py</h2>
-  <div style="font-size:11px;padding:8px 10px;background:rgba(212,168,67,.08);border:.5px solid rgba(212,168,67,.2);border-radius:var(--rad);color:var(--gold);margin-bottom:10px"><i class="ti ti-info-circle"></i> Coloque os renders em <code>game/images/</code> com os nomes do campo <b>bgName</b>.</div>
-  <div class="rpy-preview">${esc(code)}</div>
-  <div class="modal-footer"><button class="btn" onclick="closeModal()">Fechar</button><button class="btn" onclick="copyRpy()"><i class="ti ti-copy"></i> Copiar</button><button class="btn btn-success" onclick="dlRpy()"><i class="ti ti-download"></i> script.rpy</button></div>`);}
-function copyRpy(){navigator.clipboard?.writeText(buildRenpy());alert('Script copiado!');}
-function dlRpy(){const b=new Blob([buildRenpy()],{type:'text/plain;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='script.rpy';a.click();URL.revokeObjectURL(a.href);}
+
+// Build main script.rpy — defines + images + label start + chapter includes
+function buildMainScript(){
+  const ts = new Date().toLocaleString('pt-BR');
+  let out = '';
+  out += `################################################################################\n`;
+  out += `# script.rpy — Gerado pelo VN Studio\n`;
+  out += `# ${ts}\n`;
+  out += `################################################################################\n\n`;
+
+  // init python — variables
+  out += `init python:\n`;
+  if(S.vars.length){
+    S.vars.forEach(v=>{
+      const n=v.name.replace(/[^a-z0-9_]/gi,'_');
+      out += `    ${n} = ${v.defaultVal||'None'}  # ${v.desc}\n`;
+    });
+  } else {
+    out += `    pass\n`;
+  }
+  out += '\n';
+
+  // Character defines
+  out += `# ── Personagens ──────────────────────────────────────────────────────────────\n`;
+  S.chars.forEach(c=>{
+    const rid=(c.renpyId||c.name.toLowerCase().replace(/\s+/g,'_')).replace(/[^a-z0-9_]/gi,'_');
+    out += `define ${rid} = Character(_("${c.name}"), color="${c.color||'#ffffff'}")\n`;
+  });
+  out += '\n';
+
+  // Image declarations — organized by chapter subfolder
+  out += `# ── Imagens (game/images/capXX/bgName.png) ───────────────────────────────────\n`;
+  S.chapters.forEach((ch,ci)=>{
+    const folder = chapImgFolder(ch, ci);
+    const bgs = new Set();
+    ch.scenes.forEach(sc=>(sc.renders||[]).forEach(r=>{if(r.bgName) bgs.add(r.bgName);}));
+    if(bgs.size){
+      out += `# ${ch.name}\n`;
+      bgs.forEach(bg=>{
+        out += `image ${folder}/${bg} = "images/${folder}/${bg}.png"\n`;
+      });
+    }
+  });
+  out += '\n';
+
+  // label start
+  out += `# ── Início ───────────────────────────────────────────────────────────────────\n`;
+  out += `label start:\n`;
+  const fsc = S.chapters[0]?.scenes[0];
+  out += fsc ? `    jump ${fsc.id.replace(/-/g,'_')}\n\n` : `    return\n\n`;
+
+  return out;
+}
+
+// Build one chapter file
+function buildChapterScript(ch, chIdx){
+  const ts = new Date().toLocaleString('pt-BR');
+  const slug = chapSlug(ch, chIdx);
+  let out = '';
+  out += `################################################################################\n`;
+  out += `# ${slug}.rpy\n`;
+  out += `# ${ch.name}\n`;
+  if(ch.desc) out += `# ${ch.desc}\n`;
+  out += `# Gerado pelo VN Studio — ${ts}\n`;
+  out += `################################################################################\n\n`;
+
+  // Group by subcap for comment headers
+  ensureSubcaps(ch);
+  const processedScenes = new Set();
+  ch.subcaps.forEach(sub=>{
+    const subScenes = ch.scenes.filter(sc=>sc.subcapId===sub.id);
+    if(subScenes.length){
+      out += `# ── ${sub.name} ─────────────────────────────────────────────────────────────\n\n`;
+      subScenes.forEach(sc=>{ out += buildSceneLabel(sc,ch,chIdx); processedScenes.add(sc.id); });
+    }
+  });
+  // Unassigned scenes
+  ch.scenes.filter(sc=>!processedScenes.has(sc.id)).forEach(sc=>{
+    out += buildSceneLabel(sc, ch, chIdx);
+  });
+
+  return out;
+}
+
+// Build all files as {filename, content} array
+function buildAllRenpyFiles(){
+  const files = [];
+  // Main script
+  files.push({path:'game/script.rpy', content:buildMainScript()});
+  // One file per chapter
+  S.chapters.forEach((ch,ci)=>{
+    const slug = chapSlug(ch, ci);
+    files.push({path:`game/chapters/${slug}.rpy`, content:buildChapterScript(ch, ci)});
+  });
+  return files;
+}
+
+// Legacy single-file (for copy/preview)
+function buildRenpy(){
+  const ts = new Date().toLocaleString('pt-BR');
+  let out = buildMainScript();
+  S.chapters.forEach((ch,ci)=>{ out += buildChapterScript(ch, ci); });
+  return out;
+}
+
+function openExportModal(){
+  const files = buildAllRenpyFiles();
+  const preview = files.map(f=>`${'─'.repeat(60)}\n📄 ${f.path}\n${'─'.repeat(60)}\n${f.content}`).join('\n');
+
+  showModal(`<h2><i class="ti ti-brand-python"></i> Exportar Ren'Py</h2>
+    <div style="font-size:12px;color:var(--txt2);margin-bottom:8px">
+      Gera <strong>${files.length} arquivo${files.length!==1?'s':''}</strong> — 1 script principal + 1 por capítulo.
+    </div>
+    <div style="font-size:11px;padding:8px 10px;background:rgba(212,168,67,.08);border:.5px solid rgba(212,168,67,.2);border-radius:var(--rad);color:var(--gold);margin-bottom:10px">
+      <i class="ti ti-info-circle"></i>
+      Estrutura: <code>game/script.rpy</code> + <code>game/chapters/capitulo_XX.rpy</code> + <code>game/images/capXX/bg_nome.png</code>
+    </div>
+    <div style="display:flex;gap:6px;margin-bottom:8px;flex-wrap:wrap">
+      ${files.map((f,i)=>`<span style="font-size:11px;padding:2px 8px;background:var(--bg3);border:.5px solid var(--border);border-radius:var(--rad);font-family:monospace;color:var(--acc);cursor:pointer"
+        onclick="document.getElementById('rpy-prev').textContent=buildAllRenpyFiles()[${i}].content;document.getElementById('rpy-file-label').textContent='${esc(f.path)}'"
+      >${esc(f.path.split('/').pop())}</span>`).join('')}
+    </div>
+    <div style="font-size:10px;color:var(--txt3);margin-bottom:4px" id="rpy-file-label">${esc(files[0]?.path||'')}</div>
+    <pre class="rpy-preview" id="rpy-prev">${esc(files[0]?.content||'')}</pre>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeModal()">Fechar</button>
+      <button class="btn" onclick="copyRpy()"><i class="ti ti-copy"></i> Copiar tudo</button>
+      <button class="btn btn-success" onclick="openZipExportModal();closeModal()"><i class="ti ti-file-zip"></i> Exportar ZIP completo</button>
+    </div>`);
+}
+
+function copyRpy(){ navigator.clipboard?.writeText(buildRenpy()); alert('Script copiado!'); }
+function dlRpy(){
+  const b=new Blob([buildRenpy()],{type:'text/plain;charset=utf-8'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(b); a.download='script.rpy'; a.click(); URL.revokeObjectURL(a.href);
+}
+
 
 /* ═══════════════════════════════════════
    BOARD v2 — Sincronizado, multi-select, zoom, auto-layout
@@ -1524,8 +2223,23 @@ function renderChoicesBlock(chId, scId, ren, sc){
           style="flex:1;padding:5px 8px;border:.5px solid ${c2.jumpTo?'var(--teal)':'var(--border2)'};border-radius:var(--rad);background:var(--bg3);color:${destColor};font-size:12px;font-family:var(--fs)">
           <option value="">— continua normalmente —</option>
           ${S.chapters.map(ch=>{
-            const opts=ch.scenes.filter(x=>x.id!==sc.id).map(x=>`<option value="${x.id}"${c2.jumpTo===x.id?' selected':''}>${esc(x.name)}</option>`).join('');
-            return opts?`<optgroup label="📖 ${esc(ch.name)}">${opts}</optgroup>`:'';
+            ensureSubcaps(ch);
+            const hasSubcaps=ch.subcaps.length>0;
+            if(hasSubcaps){
+              // Group by subcap
+              const subcapGroups = ch.subcaps.map(sub=>{
+                const subScenes=ch.scenes.filter(s=>s.subcapId===sub.id&&s.id!==sc.id);
+                const opts=subScenes.map(x=>`<option value="${x.id}"${c2.jumpTo===x.id?' selected':''}>${esc(x.name)}</option>`).join('');
+                return opts?`<optgroup label="📁 ${esc(ch.name)} › ${esc(sub.name)}">${opts}</optgroup>`:'';
+              }).join('');
+              const unassigned=ch.scenes.filter(s=>!s.subcapId&&s.id!==sc.id);
+              const unopts=unassigned.map(x=>`<option value="${x.id}"${c2.jumpTo===x.id?' selected':''}>${esc(x.name)}</option>`).join('');
+              const ungroup=unopts?`<optgroup label="📖 ${esc(ch.name)}">${unopts}</optgroup>`:'';
+              return subcapGroups+ungroup;
+            } else {
+              const opts=ch.scenes.filter(x=>x.id!==sc.id).map(x=>`<option value="${x.id}"${c2.jumpTo===x.id?' selected':''}>${esc(x.name)}</option>`).join('');
+              return opts?`<optgroup label="📖 ${esc(ch.name)}">${opts}</optgroup>`:'';
+            }
           }).join('')}
         </select>
         <input placeholder="if condição..." value="${esc(c2.condition||'')}"
@@ -2323,21 +3037,30 @@ async function runZipExport(){
 
   const zip = new JSZip();
   const gameFolder = zip.folder('game');
+  const chaptersFolder = gameFolder.folder('chapters');
   const imagesFolder = gameFolder.folder('images');
 
-  // Collect all renders with images
+  // Build .rpy files
+  const rpyFiles = buildAllRenpyFiles();
+
+  // Collect image jobs per chapter with subfolder
   const renderJobs = [];
-  S.chapters.forEach(ch=>{
+  S.chapters.forEach((ch,ci)=>{
+    const folder = chapImgFolder(ch, ci);
     ch.scenes.forEach(sc=>{
       (sc.renders||[]).forEach(ren=>{
         if(ren.imgId && ren.bgName){
-          renderJobs.push({imgId:ren.imgId, bgName:ren.bgName, label:ren.label});
+          renderJobs.push({imgId:ren.imgId, bgName:ren.bgName, folder, label:ren.label, chName:ch.name});
         }
       });
     });
   });
 
-  const total = renderJobs.length + 1; // +1 for script.rpy
+  // Deduplicate by imgId (same render used in multiple scenes)
+  const seen = new Set();
+  const uniqueJobs = renderJobs.filter(j=>{ if(seen.has(j.imgId)) return false; seen.add(j.imgId); return true; });
+
+  const total = rpyFiles.length + uniqueJobs.length;
   let done = 0;
   const fileLog = [];
 
@@ -2347,10 +3070,10 @@ async function runZipExport(){
     const pct = Math.round(done/total*100);
     if(progressArea){
       progressArea.innerHTML = `<div class="zip-progress">
-        <div class="zip-progress-label">${pct}% — ${msg}</div>
+        <div class="zip-progress-label">${pct}% — ${esc(msg)}</div>
         <div class="zip-progress-bar-wrap"><div class="zip-progress-bar-fill" style="width:${pct}%"></div></div>
         <div class="zip-file-list">
-          ${fileLog.slice(-6).reverse().map(f=>`<div class="zip-file-item zip-file-${f.type}">
+          ${fileLog.slice(-8).reverse().map(f=>`<div class="zip-file-item zip-file-${f.type}">
             <i class="ti ${f.type==='ok'?'ti-circle-check':f.type==='warn'?'ti-alert-circle':'ti-circle-x'}"></i>
             ${esc(f.msg)}
           </div>`).join('')}
@@ -2359,72 +3082,83 @@ async function runZipExport(){
     }
   }
 
-  // 1. Add script.rpy
-  gameFolder.file('script.rpy', buildRenpy());
-  updateProgress('game/script.rpy gerado', 'ok');
+  // 1. Add .rpy files
+  for(const f of rpyFiles){
+    const parts = f.path.split('/'); // ['game','chapters','file.rpy'] or ['game','script.rpy']
+    if(parts.length === 2){
+      gameFolder.file(parts[1], f.content);
+    } else if(parts.length === 3){
+      chaptersFolder.file(parts[2], f.content);
+    }
+    updateProgress(f.path, 'ok');
+  }
 
-  // 2. Download + add each render image
-  for(const job of renderJobs){
+  // 2. Download images into capXX subfolders
+  for(const job of uniqueJobs){
     try {
-      // Try Supabase URL first
       const url = imgUrlMap[job.imgId];
+      let blob = null;
       if(url){
         const resp = await fetch(url);
         if(!resp.ok) throw new Error(`HTTP ${resp.status}`);
-        const blob = await resp.blob();
-        const ext = url.split('.').pop().split('?')[0] || 'png';
-        const filename = `${job.bgName}.${ext}`;
-        imagesFolder.file(filename, blob);
-        updateProgress(`game/images/${filename}`, 'ok');
+        blob = await resp.blob();
       } else {
-        // Fallback: try IDB
-        const blob = await idbGet(job.imgId);
-        if(blob){
-          const ext = blob.type.split('/')[1] || 'png';
-          const filename = `${job.bgName}.${ext}`;
-          imagesFolder.file(filename, blob);
-          updateProgress(`game/images/${filename} (local)`, 'ok');
-        } else {
-          updateProgress(`${job.bgName} — sem imagem (pulado)`, 'warn');
-        }
+        blob = await idbGet(job.imgId);
+      }
+      if(blob){
+        const ext = blob.type.split('/')[1]?.replace('jpeg','jpg') || 'png';
+        const filename = `${job.bgName}.${ext}`;
+        const capFolder = imagesFolder.folder(job.folder);
+        capFolder.file(filename, blob);
+        updateProgress(`game/images/${job.folder}/${filename}`, 'ok');
+      } else {
+        updateProgress(`${job.bgName} — sem imagem`, 'warn');
       }
     } catch(e){
       updateProgress(`${job.bgName} — erro: ${e.message}`, 'err');
-      _devLog('err','ZIP',`Erro ao baixar ${job.bgName}: ${e.message}`);
+      _devLog('err','ZIP', `Erro: ${e.message}`);
     }
   }
 
-  // 3. Generate and download zip
+  // 3. Generate README
+  const readme = `# VN Studio Export
+Gerado em: ${new Date().toLocaleString('pt-BR')}
+
+## Estrutura
+\`\`\`
+game/
+  script.rpy              ← personagens, variáveis, imagens, label start
+  chapters/
+${S.chapters.map((ch,i)=>`    ${chapSlug(ch,i)}.rpy`).join('\n')}
+  images/
+${S.chapters.map((ch,i)=>`    ${chapImgFolder(ch,i)}/  ← renders de "${ch.name}"`).join('\n')}
+\`\`\`
+
+## Como usar
+1. Extraia o ZIP na raiz do seu projeto Ren'Py
+2. Os arquivos em \`game/chapters/\` são carregados automaticamente pelo Ren'Py
+3. O jogo começa em \`label start:\` no \`script.rpy\`
+`;
+  gameFolder.file('README.md', readme);
+
+  // 4. Compress and download
   try {
-    if(progressArea){
-      progressArea.innerHTML += `<div style="font-size:12px;color:var(--txt2);margin-top:8px">Comprimindo arquivos...</div>`;
-    }
-    const blob = await zip.generateAsync({type:'blob', compression:'DEFLATE', compressionOptions:{level:6}},
-      (meta)=>{
-        if(progressArea){
-          const existingZipBar = progressArea.querySelector('.zip-gen-bar');
-          if(!existingZipBar){
-            const bar = document.createElement('div');
-            bar.className='zip-progress-bar-wrap zip-gen-bar';
-            bar.innerHTML=`<div class="zip-progress-bar-fill" style="width:${meta.percent.toFixed(0)}%;background:var(--gold)"></div>`;
-            progressArea.appendChild(bar);
-          }
-        }
-      }
-    );
+    if(progressArea) progressArea.innerHTML += `<div style="font-size:12px;color:var(--txt2);margin-top:8px">Comprimindo...</div>`;
+    const blob = await zip.generateAsync({type:'blob', compression:'DEFLATE', compressionOptions:{level:6}});
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
     a.download = 'renpy-project.zip';
     a.click();
     URL.revokeObjectURL(a.href);
-    _devLog('succ','ZIP',`ZIP gerado com ${renderJobs.length} imagens + script.rpy`);
+    _devLog('succ','ZIP',`ZIP gerado: ${rpyFiles.length} arquivos .rpy + ${uniqueJobs.length} imagens`);
     if(progressArea){
-      progressArea.innerHTML += `<div style="margin-top:10px;padding:8px 12px;background:rgba(94,203,111,.1);border:.5px solid rgba(94,203,111,.25);border-radius:var(--rad);font-size:12px;color:var(--green)"><i class="ti ti-circle-check"></i> ZIP gerado com sucesso! Extraia dentro da pasta do seu projeto Ren'Py.</div>`;
+      progressArea.innerHTML += `<div style="margin-top:10px;padding:8px 12px;background:rgba(94,203,111,.1);border:.5px solid rgba(94,203,111,.25);border-radius:var(--rad);font-size:12px;color:var(--green)">
+        <i class="ti ti-circle-check"></i> ZIP gerado! Extraia na raiz do seu projeto Ren'Py.
+      </div>`;
     }
     if(btn){ btn.disabled=false; btn.innerHTML='<i class="ti ti-download"></i> Baixar novamente'; btn.onclick=()=>runZipExport(); }
   } catch(e){
     _devLog('err','ZIP','Erro ao gerar ZIP: '+e.message);
-    if(progressArea) progressArea.innerHTML += `<div style="color:var(--coral);font-size:12px;margin-top:8px">Erro ao gerar ZIP: ${e.message}</div>`;
     if(btn) btn.disabled=false;
   }
 }
