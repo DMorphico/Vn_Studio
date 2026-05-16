@@ -330,6 +330,65 @@ body{font-family:var(--fs);background:var(--bg);color:var(--txt);display:flex;fl
 .zip-progress-bar-fill{height:100%;background:var(--acc);border-radius:3px;transition:width .3s}
 .zip-progress-label{font-size:12px;color:var(--txt2)}
 .zip-file-list{max-height:160px;overflow-y:auto;margin-top:8px;display:flex;flex-direction:column;gap:3px}
+
+/* KEYBOARD SHORTCUT TOAST */
+.kbd-toast{position:fixed;bottom:36px;left:50%;transform:translateX(-50%) translateY(8px);background:var(--bg2);border:.5px solid var(--border2);border-radius:var(--rad-lg);padding:8px 16px;font-size:12px;color:var(--txt2);display:flex;align-items:center;gap:8px;opacity:0;pointer-events:none;transition:all .22s;z-index:300;box-shadow:0 4px 20px rgba(0,0,0,.4)}
+.kbd-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+kbd{padding:2px 6px;border-radius:4px;background:var(--bg4);border:.5px solid var(--border2);font-family:monospace;font-size:11px;color:var(--txt)}
+
+/* UNDO indicator */
+.undo-toast{position:fixed;bottom:36px;right:20px;background:var(--bg2);border:.5px solid var(--border2);border-radius:var(--rad-lg);padding:8px 14px;font-size:12px;color:var(--txt2);display:flex;align-items:center;gap:7px;opacity:0;pointer-events:none;transition:all .2s;z-index:300;box-shadow:0 4px 16px rgba(0,0,0,.4)}
+.undo-toast.show{opacity:1}
+
+/* EXPORT VALIDATOR */
+.validator-section{margin-bottom:14px}
+.validator-title{font-size:11px;font-weight:500;color:var(--txt3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;display:flex;align-items:center;gap:5px}
+.validator-item{display:flex;align-items:flex-start;gap:8px;padding:6px 10px;border-radius:var(--rad);font-size:12px;margin-bottom:4px}
+.validator-ok{background:rgba(94,203,111,.07);border:.5px solid rgba(94,203,111,.15);color:var(--green)}
+.validator-warn{background:rgba(212,168,67,.07);border:.5px solid rgba(212,168,67,.2);color:var(--gold)}
+.validator-err{background:rgba(240,112,96,.07);border:.5px solid rgba(240,112,96,.15);color:var(--coral)}
+.validator-summary{display:flex;gap:10px;align-items:center;padding:10px 12px;background:var(--bg3);border-radius:var(--rad);margin-bottom:14px;flex-wrap:wrap}
+
+/* MULTIPLE PROJECTS */
+.proj-card{background:var(--bg3);border:.5px solid var(--border);border-radius:var(--rad-lg);padding:14px 16px;cursor:pointer;transition:all .14s;display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}
+.proj-card:hover{border-color:var(--border2);background:var(--bg4)}
+.proj-card.active{border-color:var(--acc);background:rgba(124,92,252,.06)}
+.proj-card-name{font-size:14px;font-weight:500}
+.proj-card-meta{font-size:11px;color:var(--txt3);margin-top:2px}
+.proj-badge{padding:2px 8px;border-radius:999px;font-size:10px;font-weight:500;background:rgba(124,92,252,.15);color:var(--acc)}
+
+/* INLINE FLOW EDITOR */
+.flow-editor{padding:14px 0;overflow-x:auto;overflow-y:visible;position:relative}
+.flow-track{display:flex;align-items:flex-start;gap:0;min-width:max-content;padding:8px 0}
+.flow-node{display:flex;flex-direction:column;align-items:center;position:relative}
+.flow-render-block{background:var(--bg2);border:.5px solid var(--border2);border-radius:var(--rad-lg);padding:10px 12px;width:160px;cursor:pointer;transition:all .14s;position:relative;flex-shrink:0}
+.flow-render-block:hover{border-color:var(--acc);background:var(--bg3)}
+.flow-render-block.active{border-color:var(--acc);box-shadow:0 0 0 2px var(--acc-glow)}
+.flow-render-img{width:100%;height:72px;background:var(--bg4);border-radius:var(--rad);overflow:hidden;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:18px;margin-bottom:7px}
+.flow-render-img img{width:100%;height:100%;object-fit:cover}
+.flow-render-name{font-size:11px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:3px}
+.flow-render-stats{font-size:10px;color:var(--txt3);display:flex;gap:6px}
+.flow-connector{display:flex;align-items:center;padding:0 2px;align-self:center;margin-top:-28px}
+.flow-arrow{width:32px;height:2px;background:var(--border2);position:relative;flex-shrink:0}
+.flow-arrow::after{content:'';position:absolute;right:-4px;top:-3px;border:4px solid transparent;border-left-color:var(--border2)}
+.flow-branch{display:flex;flex-direction:column;gap:8px;align-self:center;margin-top:-28px}
+.flow-choice-arm{display:flex;align-items:center;gap:0}
+.flow-choice-label{font-size:9px;color:var(--gold);background:rgba(212,168,67,.1);border:.5px solid rgba(212,168,67,.25);padding:1px 5px;border-radius:999px;white-space:nowrap;max-width:80px;overflow:hidden;text-overflow:ellipsis;flex-shrink:0}
+.flow-arrow-gold{width:20px;height:2px;background:rgba(212,168,67,.5);position:relative;flex-shrink:0;margin:0 3px}
+.flow-arrow-gold::after{content:'';position:absolute;right:-3px;top:-2.5px;border:3px solid transparent;border-left-color:rgba(212,168,67,.5)}
+.flow-end-node{width:32px;height:32px;border-radius:50%;background:var(--bg3);border:.5px dashed var(--border2);display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:13px;flex-shrink:0}
+.flow-add-btn{width:32px;height:32px;border-radius:50%;background:transparent;border:.5px dashed var(--border2);display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:16px;cursor:pointer;transition:all .14s;flex-shrink:0}
+.flow-add-btn:hover{border-color:var(--acc);color:var(--acc);background:var(--acc-glow)}
+.flow-section-title{font-size:10px;color:var(--txt3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;display:flex;align-items:center;gap:5px;padding:8px 0 0 0}
+
+/* Improved VN Preview — choices between renders */
+.vn-choice-overlay{position:absolute;inset:0;background:rgba(6,4,16,.92);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:20px;z-index:5;animation:fadeIn .2s}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.vn-render-badge{position:absolute;top:10px;left:10px;background:rgba(0,0,0,.6);border:.5px solid rgba(255,255,255,.12);border-radius:var(--rad);padding:4px 10px;font-size:10px;color:rgba(255,255,255,.6);z-index:3;display:flex;align-items:center;gap:5px}
+
+/* Keyboard hint bar */
+.kbd-hints{display:flex;gap:10px;align-items:center;font-size:10px;color:var(--txt3);padding:6px 14px;background:var(--bg2);border-top:.5px solid var(--border);flex-shrink:0;flex-wrap:wrap}
+.kbd-hint{display:flex;align-items:center;gap:4px}
 .zip-file-item{font-size:11px;font-family:monospace;padding:2px 8px;border-radius:4px;display:flex;align-items:center;gap:6px}
 .zip-file-ok{background:rgba(94,203,111,.08);color:var(--green)}
 .zip-file-warn{background:rgba(212,168,67,.08);color:var(--gold)}
@@ -351,6 +410,10 @@ body{font-family:var(--fs);background:var(--bg);color:var(--txt);display:flex;fl
         <i class="ti ti-user-circle"></i> Projeto <i class="ti ti-chevron-down nav-arrow"></i>
       </button>
       <div class="nav-dropdown" id="nd-projeto">
+        <div class="nav-dd-item" onclick="switchTab('projects');closeNavGroups()" id="ndi-projects">
+          <i class="ti ti-stack-2"></i> Projetos
+        </div>
+        <div class="nav-dd-sep"></div>
         <div class="nav-dd-item" onclick="switchTab('chars');closeNavGroups()" id="ndi-chars">
           <i class="ti ti-user-circle"></i> Personagens
         </div>
@@ -402,6 +465,7 @@ body{font-family:var(--fs);background:var(--bg);color:var(--txt);display:flex;fl
         <div class="sync-dot" id="sync-dot"></div>
         <span id="sync-txt">Offline</span>
       </div>
+      <button class="btn btn-sm" onclick="openValidatorModal()" title="Validar projeto antes de exportar" id="validator-btn"><i class="ti ti-shield-check"></i> Validar</button>
       <button class="btn btn-success btn-sm" onclick="openExportModal()"><i class="ti ti-brand-python"></i> Ren'Py</button>
       <button class="btn btn-warning btn-sm" onclick="openZipExportModal()"><i class="ti ti-file-zip"></i> ZIP</button>
     </div>
@@ -436,9 +500,28 @@ body{font-family:var(--fs);background:var(--bg);color:var(--txt);display:flex;fl
       </div>
     </div>
     <div class="tab-panel" id="tab-preview">
-      <div style="display:flex;width:100%;height:100%">
-        <div class="sidebar"><div class="sidebar-hdr">Cenas</div><div class="sidebar-scroll" id="prev-list"></div></div>
-        <div class="prev-wrap" id="preview-area"><div class="empty-state">Selecione uma cena</div></div>
+      <div style="display:flex;flex-direction:column;width:100%;height:100%">
+        <div style="display:flex;flex:1;overflow:hidden">
+          <div class="sidebar"><div class="sidebar-hdr">Cenas</div><div class="sidebar-scroll" id="prev-list"></div></div>
+          <div class="prev-wrap" id="preview-area"><div class="empty-state">Selecione uma cena</div></div>
+        </div>
+        <div class="kbd-hints" id="prev-kbd-hints" style="display:none">
+          <span class="kbd-hint"><kbd>←</kbd><kbd>→</kbd> Navegar</span>
+          <span class="kbd-hint"><kbd>Esc</kbd> Fechar prévia</span>
+          <span class="kbd-hint"><kbd>Ctrl+Z</kbd> Desfazer (edição)</span>
+        </div>
+      </div>
+    </div>
+    <div class="tab-panel" id="tab-projects">
+      <div class="main-area" style="max-width:640px;margin:0 auto;width:100%">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px">
+          <div style="font-family:var(--ff);font-size:20px;font-weight:600;display:flex;align-items:center;gap:8px"><i class="ti ti-stack-2"></i> Projetos</div>
+          <button class="btn btn-primary" onclick="openNewProjectModal()"><i class="ti ti-plus"></i> Novo projeto</button>
+        </div>
+        <div style="font-size:12px;color:var(--txt2);margin-bottom:14px;padding:8px 12px;background:rgba(124,92,252,.06);border:.5px solid rgba(124,92,252,.15);border-radius:var(--rad);line-height:1.6">
+          <i class="ti ti-info-circle" style="color:var(--acc)"></i> Cada projeto tem seus próprios personagens, variáveis, capítulos e renders. Selecione um para carregar. <strong>Requer Supabase conectado.</strong>
+        </div>
+        <div id="projects-list"><div class="empty-state">Carregando projetos...</div></div>
       </div>
     </div>
     <div class="tab-panel" id="tab-board">
@@ -839,7 +922,7 @@ const allScenes=()=>S.chapters.flatMap(ch=>ch.scenes);
    NAV GROUPS — dropdown menus
 ═══════════════════════════════════════ */
 const TAB_GROUP = {
-  chars:'projeto', vars:'projeto',
+  chars:'projeto', vars:'projeto', projects:'projeto',
   chapters:'roteiro', library:'roteiro', preview:'roteiro', review:'roteiro',
   checklist:'producao', board:'producao'
 };
@@ -881,11 +964,13 @@ function switchTab(t){
   document.getElementById('tab-'+t)?.classList.add('active');
   updateNavActive(t);
   if(t==='board')renderBoard();
-  if(t==='preview')renderPrevList();
+  if(t==='preview'){renderPrevList();const kh=document.getElementById('prev-kbd-hints');if(kh)kh.style.display='flex';}
+  else{const kh=document.getElementById('prev-kbd-hints');if(kh)kh.style.display='none';}
   if(t==='vars')renderVarsList();
   if(t==='checklist'){renderChecklist();updateGlobalProgress();}
   if(t==='review')renderReview();
   if(t==='library')renderLibrary();
+  if(t==='projects')renderProjectsList();
 }
 
 /* ═══════════════════════════════════════
@@ -1317,14 +1402,20 @@ async function renderSceneArea(){
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
       <div style="font-size:10px;font-weight:500;color:var(--txt3);text-transform:uppercase;letter-spacing:.06em"><i class="ti ti-layers-intersect"></i> Sequência de Renders &amp; Falas</div>
       <div style="display:flex;gap:5px">
+        <button class="btn btn-sm" style="font-size:10px;padding:2px 8px" onclick="toggleFlowView('${ch.id}','${sc.id}')" id="flow-toggle-btn-${sc.id}" title="Ver fluxo visual dos renders"><i class="ti ti-git-branch"></i> Fluxo</button>
         <button class="btn btn-sm" style="font-size:10px;padding:2px 8px" onclick="collapseAllRenders(true)" title="Minimizar todos"><i class="ti ti-minus"></i> Min. todos</button>
         <button class="btn btn-sm" style="font-size:10px;padding:2px 8px" onclick="collapseAllRenders(false)" title="Expandir todos"><i class="ti ti-plus"></i> Exp. todos</button>
       </div>
     </div>
+    <div id="flow-editor-${sc.id}" style="display:none"></div>
     ${renderBlocksHTML}
     <button class="add-render-btn" onclick="addRender('${ch.id}','${sc.id}')"><i class="ti ti-plus" style="font-size:16px"></i> Adicionar Render</button>
 
   </div>`;
+  // Re-render flow editor if visible
+  if(_flowVisible.has(`${ch.id}:${sc.id}`)){
+    renderInlineFlow(ch.id, sc.id);
+  }
 }
 
 async function renderBlockHTML(chId,scId,ren,ri,sc){
@@ -1522,50 +1613,152 @@ function openAddSceneModal(chId){showModal(`<h2>Nova Cena</h2>
 function confScene(chId){const n=(document.getElementById('nsc-n')?.value||'').trim();if(!n)return;const ch=gch(chId);if(!ch)return;const bgBase=n.toLowerCase().replace(/\s+/g,'_').slice(0,20);ch.scenes.push({id:uid(),name:n,desc:document.getElementById('nsc-d')?.value||'',notes:'',chars:[],renders:[{id:uid(),label:'Render 1',imgId:null,transition:'dissolve',bgName:'bg_'+bgBase,dialogues:[],choices:[]}],choices:[]});markDirty();renderChapTree();closeModal();selScene(chId,ch.scenes[ch.scenes.length-1].id);syncBoardFromChoices();if(document.getElementById('tab-board')?.classList.contains('active'))renderBoard();}
 
 function renderPrevList(){document.getElementById('prev-list').innerHTML=S.chapters.map(ch=>`<div style="padding:6px 10px;font-size:10px;color:var(--txt3);text-transform:uppercase;letter-spacing:.06em">${esc(ch.name)}</div>${ch.scenes.map(sc=>`<div class="scene-item" onclick="openPrevScene('${ch.id}','${sc.id}')">${esc(sc.name)}</div>`).join('')}`).join('');}
-function openPrevScene(chId,scId){S.prevState={sceneRef:{chId,scId},idx:0};switchTab('preview');renderPrevList();renderVNScreen();}
+
+// Improved preview state: tracks render index + dialogue index within render
+// prevState = { chId, scId, renderIdx, dlgIdx, history:[] }
+function openPrevScene(chId,scId){
+  S.prevState={chId,scId,renderIdx:0,dlgIdx:0,history:[]};
+  switchTab('preview');
+  renderPrevList();
+  renderVNScreen();
+}
+
 async function renderVNScreen(){
   const area=document.getElementById('preview-area');
-  if(!S.prevState?.sceneRef){area.innerHTML=`<div class="empty-state">Selecione uma cena</div>`;return;}
-  const {chId,scId}=S.prevState.sceneRef;
-  const sc=gs(chId,scId);if(!sc){area.innerHTML=`<div class="empty-state">Cena não encontrada</div>`;return;}
-  const seq=[];(sc.renders||[]).forEach(ren=>{if(ren.dialogues?.length)ren.dialogues.forEach(d=>seq.push({ren,dlg:d}));else seq.push({ren,dlg:null});});
-  const hasChoices=(sc.renders||[]).flatMap(r=>r.choices||[]).filter(c=>c.text).length>0;
-  const idx=Math.min(S.prevState.idx,Math.max(seq.length-1+(hasChoices?1:0),0));
-  const total=seq.length+(hasChoices?1:0);
-  const showChoices=hasChoices&&idx>=seq.length;
-  const cur=showChoices?null:seq[idx];
-  const ren=cur?.ren||(seq.length?seq[seq.length-1].ren:null);
-  const dlg=cur?.dlg||null;
+  if(!S.prevState?.chId){area.innerHTML=`<div class="empty-state">Selecione uma cena</div>`;return;}
+  const {chId,scId,renderIdx,dlgIdx}=S.prevState;
+  const sc=gs(chId,scId);
+  if(!sc){area.innerHTML=`<div class="empty-state">Cena não encontrada</div>`;return;}
+
+  const renders=sc.renders||[];
+  const ren=renders[renderIdx]||null;
+  const dlgs=ren?.dialogues||[];
+  const choices=(ren?.choices||[]).filter(c=>c.text);
+  const showChoices=choices.length>0&&dlgIdx>=dlgs.length;
+  const dlg=(!showChoices&&dlgs.length)?dlgs[Math.min(dlgIdx,dlgs.length-1)]:null;
   const bgUrl=ren?.imgId?await resolveImg(ren.imgId):null;
   const speaker=dlg?gc(dlg.char):null;
   const spColor=speaker?speaker.color:'#8a84a8';
-  const pct=total>1?Math.round(idx/(total-1)*100):100;
+
+  // Total steps for progress: sum of (dlg count per render, +1 if has choices)
+  let totalSteps=0,curStep=0;
+  renders.forEach((r,ri)=>{
+    const dc=(r.dialogues||[]).length||1;
+    const cc=(r.choices||[]).filter(c=>c.text).length>0?1:0;
+    if(ri<renderIdx){curStep+=dc+cc;}
+    else if(ri===renderIdx){curStep+=dlgIdx;}
+    totalSteps+=dc+cc;
+  });
+  const pct=totalSteps>1?Math.round(curStep/(totalSteps-1)*100):100;
+
   const charsHTML=(await Promise.all((sc.chars||[]).map(async cid=>{
     const c=gc(cid);if(!c)return'';
     const curl=await resolveImg(c.imgId);
     return`<div class="vn-char-fig${c.id===dlg?.char?' sp':''}">
       <div class="vn-char-circ" style="background:${c.color}33;color:${c.color}">${curl?`<img src="${curl}">`:ini(c.name)}</div>
       <div class="vn-char-nm">${esc(c.name)}</div>
-    </div>`; }))).join('');
+    </div>`;
+  }))).join('');
+
+  const canGoBack = S.prevState.history&&S.prevState.history.length>0;
+  const canGoNext = !showChoices;
+
+  let mainContent='';
+  if(showChoices){
+    mainContent=`<div class="vn-choice-overlay">
+      <div style="font-size:12px;color:rgba(255,255,255,.4);margin-bottom:10px;font-family:var(--ff);font-style:italic">O que fazer?</div>
+      ${choices.map(c2=>`<button class="vn-choice-btn" style="width:100%;max-width:400px" onclick="prevChooseOption('${chId}','${scId}','${c2.jumpTo||''}','${renderIdx}')">${esc(c2.text)}</button>`).join('')}
+    </div>`;
+  } else if(dlg){
+    mainContent=`<div class="vn-tbox"><div class="vn-spk" style="color:${spColor}">${esc(speaker?speaker.name:'Narrador')}</div><div class="vn-line">${esc(dlg.text)}</div>${dlg.action?`<div style="font-size:10px;color:var(--amber);font-family:monospace;margin-top:4px;opacity:.7"><i class="ti ti-code"></i> ${esc(dlg.action)}</div>`:''}</div>`;
+  } else if(ren){
+    mainContent=`<div style="position:absolute;bottom:0;left:0;right:0;background:rgba(6,4,16,.7);padding:10px 16px;text-align:center;color:rgba(255,255,255,.3);font-family:var(--ff);font-style:italic;font-size:14px">[${esc(ren.transition||'')} → próximo render]</div>`;
+  }
+
   area.innerHTML=`
     <div style="font-size:11px;color:var(--txt3);margin-bottom:10px;text-align:center;letter-spacing:.05em;text-transform:uppercase">${esc(sc.name)}</div>
-    <div class="vn-screen">
+    <div class="vn-screen" id="vn-screen-main" onclick="if(!event.target.closest('.vn-choice-btn')&&!event.target.closest('.vn-choice-overlay'))vnAdvance()" style="${showChoices?'':'cursor:pointer'}" title="${showChoices?'':'Clique para avançar'}">
       ${bgUrl?`<img class="vn-bg" src="${bgUrl}" alt="bg">`:`<div class="vn-bg-ph">${esc(ren?.label||'Sem render')}</div>`}
-      ${ren?`<div class="vn-rbadge"><i class="ti ti-photo" style="font-size:10px"></i> ${esc(ren.label)}</div>`:''}
+      ${ren?`<div class="vn-render-badge"><i class="ti ti-photo" style="font-size:10px"></i> ${esc(ren.label)} <span style="opacity:.5">(${renderIdx+1}/${renders.length})</span></div>`:''}
       <div class="vn-chars">${charsHTML}</div>
-      ${showChoices?`<div class="vn-choices"><div style="font-size:11px;color:rgba(255,255,255,.4);margin-bottom:8px;font-family:var(--ff);font-style:italic">O que fazer?</div>${(sc.renders||[]).flatMap(r=>r.choices||[]).filter(c2=>c2.text).map(c2=>`<button class="vn-choice-btn" onclick="prevJumpTo('${c2.jumpTo}')">${esc(c2.text)||'...'}</button>`).join('')}</div>`:dlg?`<div class="vn-tbox"><div class="vn-spk" style="color:${spColor}">${esc(speaker?speaker.name:'Narrador')}</div><div class="vn-line">${esc(dlg.text)}</div></div>`:`<div style="position:absolute;bottom:0;left:0;right:0;background:rgba(6,4,16,.7);padding:10px 16px;text-align:center;color:rgba(255,255,255,.3);font-family:var(--ff);font-style:italic;font-size:14px">[${esc(ren?.transition||'')} → próximo render]</div>`}
+      ${mainContent}
     </div>
     <div class="vn-progress"><div class="vn-prog-bar" style="width:${pct}%"></div></div>
     <div class="vn-nav">
-      <button class="btn" onclick="vnNav(-1)" ${idx<=0?'disabled style="opacity:.3"':''}><i class="ti ti-arrow-left"></i> Anterior</button>
-      <span class="vn-ctr">${idx+1} / ${total}</span>
-      <button class="btn btn-primary" onclick="vnNav(1)" ${idx>=total-1?'disabled style="opacity:.3"':''}>Próxima <i class="ti ti-arrow-right"></i></button>
+      <button class="btn" onclick="vnNavBack()" ${!canGoBack?'disabled style="opacity:.3"':''}><i class="ti ti-arrow-left"></i> Voltar</button>
+      <span class="vn-ctr">${esc(sc.name)}</span>
+      <button class="btn btn-primary" onclick="vnAdvance()" ${!canGoNext?'disabled style="opacity:.3"':''}>Avançar <i class="ti ti-arrow-right"></i></button>
     </div>
     <div style="margin-top:12px;width:100%;max-width:660px"><div style="font-size:10px;color:var(--txt3);margin-bottom:5px;text-transform:uppercase;letter-spacing:.05em">Personagens na cena</div>
       <div style="display:flex;gap:6px;flex-wrap:wrap">${(sc.chars||[]).map(cid=>{const c=gc(cid);return c?`<span class="chip" style="border-color:${c.color}33;color:${c.color}">${esc(c.name)}</span>`:''}).join('')}</div>
     </div>`;
 }
-function vnNav(d){const {chId,scId}=S.prevState.sceneRef;const sc=gs(chId,scId);if(!sc)return;let t=0;(sc.renders||[]).forEach(r=>{t+=r.dialogues?.length||1;});if((sc.renders||[]).flatMap(r=>r.choices||[]).filter(c=>c.text).length)t++;S.prevState.idx=Math.max(0,Math.min(t-1,S.prevState.idx+d));renderVNScreen();}
+
+function vnAdvance(){
+  if(!S.prevState?.chId)return;
+  const {chId,scId,renderIdx,dlgIdx}=S.prevState;
+  const sc=gs(chId,scId);if(!sc)return;
+  const renders=sc.renders||[];
+  const ren=renders[renderIdx];if(!ren)return;
+  const dlgs=ren.dialogues||[];
+  const choices=(ren.choices||[]).filter(c=>c.text);
+  const showChoices=choices.length>0&&dlgIdx>=dlgs.length;
+  if(showChoices)return; // wait for choice
+
+  // Save history
+  S.prevState.history.push({chId,scId,renderIdx,dlgIdx});
+
+  if(dlgIdx<dlgs.length-1){
+    // next dialogue in same render
+    S.prevState.dlgIdx++;
+  } else if(choices.length>0){
+    // show choices after last dialogue
+    S.prevState.dlgIdx=dlgs.length;
+  } else if(renderIdx<renders.length-1){
+    // next render
+    S.prevState.renderIdx++;
+    S.prevState.dlgIdx=0;
+  } else {
+    // end of scene — try next scene
+    const scenes=allScenes();
+    const si=scenes.findIndex(x=>x.id===scId);
+    if(si>=0&&si<scenes.length-1){
+      const next=scenes[si+1];
+      const r2=findScene(next.id);
+      if(r2){S.prevState={chId:r2.ch.id,scId:next.id,renderIdx:0,dlgIdx:0,history:[...S.prevState.history]};renderPrevList();}
+    }
+  }
+  renderVNScreen();
+}
+
+function vnNavBack(){
+  if(!S.prevState?.history?.length)return;
+  const prev=S.prevState.history.pop();
+  S.prevState.chId=prev.chId;S.prevState.scId=prev.scId;
+  S.prevState.renderIdx=prev.renderIdx;S.prevState.dlgIdx=prev.dlgIdx;
+  renderVNScreen();
+}
+
+function prevChooseOption(chId,scId,jumpToId,fromRenderIdx){
+  if(!jumpToId){
+    // no destination — advance to next render
+    S.prevState.history.push({chId,scId,renderIdx:parseInt(fromRenderIdx),dlgIdx:S.prevState.dlgIdx});
+    const sc=gs(chId,scId);
+    const renders=sc?.renders||[];
+    const nextRI=parseInt(fromRenderIdx)+1;
+    if(nextRI<renders.length){S.prevState.renderIdx=nextRI;S.prevState.dlgIdx=0;}
+    renderVNScreen();return;
+  }
+  const r=findScene(jumpToId);
+  if(!r)return;
+  S.prevState.history.push({chId,scId,renderIdx:parseInt(fromRenderIdx),dlgIdx:S.prevState.dlgIdx});
+  S.prevState={chId:r.ch.id,scId:jumpToId,renderIdx:0,dlgIdx:0,history:S.prevState.history};
+  renderPrevList();
+  renderVNScreen();
+}
+
+// Legacy compatibility
+function vnNav(d){if(d>0)vnAdvance();else vnNavBack();}
 function prevJumpTo(scId){if(!scId)return;const r=findScene(scId);if(r)openPrevScene(r.ch.id,scId);}
 
 /* ═══ RENPY EXPORT ═══ */
@@ -2641,6 +2834,419 @@ function filterLibPicker(q){
 }
 
 /* ═══════════════════════════════════════
+   KEYBOARD SHORTCUTS
+═══════════════════════════════════════ */
+let _kbdToastTimer=null;
+function showKbdToast(html,dur=1800){
+  const el=document.getElementById('kbd-toast');
+  if(!el)return;
+  el.innerHTML=html;
+  el.classList.add('show');
+  clearTimeout(_kbdToastTimer);
+  _kbdToastTimer=setTimeout(()=>el.classList.remove('show'),dur);
+}
+
+let _undoToastTimer=null;
+function showUndoToast(){
+  const el=document.getElementById('undo-toast');
+  if(!el)return;
+  el.classList.add('show');
+  clearTimeout(_undoToastTimer);
+  _undoToastTimer=setTimeout(()=>el.classList.remove('show'),1600);
+}
+
+// Undo history
+const _undoStack=[];
+const _MAX_UNDO=20;
+function pushUndo(){
+  try{
+    const snap=JSON.parse(JSON.stringify({
+      chars:S.chars,vars:S.vars,chapters:S.chapters,
+      renderLib:S.renderLib,boardNodes:S.boardNodes,boardConns:S.boardConns
+    }));
+    _undoStack.push(snap);
+    if(_undoStack.length>_MAX_UNDO)_undoStack.shift();
+  }catch(e){}
+}
+
+function doUndo(){
+  if(!_undoStack.length){showKbdToast('<i class="ti ti-x"></i> Nada para desfazer');return;}
+  const snap=_undoStack.pop();
+  Object.assign(S,snap);
+  markDirty();
+  renderCharList();renderCharDetail();renderChapTree();renderSceneArea();
+  if(document.getElementById('tab-board')?.classList.contains('active'))renderBoard();
+  showUndoToast();
+  _devLog('succ','UND','Undo aplicado');
+}
+
+// Patch markDirty to push undo before save
+const _origMarkDirty=markDirty;
+// Override is tricky with var declaration order — we call pushUndo from the key handler instead
+
+document.addEventListener('keydown',e=>{
+  const tag=document.activeElement?.tagName?.toLowerCase();
+  const inInput=tag==='input'||tag==='textarea'||tag==='select';
+  const modal=!document.getElementById('modal-wrap')?.classList.contains('hidden');
+
+  // Esc — close modal or exit preview
+  if(e.key==='Escape'){
+    if(modal){closeModal();e.preventDefault();return;}
+    if(document.getElementById('tab-preview')?.classList.contains('active')){
+      switchTab('chapters');
+      showKbdToast('<kbd>Esc</kbd> Prévia fechada');
+      e.preventDefault();return;
+    }
+  }
+
+  // Ctrl+S — save / sync
+  if(e.ctrlKey&&e.key==='s'){
+    e.preventDefault();
+    pushUndo();
+    markDirty();
+    showKbdToast('<i class="ti ti-device-floppy"></i> Salvo <kbd>Ctrl+S</kbd>');
+    return;
+  }
+
+  // Ctrl+Z — undo
+  if(e.ctrlKey&&e.key==='z'&&!inInput){
+    e.preventDefault();
+    doUndo();
+    showKbdToast('<kbd>Ctrl+Z</kbd> Desfeito');
+    return;
+  }
+
+  // Arrow keys in preview
+  if(document.getElementById('tab-preview')?.classList.contains('active')){
+    if(e.key==='ArrowRight'||e.key==='ArrowDown'||e.key===' '){
+      e.preventDefault();
+      vnAdvance();
+      return;
+    }
+    if(e.key==='ArrowLeft'||e.key==='ArrowUp'){
+      e.preventDefault();
+      vnNavBack();
+      return;
+    }
+  }
+
+  // ? — show shortcuts help
+  if(e.key==='?'&&!inInput){
+    showModal(`<h2><i class="ti ti-keyboard"></i> Atalhos de Teclado</h2>
+      <div style="display:flex;flex-direction:column;gap:8px;margin-top:4px">
+        ${[
+          ['Ctrl+S','Salvar e sincronizar'],
+          ['Ctrl+Z','Desfazer (fora de campos de texto)'],
+          ['Esc','Fechar modal / Sair da prévia'],
+          ['← →','Navegar na prévia VN'],
+          ['Espaço','Avançar na prévia VN'],
+          ['?','Mostrar esta ajuda'],
+        ].map(([k,d])=>`<div style="display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:.5px solid var(--border)">
+          <kbd style="min-width:90px;text-align:center;padding:3px 8px;border-radius:5px;background:var(--bg3);border:.5px solid var(--border2);font-family:monospace;font-size:12px">${k}</kbd>
+          <span style="font-size:13px;color:var(--txt2)">${d}</span>
+        </div>`).join('')}
+      </div>
+      <div class="modal-footer"><button class="btn btn-primary" onclick="closeModal()">OK</button></div>`);
+    return;
+  }
+});
+
+/* ═══════════════════════════════════════
+   EXPORT VALIDATOR
+═══════════════════════════════════════ */
+function runValidator(){
+  const issues=[];
+  const warns=[];
+  const infos=[];
+
+  // Check characters
+  if(!S.chars.length) issues.push('Nenhum personagem definido');
+  S.chars.forEach(c=>{
+    if(!c.renpyId) warns.push(`Personagem "${c.name}" sem ID Ren'Py`);
+    if(/[^a-z0-9_]/i.test(c.renpyId||'')) warns.push(`ID Ren'Py de "${c.name}" tem caracteres inválidos`);
+  });
+
+  // Check chapters/scenes
+  if(!S.chapters.length) issues.push('Nenhum capítulo criado');
+  let totalScenes=0;
+  S.chapters.forEach((ch,ci)=>{
+    if(!ch.scenes.length) warns.push(`Capítulo "${ch.name}" não tem cenas`);
+    ch.scenes.forEach(sc=>{
+      totalScenes++;
+      if(!(sc.renders||[]).length) issues.push(`Cena "${sc.name}" (${ch.name}): sem renders`);
+      (sc.renders||[]).forEach(ren=>{
+        if(!ren.bgName) warns.push(`Render "${ren.label}" em "${sc.name}": bgName vazio`);
+        if(/[^a-z0-9_]/i.test(ren.bgName||'')) warns.push(`bgName "${ren.bgName}" em "${sc.name}" tem caracteres inválidos`);
+        if(!ren.imgId) infos.push(`Render "${ren.label}" em "${sc.name}": sem imagem (export sem essa imagem)`);
+        (ren.choices||[]).filter(c=>c.text).forEach(c=>{
+          if(!c.jumpTo) warns.push(`Escolha "${c.text}" em "${sc.name}": sem destino`);
+          if(c.jumpTo&&!findScene(c.jumpTo)) issues.push(`Escolha "${c.text}" em "${sc.name}": destino não encontrado`);
+        });
+      });
+    });
+  });
+
+  // Check for duplicate bgNames within a chapter (could cause Ren'Py warnings)
+  S.chapters.forEach(ch=>{
+    const bgNames={};
+    ch.scenes.forEach(sc=>(sc.renders||[]).forEach(r=>{
+      if(r.bgName){bgNames[r.bgName]=(bgNames[r.bgName]||0)+1;}
+    }));
+    // duplicates within a chapter are OK (reuse) — just informational
+  });
+
+  // Check variables
+  S.vars.forEach(v=>{
+    if(/[^a-z0-9_]/i.test(v.name)) warns.push(`Variável "${v.name}" tem caracteres inválidos`);
+  });
+
+  infos.push(`${totalScenes} cena(s), ${S.chars.length} personagem(ns), ${S.vars.length} variável(eis)`);
+
+  return {issues,warns,infos};
+}
+
+function openValidatorModal(){
+  const {issues,warns,infos}=runValidator();
+  const hasErr=issues.length>0;
+  const hasWarn=warns.length>0;
+  const statusColor=hasErr?'var(--coral)':hasWarn?'var(--gold)':'var(--green)';
+  const statusIcon=hasErr?'ti-x':'ti-circle-check';
+  const statusTxt=hasErr?`${issues.length} erro(s) crítico(s)`:(hasWarn?`${warns.length} aviso(s)`:'Pronto para exportar!');
+
+  showModal(`<h2><i class="ti ti-shield-check"></i> Validador de Export</h2>
+    <div class="validator-summary">
+      <i class="ti ${statusIcon}" style="font-size:20px;color:${statusColor}"></i>
+      <div>
+        <div style="font-size:14px;font-weight:500;color:${statusColor}">${statusTxt}</div>
+        <div style="font-size:11px;color:var(--txt3);margin-top:2px">${infos[infos.length-1]||''}</div>
+      </div>
+    </div>
+    ${issues.length?`<div class="validator-section">
+      <div class="validator-title"><i class="ti ti-x" style="color:var(--coral)"></i> Erros críticos (${issues.length})</div>
+      ${issues.map(i=>`<div class="validator-item validator-err"><i class="ti ti-x" style="flex-shrink:0"></i>${esc(i)}</div>`).join('')}
+    </div>`:''}
+    ${warns.length?`<div class="validator-section">
+      <div class="validator-title"><i class="ti ti-alert-triangle" style="color:var(--gold)"></i> Avisos (${warns.length})</div>
+      ${warns.map(w=>`<div class="validator-item validator-warn"><i class="ti ti-alert-circle" style="flex-shrink:0"></i>${esc(w)}</div>`).join('')}
+    </div>`:''}
+    ${!issues.length&&!warns.length?`<div class="validator-item validator-ok" style="margin-bottom:0"><i class="ti ti-circle-check" style="flex-shrink:0"></i> Nenhum problema encontrado — projeto pronto para export!</div>`:''}
+    ${infos.slice(0,-1).map(i=>`<div class="validator-item" style="background:rgba(124,92,252,.06);border-color:rgba(124,92,252,.15);color:var(--acc)"><i class="ti ti-info-circle" style="flex-shrink:0"></i>${esc(i)}</div>`).join('')}
+    <div class="modal-footer">
+      <button class="btn" onclick="closeModal()">Fechar</button>
+      ${!hasErr?`<button class="btn btn-success" onclick="openExportModal();closeModal()"><i class="ti ti-brand-python"></i> Exportar Ren'Py</button>
+      <button class="btn btn-warning" onclick="openZipExportModal();closeModal()"><i class="ti ti-file-zip"></i> Exportar ZIP</button>`:''}
+    </div>`);
+}
+
+/* ═══════════════════════════════════════
+   MÚLTIPLOS PROJETOS
+═══════════════════════════════════════ */
+async function renderProjectsList(){
+  const el=document.getElementById('projects-list');
+  if(!el)return;
+  if(!SUPA_URL||!SUPA_KEY){
+    el.innerHTML=`<div style="padding:14px;background:rgba(240,112,96,.07);border:.5px solid rgba(240,112,96,.2);border-radius:var(--rad);font-size:12px;color:var(--coral)"><i class="ti ti-alert-circle"></i> Supabase não configurado. Configure SUPA_URL e SUPA_KEY para usar múltiplos projetos.</div>`;
+    return;
+  }
+  el.innerHTML=`<div style="display:flex;align-items:center;justify-content:center;height:80px;color:var(--txt3)"><div class="spinner"></div></div>`;
+  try{
+    const projects=await dbSelect('vn_project','select=id,name,created_at&order=created_at.desc');
+    if(!projects||!projects.length){
+      el.innerHTML=`<div class="empty-state">Nenhum projeto ainda. Crie o primeiro!</div>`;
+      return;
+    }
+    el.innerHTML=projects.map(p=>`<div class="proj-card${PROJECT_ID===p.id?' active':''}" onclick="loadProject('${p.id}','${esc(p.name)}')">
+      <div>
+        <div class="proj-card-name">${esc(p.name)}</div>
+        <div class="proj-card-meta">ID: ${p.id.slice(0,8)}… · ${p.created_at?new Date(p.created_at).toLocaleDateString('pt-BR'):''}</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px">
+        ${PROJECT_ID===p.id?'<span class="proj-badge"><i class="ti ti-check"></i> Ativo</span>':''}
+        <button class="btn btn-danger btn-sm btn-icon" onclick="event.stopPropagation();deleteProject('${p.id}','${esc(p.name)}')" title="Excluir projeto"><i class="ti ti-trash"></i></button>
+      </div>
+    </div>`).join('');
+  }catch(e){
+    el.innerHTML=`<div style="color:var(--coral);font-size:12px;padding:10px">Erro ao carregar projetos: ${esc(e.message||'')}</div>`;
+  }
+}
+
+async function loadProject(projId, projName){
+  if(PROJECT_ID===projId){
+    showKbdToast(`<i class="ti ti-check"></i> "${projName}" já está ativo`);return;
+  }
+  if(!confirm(`Carregar projeto "${projName}"? Dados não salvos localmente serão substituídos.`))return;
+  PROJECT_ID=projId;
+  setSyncState('syncing','Carregando projeto...');
+  try{
+    const metas=await dbSelect('vn_metadata',`project_id=eq.${PROJECT_ID}&limit=1`);
+    const meta=metas?.[0];
+    if(meta){
+      const saved={chars:meta.chars||[],vars:meta.vars||[],renderLib:meta.render_lib||[],chapters:meta.chapters||[],boardNodes:meta.board_nodes||[],boardConns:meta.board_conns||[]};
+      S=Object.assign(defaultState(),saved);
+    } else {
+      S=defaultState();
+    }
+    const imgs=await dbSelect('vn_images',`project_id=eq.${PROJECT_ID}&select=id,url`);
+    if(imgs) imgs.forEach(img=>{imgUrlMap[img.id]=img.url;});
+    setSyncState('ok','Projeto carregado');
+    renderCharList();renderCharDetail();renderChapTree();renderSceneArea();renderProjectsList();
+    switchTab('chapters');
+    _devLog('succ','PRJ',`Projeto "${projName}" carregado`);
+  }catch(e){
+    setSyncState('err','Erro ao carregar');
+    _devLog('err','PRJ','Erro: '+(e.message||e));
+  }
+}
+
+function openNewProjectModal(){
+  showModal(`<h2><i class="ti ti-plus"></i> Novo Projeto</h2>
+    <div class="field"><label>Nome do projeto</label><input id="np-name" placeholder="Minha Visual Novel"></div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeModal()">Cancelar</button>
+      <button class="btn btn-primary" onclick="confirmNewProject()">Criar</button>
+    </div>`);
+}
+
+async function confirmNewProject(){
+  const name=(document.getElementById('np-name')?.value||'').trim();
+  if(!name)return;
+  closeModal();
+  try{
+    const np=await dbInsert('vn_project',{name});
+    _devLog('succ','PRJ',`Projeto "${name}" criado: ${np.id}`);
+    await loadProject(np.id, name);
+  }catch(e){
+    alert('Erro ao criar projeto: '+(e.message||e));
+    _devLog('err','PRJ','Criar projeto: '+(e.message||e));
+  }
+}
+
+async function deleteProject(projId, projName){
+  if(!confirm(`Excluir projeto "${projName}"? Esta ação é irreversível!`))return;
+  if(PROJECT_ID===projId){alert('Não é possível excluir o projeto ativo.');return;}
+  try{
+    await dbDelete('vn_metadata',`project_id=eq.${projId}`);
+    await dbDelete('vn_project',`id=eq.${projId}`);
+    renderProjectsList();
+    _devLog('succ','PRJ',`Projeto "${projName}" excluído`);
+  }catch(e){
+    alert('Erro ao excluir: '+(e.message||e));
+  }
+}
+
+/* ═══════════════════════════════════════
+   INLINE FLOW EDITOR
+═══════════════════════════════════════ */
+const _flowVisible=new Set();
+
+async function toggleFlowView(chId,scId){
+  const key=`${chId}:${scId}`;
+  const el=document.getElementById(`flow-editor-${scId}`);
+  if(!el)return;
+  if(_flowVisible.has(key)){
+    _flowVisible.delete(key);
+    el.style.display='none';
+    const btn=document.getElementById(`flow-toggle-btn-${scId}`);
+    if(btn)btn.classList.remove('active');
+  }else{
+    _flowVisible.add(key);
+    el.style.display='block';
+    const btn=document.getElementById(`flow-toggle-btn-${scId}`);
+    if(btn)btn.classList.add('active');
+    await renderInlineFlow(chId,scId);
+  }
+}
+
+async function renderInlineFlow(chId,scId){
+  const sc=gs(chId,scId);
+  const el=document.getElementById(`flow-editor-${scId}`);
+  if(!sc||!el)return;
+  const renders=sc.renders||[];
+
+  if(!renders.length){
+    el.innerHTML=`<div style="padding:12px;color:var(--txt3);font-size:12px;font-style:italic">Sem renders. Adicione renders para ver o fluxo.</div>`;
+    return;
+  }
+
+  // Resolve images
+  const imgUrls={};
+  await Promise.all(renders.map(async r=>{imgUrls[r.id]=r.imgId?await resolveImg(r.imgId):null;}));
+
+  // Build flow nodes
+  let html=`<div class="flow-section-title"><i class="ti ti-git-branch"></i> Editor de Fluxo Inline <span style="color:var(--txt3);font-weight:400;text-transform:none">(visualização dos renders e bifurcações)</span></div>`;
+  html+=`<div class="flow-editor"><div class="flow-track">`;
+
+  renders.forEach((ren,ri)=>{
+    const imgUrl=imgUrls[ren.id];
+    const choices=(ren.choices||[]).filter(c=>c.text);
+    const dlgCount=(ren.dialogues||[]).length;
+    const isLast=ri===renders.length-1;
+
+    // Node
+    html+=`<div class="flow-node">
+      <div class="flow-render-block" onclick="selRenderFocus('${chId}','${scId}','${ren.id}')" id="fn-${ren.id}">
+        <div class="flow-render-img">
+          ${imgUrl?`<img src="${imgUrl}" alt="${esc(ren.label)}">`:`<i class="ti ti-photo"></i>`}
+        </div>
+        <div class="flow-render-name" title="${esc(ren.label)}">${esc(ren.label)}</div>
+        <div class="flow-render-stats">
+          <span><i class="ti ti-message-circle" style="font-size:9px"></i> ${dlgCount}</span>
+          ${choices.length?`<span style="color:var(--gold)"><i class="ti ti-git-branch" style="font-size:9px"></i> ${choices.length}</span>`:''}
+          <span style="font-family:monospace;color:var(--acc);font-size:9px">${esc(ren.bgName||'')}</span>
+        </div>
+      </div>
+    </div>`;
+
+    // Connector after node
+    if(choices.length){
+      // Branching connector
+      html+=`<div class="flow-branch">`;
+      choices.forEach(c2=>{
+        const destSc=c2.jumpTo?findScene(c2.jumpTo)?.sc:null;
+        html+=`<div class="flow-choice-arm">
+          <div class="flow-arrow-gold"></div>
+          <span class="flow-choice-label" title="${esc(c2.text)}">${esc(c2.text)}</span>
+          <div class="flow-arrow-gold"></div>
+          ${destSc
+            ?`<div style="font-size:10px;padding:3px 7px;background:rgba(62,207,189,.1);border:.5px solid rgba(62,207,189,.25);border-radius:var(--rad);color:var(--teal);white-space:nowrap;max-width:100px;overflow:hidden;text-overflow:ellipsis" title="${esc(destSc.name)}">${esc(destSc.name)}</div>`
+            :(c2.jumpTo?`<span style="font-size:10px;color:var(--coral)">? não encontrado</span>`:`<span style="font-size:10px;color:var(--txt3)">→ continua</span>`)
+          }
+        </div>`;
+      });
+      html+=`</div>`;
+    } else if(!isLast){
+      // Linear connector
+      html+=`<div class="flow-connector"><div class="flow-arrow"></div></div>`;
+    } else {
+      // End node
+      html+=`<div class="flow-connector"><div class="flow-arrow"></div><div class="flow-end-node" title="Fim da cena"><i class="ti ti-flag"></i></div></div>`;
+    }
+  });
+
+  // Add render button
+  html+=`<div class="flow-connector">
+    <button class="flow-add-btn" onclick="addRender('${chId}','${scId}')" title="Adicionar render">
+      <i class="ti ti-plus"></i>
+    </button>
+  </div>`;
+
+  html+=`</div></div>`; // close flow-track and flow-editor
+
+  el.innerHTML=html;
+}
+
+function selRenderFocus(chId,scId,rId){
+  // Scroll to the render block in main view
+  const block=document.getElementById('rb-'+rId);
+  if(block){
+    block.scrollIntoView({behavior:'smooth',block:'center'});
+    block.style.borderColor='var(--acc)';
+    block.style.boxShadow='0 0 0 2px var(--acc-glow)';
+    setTimeout(()=>{block.style.borderColor='';block.style.boxShadow='';},1500);
+  }
+}
+
+/* ═══════════════════════════════════════
    DEV CONSOLE
 ═══════════════════════════════════════ */
 const _devCounts = {err:0, warn:0, req:0};
@@ -3199,6 +3805,9 @@ function showApp(){
   }
 })();
 </script>
+<!-- KEYBOARD TOAST -->
+<div class="kbd-toast" id="kbd-toast"></div>
+<div class="undo-toast" id="undo-toast"><i class="ti ti-arrow-back-up"></i> Desfeito</div>
 <!-- DEV CONSOLE -->
 <div id="dev-console" class="collapsed">
   <div class="console-bar">
