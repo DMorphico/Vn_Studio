@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
 
 <style>
 :root{
@@ -73,6 +74,7 @@ body{font-family:var(--fs);background:var(--bg);color:var(--txt);display:flex;fl
 .rthumb{width:80px;height:50px;border-radius:6px;background:var(--bg4);border:.5px solid var(--border2);overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;color:var(--txt3);cursor:pointer;position:relative;transition:border-color .14s}
 .rthumb:hover{border-color:var(--acc)}.rthumb img{width:100%;height:100%;object-fit:cover}
 .rthumb-ico{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--txt3)}.rthumb:hover .rthumb-ico{color:var(--acc)}
+.rthumb:hover .rthumb-actions{opacity:1!important}
 .rthumb-prog{position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--amber)}
 .rinfo{flex:1;min-width:0}
 .rlabel-input{background:transparent;border:none;color:var(--txt);font-size:13px;font-weight:500;width:100%;outline:none;font-family:var(--fs);padding:0}
@@ -181,6 +183,102 @@ body{font-family:var(--fs);background:var(--bg);color:var(--txt);display:flex;fl
 .c-line.succ .c-msg{color:var(--teal)}.c-line.succ .c-tag{color:var(--teal)}
 .spinner{width:28px;height:28px;border:2px solid var(--border2);border-top-color:var(--acc);border-radius:50%;animation:spin .7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
+/* CHECKLIST */
+.ck-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:18px}
+.ck-stat{background:var(--bg3);border:.5px solid var(--border);border-radius:var(--rad-lg);padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.ck-stat-val{font-family:var(--ff);font-size:28px;font-weight:600;line-height:1}
+.ck-stat-lbl{font-size:11px;color:var(--txt3);text-transform:uppercase;letter-spacing:.05em}
+.ck-chapter{margin-bottom:20px}
+.ck-chapter-title{font-family:var(--ff);font-size:15px;font-weight:600;margin-bottom:10px;display:flex;align-items:center;gap:8px;padding-bottom:8px;border-bottom:.5px solid var(--border)}
+.ck-scene{background:var(--bg3);border:.5px solid var(--border);border-radius:var(--rad-lg);padding:14px;margin-bottom:8px;transition:border-color .14s}
+.ck-scene:hover{border-color:var(--border2)}
+.ck-scene-header{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.ck-scene-name{font-size:14px;font-weight:500;flex:1}
+.ck-status{padding:3px 10px;border-radius:999px;font-size:11px;font-weight:500;flex-shrink:0}
+.ck-complete{background:rgba(94,203,111,.15);color:var(--green);border:.5px solid rgba(94,203,111,.25)}
+.ck-partial{background:rgba(212,168,67,.12);color:var(--gold);border:.5px solid rgba(212,168,67,.2)}
+.ck-empty{background:rgba(240,112,96,.1);color:var(--coral);border:.5px solid rgba(240,112,96,.15)}
+.ck-items{display:flex;flex-direction:column;gap:5px}
+.ck-item{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--txt2)}
+.ck-item i{font-size:13px;flex-shrink:0}
+.ck-ok{color:var(--green)}.ck-warn{color:var(--gold)}.ck-err{color:var(--coral)}
+.ck-progress-wrap{height:4px;background:var(--bg4);border-radius:2px;overflow:hidden;margin-top:8px}
+.ck-progress-bar{height:100%;border-radius:2px;transition:width .3s}
+.ck-filter{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+.ck-filter-btn{padding:4px 12px;border-radius:999px;border:.5px solid var(--border2);background:transparent;color:var(--txt2);font-size:12px;cursor:pointer;font-family:var(--fs);transition:all .14s}
+.ck-filter-btn:hover{background:var(--bg3);color:var(--txt)}
+.ck-filter-btn.active{background:var(--bg4);color:var(--txt);border-color:var(--border2)}
+/* RENDER LIBRARY */
+.lib-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;padding:4px 0}
+.lib-card{background:var(--bg3);border:.5px solid var(--border);border-radius:var(--rad-lg);overflow:hidden;cursor:pointer;transition:all .14s;position:relative}
+.lib-card:hover{border-color:var(--border2);transform:translateY(-1px);box-shadow:0 4px 16px rgba(0,0,0,.3)}
+.lib-card.selected{border-color:var(--acc);box-shadow:0 0 0 2px var(--acc-glow)}
+.lib-card-img{width:100%;height:110px;object-fit:cover;display:block;background:var(--bg4)}
+.lib-card-img-ph{width:100%;height:110px;background:var(--bg4);display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:22px}
+.lib-card-body{padding:9px 10px}
+.lib-card-name{font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:3px}
+.lib-card-bg{font-size:11px;color:var(--acc);font-family:monospace}
+.lib-card-tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:5px}
+.lib-tag{padding:1px 6px;border-radius:999px;font-size:10px;background:var(--bg4);border:.5px solid var(--border);color:var(--txt3)}
+.lib-card-usage{position:absolute;top:7px;right:7px;background:rgba(0,0,0,.6);border-radius:999px;padding:2px 7px;font-size:10px;color:rgba(255,255,255,.7)}
+.lib-card-sel-badge{position:absolute;top:7px;left:7px;background:var(--acc);border-radius:999px;padding:2px 8px;font-size:10px;color:#fff;display:none}
+.lib-card.selected .lib-card-sel-badge{display:block}
+.lib-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:200px;gap:10px;color:var(--txt3);font-family:var(--ff);font-style:italic}
+.lib-filter{display:flex;gap:6px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
+.lib-search{padding:6px 10px;border:.5px solid var(--border2);border-radius:var(--rad);background:var(--bg3);color:var(--txt);font-size:13px;outline:none;font-family:var(--fs);width:220px}
+.lib-search:focus{border-color:var(--acc)}
+/* Render picker modal */
+.lib-picker-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px;max-height:400px;overflow-y:auto;padding:4px}
+.lib-picker-card{background:var(--bg3);border:.5px solid var(--border);border-radius:var(--rad);overflow:hidden;cursor:pointer;transition:all .12s}
+.lib-picker-card:hover{border-color:var(--border2)}
+.lib-picker-card.sel{border-color:var(--acc);background:var(--acc-glow)}
+.lib-picker-img{width:100%;height:80px;object-fit:cover;background:var(--bg4);display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:18px}
+.lib-picker-img img{width:100%;height:100%;object-fit:cover}
+.lib-picker-label{padding:5px 7px;font-size:11px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lib-picker-bg{padding:0 7px 5px;font-size:10px;color:var(--acc);font-family:monospace;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* REVIEW MODE */
+.review-chapter{margin-bottom:32px}
+.review-chapter-title{font-family:var(--ff);font-size:20px;font-weight:600;color:var(--txt);margin-bottom:6px;padding-bottom:10px;border-bottom:.5px solid var(--border);display:flex;align-items:center;gap:8px}
+.review-chapter-desc{font-size:13px;color:var(--txt2);margin-bottom:20px;line-height:1.6}
+.review-scene{margin-bottom:28px;padding:18px;background:var(--bg2);border:.5px solid var(--border);border-radius:var(--rad-lg)}
+.review-scene-title{font-family:var(--ff);font-size:16px;font-weight:600;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.review-scene-meta{font-size:12px;color:var(--txt3);margin-bottom:10px;display:flex;gap:12px;flex-wrap:wrap}
+.review-scene-desc{font-size:13px;color:var(--txt2);margin-bottom:10px;line-height:1.6;padding:8px 12px;background:var(--bg3);border-radius:var(--rad);border-left:2px solid var(--border2)}
+.review-notes{font-size:12px;color:var(--gold);margin-bottom:12px;padding:6px 10px;background:rgba(212,168,67,.06);border-radius:var(--rad);border-left:2px solid rgba(212,168,67,.3);font-style:italic}
+.review-render{margin-bottom:16px}
+.review-render-title{font-size:11px;font-weight:500;color:var(--txt3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.review-render-img{width:100%;max-height:120px;object-fit:cover;border-radius:var(--rad);margin-bottom:8px;border:.5px solid var(--border)}
+.review-dlg{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:.5px solid var(--border)}
+.review-dlg:last-child{border-bottom:none}
+.review-dlg-av{width:32px;height:32px;border-radius:50%;flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500}
+.review-dlg-av img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+.review-dlg-body{flex:1}
+.review-dlg-spk{font-size:11px;font-weight:500;margin-bottom:2px}
+.review-dlg-txt{font-family:var(--ff);font-size:14px;line-height:1.6;color:var(--txt)}
+.review-dlg-action{font-size:10px;color:var(--amber);font-family:monospace;margin-top:2px}
+.review-choices{margin-top:10px;padding:10px;background:rgba(212,168,67,.06);border:.5px solid rgba(212,168,67,.2);border-radius:var(--rad)}
+.review-choice{font-size:12px;color:var(--gold);padding:3px 0;display:flex;align-items:center;gap:6px}
+.review-chars{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+@media print{
+  .topbar,.sidebar,.dev-console,#dev-console{display:none!important}
+  .tab-panel{display:block!important;overflow:visible!important;height:auto!important}
+  .tab-panel:not(#tab-review){display:none!important}
+  body{background:#fff;color:#000}
+  .review-scene{border:1px solid #ddd;break-inside:avoid}
+  .review-chapter-title{color:#000}
+  .review-dlg-txt{color:#111}
+}
+/* ZIP EXPORT PROGRESS */
+.zip-progress{padding:14px;background:var(--bg3);border-radius:var(--rad);margin-top:12px}
+.zip-progress-bar-wrap{height:6px;background:var(--bg4);border-radius:3px;overflow:hidden;margin:8px 0}
+.zip-progress-bar-fill{height:100%;background:var(--acc);border-radius:3px;transition:width .3s}
+.zip-progress-label{font-size:12px;color:var(--txt2)}
+.zip-file-list{max-height:160px;overflow-y:auto;margin-top:8px;display:flex;flex-direction:column;gap:3px}
+.zip-file-item{font-size:11px;font-family:monospace;padding:2px 8px;border-radius:4px;display:flex;align-items:center;gap:6px}
+.zip-file-ok{background:rgba(94,203,111,.08);color:var(--green)}
+.zip-file-warn{background:rgba(212,168,67,.08);color:var(--gold)}
+.zip-file-err{background:rgba(240,112,96,.08);color:var(--coral)}
 </style>
 </head>
 <body>
@@ -193,12 +291,16 @@ body{font-family:var(--fs);background:var(--bg);color:var(--txt);display:flex;fl
     <button class="tab-btn" onclick="switchTab('chapters')"><i class="ti ti-books"></i> Cenas</button>
     <button class="tab-btn" onclick="switchTab('preview')"><i class="ti ti-player-play"></i> Prévia VN</button>
     <button class="tab-btn" onclick="switchTab('board')"><i class="ti ti-sitemap"></i> Quadro</button>
+    <button class="tab-btn" onclick="switchTab('checklist')"><i class="ti ti-checklist"></i> Checklist</button>
+    <button class="tab-btn" onclick="switchTab('review')"><i class="ti ti-book"></i> Revisão</button>
+    <button class="tab-btn" onclick="switchTab('library')"><i class="ti ti-photos"></i> Renders</button>
     <div class="ml-auto" style="display:flex;align-items:center;gap:7px">
       <div class="sync-bar" id="sync-bar">
         <div class="sync-dot" id="sync-dot"></div>
         <span id="sync-txt">Offline</span>
       </div>
       <button class="btn btn-success btn-sm" onclick="openExportModal()"><i class="ti ti-brand-python"></i> Ren'Py</button>
+      <button class="btn btn-warning btn-sm" onclick="openZipExportModal()"><i class="ti ti-file-zip"></i> Export ZIP</button>
     </div>
   </div>
   <div class="content">
@@ -243,7 +345,13 @@ body{font-family:var(--fs);background:var(--bg);color:var(--txt);display:flex;fl
           <button class="btn btn-sm" onclick="addBNode('scene')"><i class="ti ti-photo"></i> Cena</button>
           <button class="btn btn-sm" onclick="addBNode('char')"><i class="ti ti-user"></i> Personagem</button>
           <button class="btn btn-sm" id="conn-btn" onclick="toggleConn()"><i class="ti ti-arrows-join"></i> Conectar</button>
+          <button class="btn btn-sm" onclick="spreadSelectedNodes()" title="Shift+clique para selecionar múltiplos"><i class="ti ti-layout-distribute-horizontal"></i> Separar</button>
+          <button class="btn btn-sm" onclick="autoLayout()"><i class="ti ti-layout-grid"></i> Auto-layout</button>
+          <button class="btn btn-sm" onclick="selectAllNodes()"><i class="ti ti-select-all"></i> Todos</button>
+          <button class="btn btn-sm" onclick="clearSelection()"><i class="ti ti-deselect"></i> Limpar</button>
           <button class="btn btn-danger btn-sm" onclick="delBNode()"><i class="ti ti-trash"></i> Excluir</button>
+          <button class="btn btn-danger btn-sm" onclick="clearBoard()" title="Remove todos os nós do quadro"><i class="ti ti-trash-x"></i> Limpar quadro</button>
+          <span id="board-zoom-label" style="font-size:11px;color:var(--txt3);min-width:36px">100%</span>
           <div class="conn-legend">
             <span style="display:flex;align-items:center;gap:4px"><span style="width:18px;height:2px;background:rgba(62,207,189,.8);display:inline-block;border-radius:1px"></span>jump</span>
             <span style="display:flex;align-items:center;gap:4px"><span style="width:18px;height:0;border-top:2px dashed rgba(245,166,35,.8);display:inline-block"></span>call</span>
@@ -257,6 +365,56 @@ body{font-family:var(--fs);background:var(--bg);color:var(--txt);display:flex;fl
         </div>
       </div>
     </div>
+    <div class="tab-panel" id="tab-review">
+      <div style="display:flex;width:100%;height:100%">
+        <div class="sidebar">
+          <div class="sidebar-hdr">Capítulos</div>
+          <div class="sidebar-scroll" id="review-chap-list"></div>
+        </div>
+        <div class="main-area" id="review-content" style="max-width:760px">
+          <div class="empty-state">Clique em um capítulo ou em Tudo</div>
+        </div>
+      </div>
+    </div>
+    <div class="tab-panel" id="tab-library">
+      <div class="main-area" style="width:100%;max-width:1100px;margin:0 auto">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px">
+          <div style="font-family:var(--ff);font-size:20px;font-weight:600;display:flex;align-items:center;gap:8px">
+            <i class="ti ti-photos"></i> Biblioteca de Renders
+          </div>
+          <div style="display:flex;gap:8px">
+            <button class="btn btn-primary" onclick="openAddRenderLibModal()">
+              <i class="ti ti-upload"></i> Adicionar render
+            </button>
+          </div>
+        </div>
+        <div class="lib-filter">
+          <input class="lib-search" id="lib-search" placeholder="Buscar por nome ou bgName..." oninput="renderLibrary()">
+          <select id="lib-tag-filter" onchange="renderLibrary()" style="padding:6px 10px;border:.5px solid var(--border2);border-radius:var(--rad);background:var(--bg3);color:var(--txt);font-size:13px;outline:none;font-family:var(--fs)">
+            <option value="">Todos os locais</option>
+          </select>
+          <span id="lib-count" style="font-size:12px;color:var(--txt3)"></span>
+        </div>
+        <div class="lib-grid" id="lib-grid"></div>
+      </div>
+    </div>
+
+    <div class="tab-panel" id="tab-checklist">
+      <div class="main-area" style="width:100%;max-width:900px;margin:0 auto">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px">
+          <div style="font-family:var(--ff);font-size:20px;font-weight:600;display:flex;align-items:center;gap:8px"><i class="ti ti-checklist"></i> Checklist de Produção</div>
+          <button class="btn btn-sm" onclick="renderChecklist()"><i class="ti ti-refresh"></i> Atualizar</button>
+        </div>
+        <div id="ck-summary-area"></div>
+        <div class="ck-filter" id="ck-filter">
+          <button class="ck-filter-btn active" onclick="ckSetFilter('all',this)">Todas</button>
+          <button class="ck-filter-btn" onclick="ckSetFilter('complete',this)"><i class="ti ti-circle-check" style="color:var(--green)"></i> Completas</button>
+          <button class="ck-filter-btn" onclick="ckSetFilter('partial',this)"><i class="ti ti-alert-circle" style="color:var(--gold)"></i> Incompletas</button>
+          <button class="ck-filter-btn" onclick="ckSetFilter('empty',this)"><i class="ti ti-x" style="color:var(--coral)"></i> Vazias</button>
+        </div>
+        <div id="ck-list-area"></div>
+      </div>
+    </div>
   </div>
 </div>
 <div id="modal-wrap" class="modal-wrap hidden" onclick="closeModalOut(event)">
@@ -264,6 +422,11 @@ body{font-family:var(--fs);background:var(--bg);color:var(--txt);display:flex;fl
 </div>
 <script>
 'use strict';
+/* ═══ MODAL (defined early so all functions can use it) ═══ */
+function showModal(html){document.getElementById('modal-content').innerHTML=html;document.getElementById('modal-wrap').classList.remove('hidden');}
+function closeModal(){document.getElementById('modal-wrap').classList.add('hidden');}
+function closeModalOut(e){if(e.target===document.getElementById('modal-wrap'))closeModal();}
+
 /* ═══════════════════════════════════════
    SUPABASE CONFIG
 ═══════════════════════════════════════ */
@@ -418,6 +581,7 @@ function defaultState(){return{
     {id:'bc2',from:'bn2',to:'bn3',type:'jump',label:''},
     {id:'bc3',from:'bn2',to:'bn4',type:'jump',label:''}
   ],
+  renderLib:[],
   selChar:null,selChap:null,selScene:null,selBNode:null,connMode:false,
   prevState:{sceneRef:null,idx:0}
 };}
@@ -446,7 +610,7 @@ async function syncToSupabase(){
   _devLog('info','SYN','Sincronizando metadata...');
   try {
     const payload={
-      chars:S.chars, vars:S.vars, chapters:S.chapters,
+      chars:S.chars, vars:S.vars, render_lib:S.renderLib||[], chapters:S.chapters,
       board_nodes:S.boardNodes, board_conns:S.boardConns,
       updated_at:new Date().toISOString()
     };
@@ -499,7 +663,7 @@ async function bootSupabase(){
     const metas = await dbSelect('vn_metadata',`project_id=eq.${PROJECT_ID}&limit=1`);
     const meta = metas?.[0];
     if(meta){
-      const saved={chars:meta.chars||[],vars:meta.vars||[],chapters:meta.chapters||[],boardNodes:meta.board_nodes||[],boardConns:meta.board_conns||[]};
+      const saved={chars:meta.chars||[],vars:meta.vars||[],renderLib:meta.render_lib||[],chapters:meta.chapters||[],boardNodes:meta.board_nodes||[],boardConns:meta.board_conns||[]};
       S=Object.assign(defaultState(),saved);
       _devLog('succ','SUP',`Metadata carregada — ${S.chars.length} personagens, ${S.chapters.length} capítulos`);
     } else {
@@ -522,9 +686,7 @@ async function bootSupabase(){
     const msg = e?.message || JSON.stringify(e);
     console.error('Supabase boot failed: '+msg);
     setSyncState('err','Offline — dados locais');
-    document.getElementById('loading-txt').textContent='⚠ Supabase: '+msg.slice(0,80);
-    await new Promise(r=>setTimeout(r,3000));
-    return false;
+    throw e; // re-throw so boot sequence handles it
   }
 }
 
@@ -546,12 +708,15 @@ const findScene=sId=>{for(const ch of S.chapters){const sc=ch.scenes.find(s=>s.i
 const allScenes=()=>S.chapters.flatMap(ch=>ch.scenes);
 
 function switchTab(t){
-  document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active',['chars','vars','chapters','preview','board'][i]===t));
+  document.querySelectorAll('.tab-btn').forEach((b,i)=>b.classList.toggle('active',['chars','vars','chapters','preview','board','checklist','review','library'][i]===t));
   document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
   document.getElementById('tab-'+t).classList.add('active');
   if(t==='board')renderBoard();
   if(t==='preview')renderPrevList();
   if(t==='vars')renderVarsList();
+  if(t==='checklist')renderChecklist();
+  if(t==='review')renderReview();
+  if(t==='library')renderLibrary();
 }
 
 /* ═══ PERSONAGENS ═══ */
@@ -698,16 +863,7 @@ async function renderSceneArea(){
     <div class="av" style="width:18px;height:18px;font-size:8px;background:${c.color}22;color:${c.color}">${ini(c.name)}</div>
     ${esc(c.name)}</label>`).join('');
   const renderBlocksHTML=(await Promise.all((sc.renders||[]).map((ren,ri)=>renderBlockHTML(ch.id,sc.id,ren,ri,sc)))).join('');
-  const sceneOpts=allScenes().filter(x=>x.id!==sc.id).map(x=>`<option value="${x.id}">${esc(x.name)}</option>`).join('');
-  const choicesHTML=(sc.choices||[]).map((c2,ci)=>`<div class="choice-item">
-    <span style="font-size:11px;color:var(--txt3);flex-shrink:0">${ci+1}.</span>
-    <input placeholder="Texto da opção..." value="${esc(c2.text)}" oninput="upChoice('${sc.id}',${ci},'text',this.value)">
-    <select onchange="upChoice('${sc.id}',${ci},'jumpTo',this.value)">
-      <option value="">— nenhum (return) —</option>
-      ${allScenes().map(x=>`<option value="${x.id}"${c2.jumpTo===x.id?' selected':''}>${esc(x.name)}</option>`).join('')}
-    </select>
-    <button class="btn btn-danger btn-sm btn-icon" onclick="delChoice('${sc.id}',${ci})"><i class="ti ti-x"></i></button>
-  </div>`).join('');
+
   area.innerHTML=`<div class="card">
     <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px">
       <div class="card-title"><i class="ti ti-photo"></i>${esc(sc.name)}</div>
@@ -727,11 +883,7 @@ async function renderSceneArea(){
     <div style="font-size:10px;font-weight:500;color:var(--txt3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px"><i class="ti ti-layers-intersect"></i> Sequência de Renders &amp; Falas</div>
     ${renderBlocksHTML}
     <button class="add-render-btn" onclick="addRender('${ch.id}','${sc.id}')"><i class="ti ti-plus" style="font-size:16px"></i> Adicionar Render</button>
-    <div class="choice-block">
-      <div class="choice-title"><i class="ti ti-git-branch"></i> Escolhas ao final da cena (menu)</div>
-      ${choicesHTML||`<div style="font-size:12px;color:var(--txt3);font-style:italic;padding:4px 0">Sem escolhas — jump automático.</div>`}
-      <button class="btn btn-sm" style="margin-top:8px;border-color:rgba(212,168,67,.3);color:var(--gold)" onclick="addChoice('${sc.id}')"><i class="ti ti-plus"></i> Adicionar escolha</button>
-    </div>
+
   </div>`;
 }
 
@@ -763,10 +915,17 @@ async function renderBlockHTML(chId,scId,ren,ri,sc){
       <div class="rthumb" onclick="trigRenderImg('${chId}','${scId}','${ren.id}')" title="Clique para imagem">
         ${imgUrl?`<img src="${imgUrl}" alt="render">`:`<div class="rthumb-ico"><i class="ti ti-photo-plus"></i></div>`}
         <input type="file" id="ri-${ren.id}" accept="image/*" style="display:none" onchange="setRenderImg('${chId}','${scId}','${ren.id}',this)">
+        <div style="position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,.5);display:flex;justify-content:center;padding:2px;gap:3px;opacity:0;transition:opacity .14s" class="rthumb-actions">
+          <button class="btn btn-sm" style="padding:1px 5px;font-size:9px;background:var(--acc);border-color:transparent;color:#fff" onclick="event.stopPropagation();openLibPicker('${chId}','${scId}','${ren.id}')" title="Selecionar da biblioteca"><i class="ti ti-photos"></i></button>
+          <button class="btn btn-sm" style="padding:1px 5px;font-size:9px" onclick="event.stopPropagation();trigRenderImg('${chId}','${scId}','${ren.id}')" title="Upload direto"><i class="ti ti-upload"></i></button>
+        </div>
       </div>
       <div class="rinfo">
         <input class="rlabel-input" value="${esc(ren.label)}" oninput="upRen('${chId}','${scId}','${ren.id}','label',this.value)" placeholder="Nome do render">
-        <div class="rcount">${(ren.dialogues||[]).length} fala${(ren.dialogues||[]).length!==1?'s':''}</div>
+        <div style="display:flex;align-items:center;gap:6px;margin-top:3px">
+          <div class="rcount">${(ren.dialogues||[]).length} fala${(ren.dialogues||[]).length!==1?'s':''}</div>
+          ${ren.libId?`<span style="font-size:10px;color:var(--teal);display:flex;align-items:center;gap:3px"><i class="ti ti-link" style="font-size:10px"></i>Da biblioteca</span>`:''}
+        </div>
       </div>
       <div style="display:flex;align-items:center;gap:5px;flex-shrink:0;flex-wrap:wrap">
         <div style="display:flex;align-items:center;gap:4px">
@@ -789,6 +948,7 @@ async function renderBlockHTML(chId,scId,ren,ri,sc){
         <textarea id="dt-add-${ren.id}" placeholder="Digite a fala..." rows="2"></textarea>
         <button class="btn btn-primary btn-sm" onclick="addDlg('${chId}','${scId}','${ren.id}')"><i class="ti ti-send"></i></button>
       </div>
+      ${renderChoicesBlock(chId, scId, ren, sc)}
     </div>
   </div>`;
 }
@@ -826,7 +986,7 @@ function openAddSceneModal(chId){showModal(`<h2>Nova Cena</h2>
   <div class="field"><label>Nome</label><input id="nsc-n" placeholder="Nome da cena"></div>
   <div class="field"><label>Descrição</label><textarea id="nsc-d" style="min-height:56px;width:100%;padding:6px 9px;border:.5px solid var(--border2);border-radius:var(--rad);background:var(--bg3);color:var(--txt);font-size:13px;font-family:var(--fs);resize:vertical;outline:none"></textarea></div>
   <div class="modal-footer"><button class="btn" onclick="closeModal()">Cancelar</button><button class="btn btn-primary" onclick="confScene('${chId}')">Criar</button></div>`);}
-function confScene(chId){const n=(document.getElementById('nsc-n')?.value||'').trim();if(!n)return;const ch=gch(chId);if(!ch)return;const bgBase=n.toLowerCase().replace(/\s+/g,'_').slice(0,20);ch.scenes.push({id:uid(),name:n,desc:document.getElementById('nsc-d')?.value||'',notes:'',chars:[],renders:[{id:uid(),label:'Render 1',imgId:null,transition:'dissolve',bgName:'bg_'+bgBase,dialogues:[]}],choices:[]});markDirty();renderChapTree();closeModal();selScene(chId,ch.scenes[ch.scenes.length-1].id);}
+function confScene(chId){const n=(document.getElementById('nsc-n')?.value||'').trim();if(!n)return;const ch=gch(chId);if(!ch)return;const bgBase=n.toLowerCase().replace(/\s+/g,'_').slice(0,20);ch.scenes.push({id:uid(),name:n,desc:document.getElementById('nsc-d')?.value||'',notes:'',chars:[],renders:[{id:uid(),label:'Render 1',imgId:null,transition:'dissolve',bgName:'bg_'+bgBase,dialogues:[],choices:[]}],choices:[]});markDirty();renderChapTree();closeModal();selScene(chId,ch.scenes[ch.scenes.length-1].id);syncBoardFromChoices();if(document.getElementById('tab-board')?.classList.contains('active'))renderBoard();}
 
 /* ═══ PREVIEW VN ═══ */
 function renderPrevList(){document.getElementById('prev-list').innerHTML=S.chapters.map(ch=>`<div style="padding:6px 10px;font-size:10px;color:var(--txt3);text-transform:uppercase;letter-spacing:.06em">${esc(ch.name)}</div>${ch.scenes.map(sc=>`<div class="scene-item" onclick="openPrevScene('${ch.id}','${sc.id}')">${esc(sc.name)}</div>`).join('')}`).join('');}
@@ -837,7 +997,7 @@ async function renderVNScreen(){
   const {chId,scId}=S.prevState.sceneRef;
   const sc=gs(chId,scId);if(!sc){area.innerHTML=`<div class="empty-state">Cena não encontrada</div>`;return;}
   const seq=[];(sc.renders||[]).forEach(ren=>{if(ren.dialogues?.length)ren.dialogues.forEach(d=>seq.push({ren,dlg:d}));else seq.push({ren,dlg:null});});
-  const hasChoices=sc.choices?.length>0;
+  const hasChoices=(sc.renders||[]).flatMap(r=>r.choices||[]).filter(c=>c.text).length>0;
   const idx=Math.min(S.prevState.idx,Math.max(seq.length-1+(hasChoices?1:0),0));
   const total=seq.length+(hasChoices?1:0);
   const showChoices=hasChoices&&idx>=seq.length;
@@ -861,7 +1021,7 @@ async function renderVNScreen(){
       ${bgUrl?`<img class="vn-bg" src="${bgUrl}" alt="bg">`:`<div class="vn-bg-ph">${esc(ren?.label||'Sem render')}</div>`}
       ${ren?`<div class="vn-rbadge"><i class="ti ti-photo" style="font-size:10px"></i> ${esc(ren.label)}</div>`:''}
       <div class="vn-chars">${charsHTML}</div>
-      ${showChoices?`<div class="vn-choices"><div style="font-size:11px;color:rgba(255,255,255,.4);margin-bottom:8px;font-family:var(--ff);font-style:italic">O que fazer?</div>${sc.choices.map(c2=>`<button class="vn-choice-btn" onclick="prevJumpTo('${c2.jumpTo}')">${esc(c2.text)||'...'}</button>`).join('')}</div>`:dlg?`<div class="vn-tbox"><div class="vn-spk" style="color:${spColor}">${esc(speaker?speaker.name:'Narrador')}</div><div class="vn-line">${esc(dlg.text)}</div></div>`:`<div style="position:absolute;bottom:0;left:0;right:0;background:rgba(6,4,16,.7);padding:10px 16px;text-align:center;color:rgba(255,255,255,.3);font-family:var(--ff);font-style:italic;font-size:14px">[${esc(ren?.transition||'')} → próximo render]</div>`}
+      ${showChoices?`<div class="vn-choices"><div style="font-size:11px;color:rgba(255,255,255,.4);margin-bottom:8px;font-family:var(--ff);font-style:italic">O que fazer?</div>${(sc.renders||[]).flatMap(r=>r.choices||[]).filter(c2=>c2.text).map(c2=>`<button class="vn-choice-btn" onclick="prevJumpTo('${c2.jumpTo}')">${esc(c2.text)||'...'}</button>`).join('')}</div>`:dlg?`<div class="vn-tbox"><div class="vn-spk" style="color:${spColor}">${esc(speaker?speaker.name:'Narrador')}</div><div class="vn-line">${esc(dlg.text)}</div></div>`:`<div style="position:absolute;bottom:0;left:0;right:0;background:rgba(6,4,16,.7);padding:10px 16px;text-align:center;color:rgba(255,255,255,.3);font-family:var(--ff);font-style:italic;font-size:14px">[${esc(ren?.transition||'')} → próximo render]</div>`}
     </div>
     <div class="vn-progress"><div class="vn-prog-bar" style="width:${pct}%"></div></div>
     <div class="vn-nav">
@@ -873,7 +1033,7 @@ async function renderVNScreen(){
       <div style="display:flex;gap:6px;flex-wrap:wrap">${(sc.chars||[]).map(cid=>{const c=gc(cid);return c?`<span class="chip" style="border-color:${c.color}33;color:${c.color}">${esc(c.name)}</span>`:''}).join('')}</div>
     </div>`;
 }
-function vnNav(d){const {chId,scId}=S.prevState.sceneRef;const sc=gs(chId,scId);if(!sc)return;let t=0;(sc.renders||[]).forEach(r=>{t+=r.dialogues?.length||1;});if(sc.choices?.length)t++;S.prevState.idx=Math.max(0,Math.min(t-1,S.prevState.idx+d));renderVNScreen();}
+function vnNav(d){const {chId,scId}=S.prevState.sceneRef;const sc=gs(chId,scId);if(!sc)return;let t=0;(sc.renders||[]).forEach(r=>{t+=r.dialogues?.length||1;});if((sc.renders||[]).flatMap(r=>r.choices||[]).filter(c=>c.text).length)t++;S.prevState.idx=Math.max(0,Math.min(t-1,S.prevState.idx+d));renderVNScreen();}
 function prevJumpTo(scId){if(!scId)return;const r=findScene(scId);if(r)openPrevScene(r.ch.id,scId);}
 
 /* ═══ RENPY EXPORT ═══ */
@@ -910,9 +1070,10 @@ function buildRenpy(){
       const spkAll=[...new Set((sc.renders||[]).flatMap(r=>(r.dialogues||[]).map(d=>d.char).filter(Boolean)))];
       spkAll.forEach(cid=>{const c=gc(cid);if(!c)return;const rid=(c.renpyId||c.name.toLowerCase().replace(/\s+/g,'_')).replace(/[^a-z0-9_]/gi,'_');out+=`    hide ${rid}\n`;});
       if(spkAll.length)out+=`\n`;
-      if(sc.choices?.length){
+      const allRCh=(sc.renders||[]).flatMap(r=>r.choices||[]).filter(c2=>c2.text);
+      if(allRCh.length){
         out+=`    menu:\n`;
-        sc.choices.forEach(c2=>{const safe=(c2.text||'...').replace(/"/g,'\\"');out+=`        "${safe}":\n${c2.jumpTo?`            jump ${c2.jumpTo.replace(/-/g,'_')}\n`:`            pass\n`}`;});
+        allRCh.forEach(c2=>{const safe=(c2.text||'...').replace(/"/g,'\\"');out+=`        "${safe}":\n`;if(c2.condition)out+=`            if ${c2.condition}:\n`;out+=c2.jumpTo?`            jump ${c2.jumpTo.replace(/-/g,'_')}\n`:`            pass\n`;});
         out+=`\n    return\n\n`;
       } else {
         const scenes=allScenes();const si=scenes.findIndex(x=>x.id===sc.id);const next=si>=0&&si<scenes.length-1?scenes[si+1]:null;
@@ -929,70 +1090,841 @@ function openExportModal(){const code=buildRenpy();showModal(`<h2><i class="ti t
 function copyRpy(){navigator.clipboard?.writeText(buildRenpy());alert('Script copiado!');}
 function dlRpy(){const b=new Blob([buildRenpy()],{type:'text/plain;charset=utf-8'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='script.rpy';a.click();URL.revokeObjectURL(a.href);}
 
-/* ═══ BOARD ═══ */
-let bDrag={active:false,id:null,sx:0,sy:0,ox:0,oy:0,moved:false};
+/* ═══════════════════════════════════════
+   BOARD v2 — Sincronizado, multi-select, zoom, auto-layout
+═══════════════════════════════════════ */
+let bDrag={active:false,ids:[],sx:0,sy:0,origPos:{},moved:false};
 let cDraw={active:false,fromId:null,x1:0,y1:0,x2:0,y2:0};
+let selNodes=new Set(); // multi-select
+let boardZoom=1;
 const CONN_C={jump:'rgba(62,207,189,.8)',call:'rgba(245,166,35,.8)',menu:'rgba(240,98,146,.8)'};
 const CONN_D={jump:'none',call:'6 3',menu:'none'};
+
+/* ── Sync board with scenes ── */
+function syncBoardWithScenes(){
+  // For every chapter, ensure a node exists
+  S.chapters.forEach(ch=>{
+    if(!S.boardNodes.find(n=>n.type==='chapter'&&n.sceneRef===ch.id)){
+      S.boardNodes.push({id:uid(),type:'chapter',label:ch.name,sub:ch.desc||'',x:80,y:80,sceneRef:ch.id});
+    } else {
+      // update label
+      const n=S.boardNodes.find(n=>n.type==='chapter'&&n.sceneRef===ch.id);
+      if(n){n.label=ch.name;n.sub=ch.desc||'';}
+    }
+    // For every scene, ensure a node exists
+    ch.scenes.forEach((sc,si)=>{
+      let n=S.boardNodes.find(n=>n.type==='scene'&&n.sceneRef===sc.id);
+      if(!n){
+        // find chapter node position for placement
+        const chNode=S.boardNodes.find(nd=>nd.type==='chapter'&&nd.sceneRef===ch.id);
+        const baseX=chNode?chNode.x+220:300;
+        const baseY=chNode?chNode.y+(si*130):80+(si*130);
+        n={id:uid(),type:'scene',label:sc.name,sub:sc.desc||'',x:baseX,y:baseY,sceneRef:sc.id};
+        S.boardNodes.push(n);
+        // auto-connect chapter→scene
+        const chNode2=S.boardNodes.find(nd=>nd.type==='chapter'&&nd.sceneRef===ch.id);
+        if(chNode2&&!S.boardConns.find(c=>c.from===chNode2.id&&c.to===n.id)){
+          S.boardConns.push({id:uid(),from:chNode2.id,to:n.id,type:'jump',label:''});
+        }
+      } else {
+        n.label=sc.name;n.sub=sc.desc||'';
+      }
+      // sync choice connections
+      syncSceneChoiceConns(n, sc);
+    });
+  });
+  // Remove nodes for deleted scenes/chapters
+  const allSceneIds=S.chapters.flatMap(ch=>ch.scenes.map(sc=>sc.id));
+  const allChapIds=S.chapters.map(ch=>ch.id);
+  S.boardNodes=S.boardNodes.filter(n=>{
+    if(n.type==='scene') return !n.sceneRef||allSceneIds.includes(n.sceneRef);
+    if(n.type==='chapter') return !n.sceneRef||allChapIds.includes(n.sceneRef);
+    return true;
+  });
+  // Remove orphan connections
+  const nodeIds=new Set(S.boardNodes.map(n=>n.id));
+  S.boardConns=S.boardConns.filter(c=>nodeIds.has(c.from)&&nodeIds.has(c.to));
+}
+
+function syncSceneChoiceConns(boardNode, sc){
+  // Remove old menu connections from this node
+  S.boardConns=S.boardConns.filter(c=>!(c.from===boardNode.id&&c.type==='menu'));
+  // Add new ones from all render choices
+  (sc.renders||[]).forEach(ren=>{
+    (ren.choices||[]).forEach(ch2=>{
+      if(!ch2.jumpTo)return;
+      const destNode=S.boardNodes.find(n=>n.type==='scene'&&n.sceneRef===ch2.jumpTo);
+      if(!destNode)return;
+      if(!S.boardConns.find(c=>c.from===boardNode.id&&c.to===destNode.id&&c.type==='menu'&&c.label===ch2.text)){
+        S.boardConns.push({id:uid(),from:boardNode.id,to:destNode.id,type:'menu',label:ch2.text||'escolha'});
+      }
+    });
+  });
+}
+
 function renderBoard(){
-  const canvas=document.getElementById('bcanvas');canvas.innerHTML='';
+  syncBoardWithScenes();
+  const canvas=document.getElementById('bcanvas');
+  canvas.innerHTML='';
+  canvas.style.transform=`scale(${boardZoom})`;
+  canvas.style.transformOrigin='0 0';
+
   S.boardNodes.forEach(n=>{
     const el=document.createElement('div');
-    el.className='bnode'+(S.selBNode===n.id?' selected':'');
-    el.id='bn-'+n.id;el.style.left=n.x+'px';el.style.top=n.y+'px';
+    const isSel=selNodes.has(n.id);
+    el.className='bnode'+(isSel?' selected':'');
+    el.id='bn-'+n.id;
+    el.style.left=n.x+'px';
+    el.style.top=n.y+'px';
+
     const bc={'chapter':'bc-chap','scene':'bc-scene','char':'bc-char'}[n.type]||'bc-char';
     const bl={'chapter':'Capítulo','scene':'Cena','char':'Personagem'}[n.type];
-    let av='';if(n.type==='char'&&n.charId){const c=gc(n.charId);if(c)av=`<div class="av" style="width:22px;height:22px;font-size:9px;background:${c.color}22;color:${c.color}">${ini(c.name)}</div>`;}
+
+    let av='';
+    if(n.type==='char'&&n.charId){
+      const c=gc(n.charId);
+      if(c) av=`<div class="av" style="width:22px;height:22px;font-size:9px;background:${c.color}22;color:${c.color}">${ini(c.name)}</div>`;
+    }
+
     let extra='';
-    if(n.type==='scene'&&n.sceneRef){const r=findScene(n.sceneRef);if(r){const sc=r.sc;const tdlg=(sc.renders||[]).reduce((a,r2)=>a+(r2.dialogues?.length||0),0);extra=`<div class="n-stats"><span class="n-stat"><i class="ti ti-layers-intersect" style="font-size:9px"></i> ${(sc.renders||[]).length}</span><span class="n-stat"><i class="ti ti-message-circle" style="font-size:9px"></i> ${tdlg}</span>${sc.choices?.length?`<span class="n-stat" style="color:var(--gold)"><i class="ti ti-git-branch" style="font-size:9px"></i> ${sc.choices.length}</span>`:''}</div>${sc.desc?`<div class="n-desc">${esc(sc.desc.slice(0,80)+(sc.desc.length>80?'...':''))}</div>`:''}${sc.notes?`<div class="n-desc" style="color:var(--gold);opacity:.7"><i class="ti ti-notes" style="font-size:9px"></i> ${esc(sc.notes.slice(0,50)+(sc.notes.length>50?'...':''))}</div>`:''}`}}
-    el.innerHTML=`<div class="cport cport-t" data-n="${n.id}" data-p="t"></div><div class="cport cport-b" data-n="${n.id}" data-p="b"></div><div class="cport cport-l" data-n="${n.id}" data-p="l"></div><div class="cport cport-r" data-n="${n.id}" data-p="r"></div><div class="nh">${av}<span>${esc(n.label)}</span><span class="nbadge ${bc}">${bl}</span></div>${n.sub?`<div class="ns">${esc(n.sub)}</div>`:''}${extra}`;
+    if(n.type==='scene'&&n.sceneRef){
+      const r=findScene(n.sceneRef);
+      if(r){
+        const sc=r.sc;
+        const tdlg=(sc.renders||[]).reduce((a,r2)=>a+(r2.dialogues?.length||0),0);
+        const allChoices=(sc.renders||[]).flatMap(r2=>r2.choices||[]);
+        const firstImgId=(sc.renders||[]).find(r2=>r2.imgId)?.imgId;
+        // async thumbnail - set after render
+        if(firstImgId){
+          setTimeout(async()=>{
+            const url=await resolveImg(firstImgId);
+            const thumb=document.getElementById('bthumb-'+n.id);
+            if(thumb&&url) thumb.innerHTML=`<img src="${url}" style="width:100%;height:100%;object-fit:cover;border-radius:4px">`;
+          },0);
+        }
+        const statusColor=sc.renders?.length&&tdlg>0?'var(--green)':sc.renders?.length?'var(--gold)':'var(--coral)';
+        extra=`
+          <div id="bthumb-${n.id}" style="width:100%;height:44px;background:var(--bg4);border-radius:4px;margin-bottom:6px;overflow:hidden;display:flex;align-items:center;justify-content:center;color:var(--txt3);font-size:10px">
+            ${firstImgId?'':'<i class="ti ti-photo" style="font-size:14px"></i>'}
+          </div>
+          <div class="n-stats">
+            <span class="n-stat"><i class="ti ti-layers-intersect" style="font-size:9px"></i> ${(sc.renders||[]).length}</span>
+            <span class="n-stat"><i class="ti ti-message-circle" style="font-size:9px"></i> ${tdlg}</span>
+            ${allChoices.length?`<span class="n-stat" style="color:var(--gold)"><i class="ti ti-git-branch" style="font-size:9px"></i> ${allChoices.length}</span>`:''}
+            <span class="n-stat" style="width:7px;height:7px;border-radius:50%;background:${statusColor};padding:0;min-width:7px"></span>
+          </div>
+          ${sc.desc?`<div class="n-desc">${esc(sc.desc.slice(0,60)+(sc.desc.length>60?'…':''))}</div>`:''}`;
+      }
+    }
+
+    el.innerHTML=`
+      <div class="cport cport-t" data-n="${n.id}" data-p="t"></div>
+      <div class="cport cport-b" data-n="${n.id}" data-p="b"></div>
+      <div class="cport cport-l" data-n="${n.id}" data-p="l"></div>
+      <div class="cport cport-r" data-n="${n.id}" data-p="r"></div>
+      <div class="nh">${av}<span>${esc(n.label)}</span><span class="nbadge ${bc}">${bl}</span></div>
+      ${n.sub&&n.type!=='scene'?`<div class="ns">${esc(n.sub)}</div>`:''}
+      ${extra}`;
+
     el.addEventListener('mousedown',e=>startBDrag(e,n.id));
+    el.addEventListener('dblclick',e=>{
+      e.stopPropagation();
+      if(n.type==='scene'&&n.sceneRef){const r=findScene(n.sceneRef);if(r){selScene(r.ch.id,n.sceneRef);switchTab('chapters');}}
+    });
     el.querySelectorAll('.cport').forEach(p=>p.addEventListener('mousedown',e=>{e.stopPropagation();startCDraw(e,n.id,p.dataset.p);}));
     canvas.appendChild(el);
   });
   renderBSVG();
 }
-function portXY(nid,p){const el=document.getElementById('bn-'+nid);const n=S.boardNodes.find(x=>x.id===nid);if(!el||!n)return{x:0,y:0};const w=el.offsetWidth||150,h=el.offsetHeight||60;if(p==='r')return{x:n.x+w,y:n.y+h/2};if(p==='l')return{x:n.x,y:n.y+h/2};if(p==='t')return{x:n.x+w/2,y:n.y};return{x:n.x+w/2,y:n.y+h};}
-function autoPort(fId,tId){const f=S.boardNodes.find(x=>x.id===fId),t=S.boardNodes.find(x=>x.id===tId);if(!f||!t)return{f:'r',t:'l'};if(t.x>f.x+40)return{f:'r',t:'l'};if(t.x<f.x-40)return{f:'l',t:'r'};if(t.y>f.y+20)return{f:'b',t:'t'};return{f:'t',t:'b'};}
+
+function portXY(nid,p){
+  const el=document.getElementById('bn-'+nid);
+  const n=S.boardNodes.find(x=>x.id===nid);
+  if(!el||!n)return{x:0,y:0};
+  const w=el.offsetWidth||160,h=el.offsetHeight||80;
+  if(p==='r')return{x:n.x+w,y:n.y+h/2};
+  if(p==='l')return{x:n.x,y:n.y+h/2};
+  if(p==='t')return{x:n.x+w/2,y:n.y};
+  return{x:n.x+w/2,y:n.y+h};
+}
+function autoPort(fId,tId){
+  const f=S.boardNodes.find(x=>x.id===fId),t=S.boardNodes.find(x=>x.id===tId);
+  if(!f||!t)return{f:'r',t:'l'};
+  if(t.x>f.x+40)return{f:'r',t:'l'};
+  if(t.x<f.x-40)return{f:'l',t:'r'};
+  if(t.y>f.y+20)return{f:'b',t:'t'};
+  return{f:'t',t:'b'};
+}
+
 function renderBSVG(){
   const svg=document.getElementById('bsvg');
-  svg.innerHTML=`<defs><marker id="arr-jump" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="rgba(62,207,189,.9)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker><marker id="arr-call" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="rgba(245,166,35,.9)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker><marker id="arr-menu" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="rgba(240,98,146,.9)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>`;
+  // scale SVG with zoom
+  svg.style.transform=`scale(${boardZoom})`;
+  svg.style.transformOrigin='0 0';
+  svg.innerHTML=`<defs>
+    <marker id="arr-jump" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="rgba(62,207,189,.9)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+    <marker id="arr-call" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="rgba(245,166,35,.9)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+    <marker id="arr-menu" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="rgba(240,98,146,.9)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+  </defs>`;
   S.boardConns.forEach(c=>{
-    const ap=autoPort(c.from,c.to);const p1=portXY(c.from,ap.f),p2=portXY(c.to,ap.t);
-    const dx=(p2.x-p1.x)*.5,dy=(p2.y-p1.y)*.5;let cx1=p1.x,cy1=p1.y,cx2=p2.x,cy2=p2.y;
-    if(ap.f==='r'||ap.f==='l')cx1=p1.x+dx;else cy1=p1.y+dy;if(ap.t==='r'||ap.t==='l')cx2=p2.x-dx;else cy2=p2.y-dy;
-    const type=c.type||'jump';const path=document.createElementNS('http://www.w3.org/2000/svg','path');
+    const ap=autoPort(c.from,c.to);
+    const p1=portXY(c.from,ap.f),p2=portXY(c.to,ap.t);
+    const dx=(p2.x-p1.x)*.5,dy=(p2.y-p1.y)*.5;
+    let cx1=p1.x,cy1=p1.y,cx2=p2.x,cy2=p2.y;
+    if(ap.f==='r'||ap.f==='l')cx1=p1.x+dx; else cy1=p1.y+dy;
+    if(ap.t==='r'||ap.t==='l')cx2=p2.x-dx; else cy2=p2.y-dy;
+    const type=c.type||'jump';
+    const path=document.createElementNS('http://www.w3.org/2000/svg','path');
     path.setAttribute('d',`M${p1.x},${p1.y} C${cx1},${cy1} ${cx2},${cy2} ${p2.x},${p2.y}`);
-    path.setAttribute('fill','none');path.setAttribute('stroke',CONN_C[type]||CONN_C.jump);path.setAttribute('stroke-width','1.8');path.setAttribute('stroke-dasharray',CONN_D[type]);path.setAttribute('marker-end',`url(#arr-${type})`);path.style.cursor='pointer';path.addEventListener('click',()=>openConnModal(c.id));svg.appendChild(path);
-    const lbl=c.label||(type==='call'?'call':'');if(lbl){const mx=(p1.x+p2.x)/2,my=(p1.y+p2.y)/2;const tw=lbl.length*6+10;const bg=document.createElementNS('http://www.w3.org/2000/svg','rect');bg.setAttribute('x',mx-tw/2);bg.setAttribute('y',my-10);bg.setAttribute('width',tw);bg.setAttribute('height',16);bg.setAttribute('rx',4);bg.setAttribute('fill',CONN_C[type].replace('.8','.15'));svg.appendChild(bg);const t2=document.createElementNS('http://www.w3.org/2000/svg','text');t2.setAttribute('x',mx);t2.setAttribute('y',my+1);t2.setAttribute('text-anchor','middle');t2.setAttribute('dominant-baseline','middle');t2.setAttribute('font-size','10');t2.setAttribute('fill',CONN_C[type].replace('.8','1'));t2.textContent=lbl;svg.appendChild(t2);}
+    path.setAttribute('fill','none');
+    path.setAttribute('stroke',CONN_C[type]||CONN_C.jump);
+    path.setAttribute('stroke-width','1.8');
+    path.setAttribute('stroke-dasharray',CONN_D[type]);
+    path.setAttribute('marker-end',`url(#arr-${type})`);
+    path.style.cursor='pointer';
+    path.style.pointerEvents='stroke';
+    path.addEventListener('click',()=>openConnModal(c.id));
+    svg.appendChild(path);
+    const lbl=c.label;
+    if(lbl){
+      const mx=(p1.x+p2.x)/2,my=(p1.y+p2.y)/2;
+      const maxLen=18;
+      const shortLbl=lbl.length>maxLen?lbl.slice(0,maxLen)+'…':lbl;
+      const tw=shortLbl.length*5.5+10;
+      const bg=document.createElementNS('http://www.w3.org/2000/svg','rect');
+      bg.setAttribute('x',mx-tw/2);bg.setAttribute('y',my-10);bg.setAttribute('width',tw);bg.setAttribute('height',16);bg.setAttribute('rx',4);
+      bg.setAttribute('fill',CONN_C[type].replace('.8','.12'));svg.appendChild(bg);
+      const t2=document.createElementNS('http://www.w3.org/2000/svg','text');
+      t2.setAttribute('x',mx);t2.setAttribute('y',my+1);t2.setAttribute('text-anchor','middle');t2.setAttribute('dominant-baseline','middle');
+      t2.setAttribute('font-size','9');t2.setAttribute('fill',CONN_C[type].replace('.8','1'));
+      t2.textContent=shortLbl;svg.appendChild(t2);
+    }
   });
-  if(cDraw.active){const line=document.createElementNS('http://www.w3.org/2000/svg','line');['x1','y1','x2','y2'].forEach(a=>line.setAttribute(a,cDraw[a]));line.setAttribute('stroke','var(--acc)');line.setAttribute('stroke-width','1.5');line.setAttribute('stroke-dasharray','5 3');svg.appendChild(line);}
+  if(cDraw.active){
+    const line=document.createElementNS('http://www.w3.org/2000/svg','line');
+    ['x1','y1','x2','y2'].forEach(a=>line.setAttribute(a,cDraw[a]));
+    line.setAttribute('stroke','var(--acc)');line.setAttribute('stroke-width','1.5');line.setAttribute('stroke-dasharray','5 3');
+    svg.appendChild(line);
+  }
 }
-function openConnModal(connId){const c=S.boardConns.find(x=>x.id===connId);if(!c)return;showModal(`<h2>Conexão</h2>
-  <div class="field"><label>Tipo</label><select id="cm-t" style="width:100%;padding:7px 10px;border:.5px solid var(--border2);border-radius:var(--rad);background:var(--bg3);color:var(--txt);font-size:13px;outline:none;font-family:var(--fs)"><option value="jump"${c.type==='jump'?' selected':''}>jump — direto para a cena</option><option value="call"${c.type==='call'?' selected':''}>call — chama e retorna</option><option value="menu"${c.type==='menu'?' selected':''}>menu — via escolha do player</option></select></div>
-  <div class="field"><label>Label (texto na seta)</label><input id="cm-l" value="${esc(c.label||'')}" placeholder="Opcional"></div>
-  <div class="modal-footer"><button class="btn btn-danger" onclick="delConn('${connId}')"><i class="ti ti-trash"></i> Remover</button><button class="btn" onclick="closeModal()">Cancelar</button><button class="btn btn-primary" onclick="saveConn('${connId}')">Salvar</button></div>`);}
+
+function openConnModal(connId){
+  const c=S.boardConns.find(x=>x.id===connId);if(!c)return;
+  showModal(`<h2>Conexão</h2>
+    <div class="field"><label>Tipo</label>
+      <select id="cm-t" style="width:100%;padding:7px 10px;border:.5px solid var(--border2);border-radius:var(--rad);background:var(--bg3);color:var(--txt);font-size:13px;outline:none;font-family:var(--fs)">
+        <option value="jump"${c.type==='jump'?' selected':''}>jump — direto para a cena</option>
+        <option value="call"${c.type==='call'?' selected':''}>call — chama e retorna</option>
+        <option value="menu"${c.type==='menu'?' selected':''}>menu — via escolha do player</option>
+      </select>
+    </div>
+    <div class="field"><label>Label (texto na seta)</label><input id="cm-l" value="${esc(c.label||'')}" placeholder="Opcional"></div>
+    <div class="modal-footer">
+      <button class="btn btn-danger" onclick="delConn('${connId}')"><i class="ti ti-trash"></i> Remover</button>
+      <button class="btn" onclick="closeModal()">Cancelar</button>
+      <button class="btn btn-primary" onclick="saveConn('${connId}')">Salvar</button>
+    </div>`);
+}
 function saveConn(id){const c=S.boardConns.find(x=>x.id===id);if(!c)return;c.type=document.getElementById('cm-t')?.value||'jump';c.label=document.getElementById('cm-l')?.value||'';markDirty();closeModal();renderBSVG();}
 function delConn(id){S.boardConns=S.boardConns.filter(x=>x.id!==id);markDirty();closeModal();renderBSVG();}
-function startBDrag(e,id){if(e.target.classList.contains('cport'))return;bDrag={active:true,id,sx:e.clientX,sy:e.clientY,moved:false};const n=S.boardNodes.find(x=>x.id===id);bDrag.ox=n.x;bDrag.oy=n.y;document.getElementById('bn-'+id)?.classList.add('dragging');e.preventDefault();}
+
+/* ── Drag (single + multi) ── */
+function startBDrag(e,id){
+  if(e.target.classList.contains('cport'))return;
+  e.preventDefault();
+  // shift-click: toggle selection
+  if(e.shiftKey){
+    if(selNodes.has(id))selNodes.delete(id); else selNodes.add(id);
+    renderBoard();return;
+  }
+  // if clicking a non-selected node without shift, reset selection
+  if(!selNodes.has(id)){selNodes.clear();selNodes.add(id);renderBoard();}
+  // drag all selected
+  const ids=[...selNodes];
+  const origPos={};
+  ids.forEach(nid=>{const n=S.boardNodes.find(x=>x.id===nid);if(n)origPos[nid]={x:n.x,y:n.y};});
+  bDrag={active:true,ids,sx:e.clientX,sy:e.clientY,origPos,moved:false};
+  ids.forEach(nid=>document.getElementById('bn-'+nid)?.classList.add('dragging'));
+}
 function startCDraw(e,nid,port){const p=portXY(nid,port);cDraw={active:true,fromId:nid,x1:p.x,y1:p.y,x2:p.x,y2:p.y};e.preventDefault();}
+
 document.addEventListener('mousemove',e=>{
-  const wrap=document.getElementById('board-wrap');if(!wrap)return;const wr=wrap.getBoundingClientRect();
-  if(bDrag.active&&bDrag.id){bDrag.moved=true;const n=S.boardNodes.find(x=>x.id===bDrag.id);if(!n)return;n.x=Math.max(0,bDrag.ox+(e.clientX-bDrag.sx));n.y=Math.max(0,bDrag.oy+(e.clientY-bDrag.sy));const el=document.getElementById('bn-'+bDrag.id);if(el){el.style.left=n.x+'px';el.style.top=n.y+'px';}renderBSVG();markDirty();}
-  if(cDraw.active){cDraw.x2=e.clientX-wr.left+wrap.scrollLeft;cDraw.y2=e.clientY-wr.top+wrap.scrollTop;renderBSVG();}
+  const wrap=document.getElementById('board-wrap');if(!wrap)return;
+  const wr=wrap.getBoundingClientRect();
+  if(bDrag.active&&bDrag.ids.length){
+    bDrag.moved=true;
+    const dx=(e.clientX-bDrag.sx)/boardZoom;
+    const dy=(e.clientY-bDrag.sy)/boardZoom;
+    bDrag.ids.forEach(nid=>{
+      const n=S.boardNodes.find(x=>x.id===nid);if(!n)return;
+      n.x=Math.max(0,(bDrag.origPos[nid]?.x||0)+dx);
+      n.y=Math.max(0,(bDrag.origPos[nid]?.y||0)+dy);
+      const el=document.getElementById('bn-'+nid);
+      if(el){el.style.left=n.x+'px';el.style.top=n.y+'px';}
+    });
+    renderBSVG();markDirty();
+  }
+  if(cDraw.active){
+    cDraw.x2=(e.clientX-wr.left+wrap.scrollLeft)/boardZoom;
+    cDraw.y2=(e.clientY-wr.top+wrap.scrollTop)/boardZoom;
+    renderBSVG();
+  }
 });
 document.addEventListener('mouseup',e=>{
-  if(bDrag.active){document.getElementById('bn-'+bDrag.id)?.classList.remove('dragging');bDrag.active=false;}
-  if(cDraw.active){const tgt=document.elementFromPoint(e.clientX,e.clientY);if(tgt?.classList.contains('cport')&&tgt.dataset.n!==cDraw.fromId){const to=tgt.dataset.n;if(!S.boardConns.some(c=>(c.from===cDraw.fromId&&c.to===to)||(c.from===to&&c.to===cDraw.fromId))){const nc={id:uid(),from:cDraw.fromId,to,type:'jump',label:''};S.boardConns.push(nc);markDirty();setTimeout(()=>openConnModal(nc.id),50);}}cDraw.active=false;renderBSVG();}
+  if(bDrag.active){
+    bDrag.ids.forEach(nid=>document.getElementById('bn-'+nid)?.classList.remove('dragging'));
+    if(!bDrag.moved&&bDrag.ids.length===1){
+      // single click without move = go to scene
+    }
+    bDrag.active=false;
+  }
+  if(cDraw.active){
+    const tgt=document.elementFromPoint(e.clientX,e.clientY);
+    if(tgt?.classList.contains('cport')&&tgt.dataset.n!==cDraw.fromId){
+      const to=tgt.dataset.n;
+      if(!S.boardConns.some(c=>(c.from===cDraw.fromId&&c.to===to)||(c.from===to&&c.to===cDraw.fromId))){
+        const nc={id:uid(),from:cDraw.fromId,to,type:'jump',label:''};
+        S.boardConns.push(nc);markDirty();
+        setTimeout(()=>openConnModal(nc.id),50);
+      }
+    }
+    cDraw.active=false;renderBSVG();
+  }
 });
-function toggleConn(){S.connMode=!S.connMode;const b=document.getElementById('conn-btn');b.style.background=S.connMode?'rgba(124,92,252,.15)':'';b.style.borderColor=S.connMode?'var(--acc)':'';b.style.color=S.connMode?'var(--acc)':'';document.getElementById('conn-hint').textContent=S.connMode?'Arraste de ◯ até outra porta para conectar':'';}
-function delBNode(){if(!S.selBNode||!confirm('Excluir nó?'))return;S.boardConns=S.boardConns.filter(c=>c.from!==S.selBNode&&c.to!==S.selBNode);S.boardNodes=S.boardNodes.filter(n=>n.id!==S.selBNode);S.selBNode=null;markDirty();renderBoard();}
-function addBNode(type){const wrap=document.getElementById('board-wrap');const x=(wrap?.scrollLeft||0)+60+Math.random()*120,y=(wrap?.scrollTop||0)+60+Math.random()*100;let label='Novo',sub='',charId=null,sceneRef=null;if(type==='chapter'){label='Capítulo';sub='Descrição';}if(type==='scene'){label='Cena';sub='Local';const sc=allScenes()[0];if(sc){label=sc.name;sceneRef=sc.id;}}if(type==='char'&&S.chars.length){const c=S.chars[0];label=c.name;sub=c.role;charId=c.id;}else if(type==='char'){label='Personagem';sub='Papel';}S.boardNodes.push({id:uid(),type,label,sub,x,y,charId,sceneRef});markDirty();renderBoard();}
 
-/* ═══ MODAL ═══ */
-function showModal(html){document.getElementById('modal-content').innerHTML=html;document.getElementById('modal-wrap').classList.remove('hidden');}
-function closeModal(){document.getElementById('modal-wrap').classList.add('hidden');}
-function closeModalOut(e){if(e.target===document.getElementById('modal-wrap'))closeModal();}
+/* ── Zoom ── */
+document.addEventListener('wheel',e=>{
+  const wrap=document.getElementById('board-wrap');
+  if(!wrap||!wrap.contains(e.target))return;
+  e.preventDefault();
+  const delta=e.deltaY>0?-0.1:0.1;
+  boardZoom=Math.min(2,Math.max(0.3,boardZoom+delta));
+  const zoomEl=document.getElementById('board-zoom-label');
+  if(zoomEl)zoomEl.textContent=Math.round(boardZoom*100)+'%';
+  renderBoard();
+},{passive:false});
+
+/* ── Board toolbar actions ── */
+function toggleConn(){
+  S.connMode=!S.connMode;
+  const b=document.getElementById('conn-btn');
+  b.style.background=S.connMode?'rgba(124,92,252,.15)':'';
+  b.style.borderColor=S.connMode?'var(--acc)':'';
+  b.style.color=S.connMode?'var(--acc)':'';
+  document.getElementById('conn-hint').textContent=S.connMode?'Arraste de ◯ até outra porta para conectar':'';
+}
+function delBNode(){
+  if(!selNodes.size||!confirm('Excluir nós selecionados?'))return;
+  selNodes.forEach(id=>{
+    S.boardConns=S.boardConns.filter(c=>c.from!==id&&c.to!==id);
+    S.boardNodes=S.boardNodes.filter(n=>n.id!==id);
+  });
+  selNodes.clear();markDirty();renderBoard();
+}
+function addBNode(type){
+  const wrap=document.getElementById('board-wrap');
+  const x=(wrap?.scrollLeft||0)/boardZoom+60+Math.random()*120;
+  const y=(wrap?.scrollTop||0)/boardZoom+60+Math.random()*100;
+  let label='Novo',sub='',charId=null,sceneRef=null;
+  if(type==='chapter'){label='Capítulo';sub='Descrição';}
+  if(type==='scene'){label='Cena';sub='Local';const sc=allScenes()[0];if(sc){label=sc.name;sceneRef=sc.id;}}
+  if(type==='char'&&S.chars.length){const c=S.chars[0];label=c.name;sub=c.role;charId=c.id;}
+  else if(type==='char'){label='Personagem';sub='Papel';}
+  S.boardNodes.push({id:uid(),type,label,sub,x,y,charId,sceneRef});
+  markDirty();renderBoard();
+}
+
+/* ── Spread selected nodes ── */
+function spreadSelectedNodes(){
+  const ids=[...selNodes];
+  if(ids.length<2){alert('Selecione 2+ nós com Shift+clique para separar.');return;}
+  const nodes=ids.map(id=>S.boardNodes.find(n=>n.id===id)).filter(Boolean);
+  // find bounding box center
+  const minX=Math.min(...nodes.map(n=>n.x));
+  const minY=Math.min(...nodes.map(n=>n.y));
+  const cols=Math.ceil(Math.sqrt(nodes.length));
+  const GAP_X=220,GAP_Y=160;
+  nodes.forEach((n,i)=>{
+    n.x=minX+(i%cols)*GAP_X;
+    n.y=minY+Math.floor(i/cols)*GAP_Y;
+  });
+  markDirty();renderBoard();
+}
+
+/* ── Auto-layout ── */
+function autoLayout(){
+  if(!confirm('Reorganizar todos os nós automaticamente?'))return;
+  const GAP_X=230,GAP_Y=160,START_X=60,START_Y=60;
+  let chapX=START_X;
+  S.chapters.forEach((ch,ci)=>{
+    const chNode=S.boardNodes.find(n=>n.type==='chapter'&&n.sceneRef===ch.id);
+    if(chNode){chNode.x=chapX;chNode.y=START_Y;}
+    ch.scenes.forEach((sc,si)=>{
+      const scNode=S.boardNodes.find(n=>n.type==='scene'&&n.sceneRef===sc.id);
+      if(scNode){scNode.x=chapX+(si+1)*GAP_X;scNode.y=START_Y+GAP_Y;}
+    });
+    // char nodes for this chapter's scenes
+    const charIds=[...new Set(ch.scenes.flatMap(sc=>sc.chars||[]))];
+    charIds.forEach((cid,ci2)=>{
+      const charNode=S.boardNodes.find(n=>n.type==='char'&&n.charId===cid);
+      if(charNode){charNode.x=chapX+ci2*GAP_X;charNode.y=START_Y+GAP_Y*2;}
+    });
+    chapX+=(ch.scenes.length+1)*GAP_X+GAP_X;
+  });
+  selNodes.clear();markDirty();renderBoard();
+}
+
+/* ── Select all ── */
+function clearBoard(){
+  if(!confirm('Remover TODOS os nós do quadro? As cenas e personagens não serão apagados.'))return;
+  S.boardNodes=[];S.boardConns=[];selNodes.clear();
+  markDirty();renderBoard();
+}
+function selectAllNodes(){S.boardNodes.forEach(n=>selNodes.add(n.id));renderBoard();}
+function clearSelection(){selNodes.clear();renderBoard();}
+
+/* ═══════════════════════════════════════
+   MODAL
+═══════════════════════════════════════ */
+
+/* ═══════════════════════════════════════
+   CHOICES PER RENDER (não só no final)
+═══════════════════════════════════════ */
+function renderChoicesBlock(chId, scId, ren, sc){
+  const choices = ren.choices || [];
+
+  // Build scene options grouped by chapter
+  const sceneOptsByChapter = S.chapters.map(ch=>{
+    const opts = ch.scenes
+      .filter(x=>x.id!==sc.id)
+      .map(x=>`<option value="${x.id}">${esc(x.name)}</option>`)
+      .join('');
+    return opts ? `<optgroup label="${esc(ch.name)}">${opts}</optgroup>` : '';
+  }).join('');
+
+  const choicesHTML = choices.map((c2,ci)=>{
+    const destScene = c2.jumpTo ? findScene(c2.jumpTo)?.sc : null;
+    const destChap  = c2.jumpTo ? findScene(c2.jumpTo)?.ch : null;
+    const destColor = destScene ? 'var(--teal)' : 'var(--txt3)';
+    const destLabel = destScene ? `→ ${destScene.name}` : '→ continua';
+    return `<div class="choice-item" style="flex-direction:column;align-items:stretch;gap:6px;padding:10px 12px">
+      <div style="display:flex;gap:7px;align-items:center">
+        <span style="font-size:11px;color:var(--txt3);flex-shrink:0;min-width:16px">${ci+1}.</span>
+        <input placeholder="Texto da opção..." value="${esc(c2.text)}"
+          style="flex:1"
+          oninput="upRenderChoice('${chId}','${scId}','${ren.id}',${ci},'text',this.value)">
+        <button class="btn btn-danger btn-sm btn-icon"
+          onclick="delRenderChoice('${chId}','${scId}','${ren.id}',${ci})">
+          <i class="ti ti-x"></i>
+        </button>
+      </div>
+      <div style="display:flex;gap:7px;align-items:center;padding-left:23px">
+        <i class="ti ti-arrow-right" style="font-size:11px;color:var(--gold);flex-shrink:0"></i>
+        <select onchange="upRenderChoice('${chId}','${scId}','${ren.id}',${ci},'jumpTo',this.value)"
+          style="flex:1;padding:5px 8px;border:.5px solid ${c2.jumpTo?'var(--teal)':'var(--border2)'};border-radius:var(--rad);background:var(--bg3);color:${destColor};font-size:12px;font-family:var(--fs)">
+          <option value="">— continua normalmente —</option>
+          ${S.chapters.map(ch=>{
+            const opts=ch.scenes.filter(x=>x.id!==sc.id).map(x=>`<option value="${x.id}"${c2.jumpTo===x.id?' selected':''}>${esc(x.name)}</option>`).join('');
+            return opts?`<optgroup label="📖 ${esc(ch.name)}">${opts}</optgroup>`:'';
+          }).join('')}
+        </select>
+        <input placeholder="if condição..." value="${esc(c2.condition||'')}"
+          title="Ex: afin_yuki >= 3"
+          oninput="upRenderChoice('${chId}','${scId}','${ren.id}',${ci},'condition',this.value)"
+          style="width:140px;flex-shrink:0;padding:5px 8px;border:.5px solid var(--border2);border-radius:var(--rad);background:var(--bg3);color:var(--amber);font-size:11px;outline:none;font-family:monospace">
+      </div>
+      ${c2.jumpTo&&destScene?`
+      <div style="padding-left:23px;display:flex;align-items:center;gap:6px;font-size:11px;color:var(--txt3)">
+        <span style="width:20px;height:.5px;background:var(--teal);opacity:.4;display:inline-block"></span>
+        <i class="ti ti-photo" style="font-size:10px;color:var(--teal)"></i>
+        <span style="color:var(--teal)">${esc(destScene.name)}</span>
+        <span style="color:var(--txt3)">em</span>
+        <span>${esc(destChap?.name||'')}</span>
+        <span style="color:var(--txt3)">·</span>
+        <span>${(destScene.renders||[]).length} render(s)</span>
+        <button class="btn btn-sm" style="padding:1px 6px;font-size:10px;margin-left:4px"
+          onclick="selScene('${destChap?.id||''}','${c2.jumpTo}');switchTab('chapters')">
+          <i class="ti ti-edit"></i> Editar destino
+        </button>
+      </div>`:
+      c2.jumpTo?`<div style="padding-left:23px;font-size:11px;color:var(--coral)"><i class="ti ti-alert-circle"></i> Cena destino não encontrada</div>`:''}
+    </div>`;
+  }).join('');
+
+  // Path tree visualization
+  const pathViz = choices.length > 0 ? `
+    <div style="margin-top:12px;padding:10px 12px;background:var(--bg);border:.5px solid var(--border);border-radius:var(--rad);font-size:12px">
+      <div style="font-size:10px;color:var(--txt3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;display:flex;align-items:center;gap:5px">
+        <i class="ti ti-git-fork"></i> Caminhos possíveis
+      </div>
+      <div style="display:flex;flex-direction:column;gap:5px">
+        ${choices.map((c2,ci)=>{
+          const dest = c2.jumpTo ? findScene(c2.jumpTo)?.sc : null;
+          const destRenders = dest ? (dest.renders||[]).length : 0;
+          const destDlg = dest ? (dest.renders||[]).reduce((a,r)=>a+(r.dialogues?.length||0),0) : 0;
+          const hasImg = dest ? (dest.renders||[]).some(r=>r.imgId) : false;
+          return `<div style="display:flex;align-items:center;gap:8px;padding:6px 8px;background:var(--bg2);border-radius:var(--rad);border:.5px solid ${c2.jumpTo?'rgba(62,207,189,.2)':'var(--border)'}">
+            <div style="width:18px;height:18px;border-radius:50%;background:var(--bg4);border:.5px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--txt3);flex-shrink:0">${ci+1}</div>
+            <span style="flex:1;color:${c2.text?'var(--txt)':'var(--txt3)'};font-style:${c2.text?'normal':'italic'}">${esc(c2.text||'(sem texto)')}</span>
+            <i class="ti ti-arrow-right" style="font-size:11px;color:var(--txt3)"></i>
+            ${dest?`
+              <div style="display:flex;align-items:center;gap:5px;color:var(--teal)">
+                <i class="ti ti-photo" style="font-size:11px"></i>
+                <span>${esc(dest.name)}</span>
+                <span style="color:var(--txt3);font-size:10px">${destRenders}r · ${destDlg}f${hasImg?' · 🖼':''}</span>
+              </div>`:
+              `<span style="color:var(--txt3);font-style:italic">continua →</span>`}
+          </div>`;
+        }).join('')}
+      </div>
+    </div>` : '';
+
+  return `<div class="choice-block" style="margin-top:10px;margin-bottom:0">
+    <div class="choice-title"><i class="ti ti-git-branch"></i> Escolhas após este render
+      <span style="font-size:10px;font-weight:400;color:var(--txt3)">${choices.length} opção${choices.length!==1?'ões':''}</span>
+    </div>
+    ${choicesHTML||`<div style="font-size:12px;color:var(--txt3);font-style:italic;padding:4px 0">Sem escolhas — continua para o próximo render ou cena.</div>`}
+    <button class="btn btn-sm" style="margin-top:10px;border-color:rgba(212,168,67,.3);color:var(--gold)"
+      onclick="addRenderChoice('${chId}','${scId}','${ren.id}')">
+      <i class="ti ti-plus"></i> Adicionar escolha
+    </button>
+    ${pathViz}
+  </div>`;
+}
+
+function addRenderChoice(chId,scId,rId){
+  const sc=gs(chId,scId);const ren=gr(sc,rId);if(!ren)return;
+  if(!ren.choices)ren.choices=[];
+  ren.choices.push({id:uid(),text:'',jumpTo:'',condition:''});
+  markDirty();renderSceneArea();
+  // sync board connections
+  syncBoardFromChoices();
+}
+function upRenderChoice(chId,scId,rId,idx,f,v){
+  const sc=gs(chId,scId);const ren=gr(sc,rId);
+  if(ren?.choices?.[idx]){ren.choices[idx][f]=v;markDirty();}
+  if(f==='jumpTo')syncBoardFromChoices();
+}
+function delRenderChoice(chId,scId,rId,idx){
+  const sc=gs(chId,scId);const ren=gr(sc,rId);
+  if(ren?.choices){ren.choices.splice(idx,1);markDirty();renderSceneArea();}
+  syncBoardFromChoices();
+}
+function syncBoardFromChoices(){
+  // Sync all scene board nodes with their choices
+  allScenes().forEach(sc=>{
+    const n=S.boardNodes.find(nd=>nd.type==='scene'&&nd.sceneRef===sc.id);
+    if(n) syncSceneChoiceConns(n,sc);
+  });
+  if(document.getElementById('tab-board')?.classList.contains('active')) renderBSVG();
+}
+
+/* ═══════════════════════════════════════
+   RENDER LIBRARY
+═══════════════════════════════════════ */
+
+// S.renderLib = [{id, name, bgName, tags:[], imgId, usedIn:[sceneId,...], createdAt}]
+// Ensure library exists in state
+function ensureLib(){ if(!S.renderLib) S.renderLib=[]; }
+
+async function renderLibrary(){
+  ensureLib();
+  const grid = document.getElementById('lib-grid');
+  const countEl = document.getElementById('lib-count');
+  const search = (document.getElementById('lib-search')?.value||'').toLowerCase();
+  const tagFilter = document.getElementById('lib-tag-filter')?.value||'';
+  if(!grid) return;
+
+  // Update tag filter options
+  const allTags = [...new Set(S.renderLib.flatMap(r=>r.tags||[]))].sort();
+  const tagSel = document.getElementById('lib-tag-filter');
+  if(tagSel){
+    const cur = tagSel.value;
+    tagSel.innerHTML = `<option value="">Todos os locais</option>`
+      + allTags.map(t=>`<option value="${t}"${t===cur?' selected':''}>${esc(t)}</option>`).join('');
+  }
+
+  let items = S.renderLib;
+  if(search) items = items.filter(r=>
+    r.name.toLowerCase().includes(search) ||
+    (r.bgName||'').toLowerCase().includes(search) ||
+    (r.tags||[]).some(t=>t.toLowerCase().includes(search))
+  );
+  if(tagFilter) items = items.filter(r=>(r.tags||[]).includes(tagFilter));
+
+  if(countEl) countEl.textContent = `${items.length} render${items.length!==1?'s':''}`;
+
+  if(!items.length){
+    grid.innerHTML = `<div class="lib-empty" style="grid-column:1/-1">
+      <i class="ti ti-photos" style="font-size:32px"></i>
+      <span>${S.renderLib.length?'Nenhum render encontrado para esse filtro.':'Nenhum render na biblioteca ainda.'}</span>
+      <button class="btn btn-primary" onclick="openAddRenderLibModal()"><i class="ti ti-upload"></i> Adicionar primeiro render</button>
+    </div>`;
+    return;
+  }
+
+  const cards = await Promise.all(items.map(async r=>{
+    const imgUrl = await resolveImg(r.imgId);
+    const usageCount = countRenderUsage(r.id);
+    return `<div class="lib-card" id="lc-${r.id}" onclick="openEditRenderLibModal('${r.id}')">
+      <div class="lib-card-usage">${usageCount} uso${usageCount!==1?'s':''}</div>
+      <div class="lib-card-sel-badge"><i class="ti ti-check"></i> Em uso</div>
+      ${imgUrl
+        ? `<img class="lib-card-img" src="${imgUrl}" alt="${esc(r.name)}">`
+        : `<div class="lib-card-img-ph"><i class="ti ti-photo"></i></div>`}
+      <div class="lib-card-body">
+        <div class="lib-card-name" title="${esc(r.name)}">${esc(r.name)}</div>
+        <div class="lib-card-bg">${esc(r.bgName||'sem bgName')}</div>
+        ${(r.tags||[]).length ? `<div class="lib-card-tags">${r.tags.map(t=>`<span class="lib-tag">${esc(t)}</span>`).join('')}</div>` : ''}
+      </div>
+    </div>`;
+  }));
+  grid.innerHTML = cards.join('');
+}
+
+function countRenderUsage(libId){
+  let count = 0;
+  S.chapters.forEach(ch=>ch.scenes.forEach(sc=>{
+    (sc.renders||[]).forEach(r=>{ if(r.libId===libId) count++; });
+  }));
+  return count;
+}
+
+function openAddRenderLibModal(){
+  showModal(`<h2><i class="ti ti-upload"></i> Adicionar Render à Biblioteca</h2>
+    <div class="field"><label>Nome do render</label><input id="nlr-name" placeholder="Ex: Quarto da Yuki — dia"></div>
+    <div class="field"><label>bgName <span style="font-size:10px;color:var(--txt3);text-transform:none">(nome no Ren'Py, sem espaços)</span></label>
+      <input id="nlr-bg" placeholder="bg_quarto_dia" oninput="this.value=this.value.toLowerCase().replace(/[^a-z0-9_]/g,'_')">
+    </div>
+    <div class="field"><label>Tags de local <span style="font-size:10px;color:var(--txt3);text-transform:none">(separadas por vírgula)</span></label>
+      <input id="nlr-tags" placeholder="quarto, interior, dia">
+    </div>
+    <div class="field"><label>Imagem</label>
+      <div style="display:flex;align-items:center;gap:10px">
+        <div id="nlr-preview" style="width:120px;height:75px;background:var(--bg3);border:.5px solid var(--border2);border-radius:var(--rad);display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0">
+          <i class="ti ti-photo" style="font-size:20px;color:var(--txt3)"></i>
+        </div>
+        <div>
+          <input type="file" id="nlr-file" accept="image/*" style="display:none" onchange="previewLibImg(this)">
+          <button class="btn" onclick="document.getElementById('nlr-file').click()"><i class="ti ti-upload"></i> Selecionar imagem</button>
+          <div style="font-size:11px;color:var(--txt3);margin-top:4px">PNG, JPG — recomendado 1280×720</div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeModal()">Cancelar</button>
+      <button class="btn btn-primary" onclick="confirmAddRenderLib()"><i class="ti ti-check"></i> Salvar na biblioteca</button>
+    </div>`);
+}
+
+function previewLibImg(inp){
+  const f = inp.files[0]; if(!f) return;
+  const prev = document.getElementById('nlr-preview');
+  const reader = new FileReader();
+  reader.onload = e => {
+    prev.innerHTML = `<img src="${e.target.result}" style="width:100%;height:100%;object-fit:cover">`;
+    // Auto-suggest bgName from filename
+    const bgInp = document.getElementById('nlr-bg');
+    if(bgInp && !bgInp.value){
+      bgInp.value = f.name.replace(/\.[^.]+$/,'').toLowerCase().replace(/[^a-z0-9]/g,'_').replace(/_+/g,'_');
+    }
+  };
+  reader.readAsDataURL(f);
+}
+
+async function confirmAddRenderLib(){
+  const name = (document.getElementById('nlr-name')?.value||'').trim();
+  const bgName = (document.getElementById('nlr-bg')?.value||'').trim();
+  const tagsRaw = document.getElementById('nlr-tags')?.value||'';
+  const tags = tagsRaw.split(',').map(t=>t.trim()).filter(Boolean);
+  const file = document.getElementById('nlr-file')?.files[0];
+  if(!name){ alert('Digite um nome para o render.'); return; }
+  if(!bgName){ alert('Digite o bgName.'); return; }
+
+  ensureLib();
+  const id = uid();
+  let imgId = null;
+
+  if(file){
+    closeModal();
+    setSyncState('syncing','Enviando imagem...');
+    imgId = await uploadImage(file, 'renders', null);
+  } else {
+    closeModal();
+  }
+
+  S.renderLib.push({id, name, bgName, tags, imgId, createdAt: new Date().toISOString()});
+  markDirty();
+  switchTab('library');
+  renderLibrary();
+  _devLog('succ','LIB',`Render "${name}" adicionado à biblioteca`);
+}
+
+function openEditRenderLibModal(id){
+  ensureLib();
+  const r = S.renderLib.find(x=>x.id===id);
+  if(!r) return;
+  const usageCount = countRenderUsage(id);
+  const usageList = [];
+  S.chapters.forEach(ch=>ch.scenes.forEach(sc=>{
+    (sc.renders||[]).forEach(ren=>{
+      if(ren.libId===id) usageList.push(`${ch.name} → ${sc.name}`);
+    });
+  }));
+
+  showModal(`<h2><i class="ti ti-edit"></i> Editar Render</h2>
+    <div class="field"><label>Nome</label><input id="elr-name" value="${esc(r.name)}"></div>
+    <div class="field"><label>bgName</label><input id="elr-bg" value="${esc(r.bgName||'')}" oninput="this.value=this.value.toLowerCase().replace(/[^a-z0-9_]/g,'_')"></div>
+    <div class="field"><label>Tags</label><input id="elr-tags" value="${esc((r.tags||[]).join(', '))}"></div>
+    <div class="field"><label>Substituir imagem</label>
+      <div style="display:flex;align-items:center;gap:10px">
+        <div id="elr-preview" style="width:120px;height:75px;background:var(--bg3);border:.5px solid var(--border2);border-radius:var(--rad);overflow:hidden;flex-shrink:0"></div>
+        <div>
+          <input type="file" id="elr-file" accept="image/*" style="display:none" onchange="previewLibImgEdit(this)">
+          <button class="btn" onclick="document.getElementById('elr-file').click()"><i class="ti ti-upload"></i> Nova imagem</button>
+          <div style="font-size:11px;color:var(--txt3);margin-top:4px">Deixe vazio para manter a atual</div>
+        </div>
+      </div>
+    </div>
+    ${usageCount?`<div style="padding:8px 10px;background:rgba(62,207,189,.06);border:.5px solid rgba(62,207,189,.2);border-radius:var(--rad);font-size:12px;color:var(--teal);margin-bottom:8px">
+      <i class="ti ti-link"></i> Usado em ${usageCount} render${usageCount!==1?'s':''}:
+      <div style="margin-top:4px;color:var(--txt2)">${usageList.map(l=>`• ${esc(l)}`).join('<br>')}</div>
+    </div>`:''}
+    <div class="modal-footer">
+      <button class="btn btn-danger" onclick="delRenderLib('${id}')"><i class="ti ti-trash"></i> Excluir</button>
+      <button class="btn" onclick="closeModal()">Cancelar</button>
+      <button class="btn btn-primary" onclick="confirmEditRenderLib('${id}')">Salvar</button>
+    </div>`);
+
+  // Load preview async
+  resolveImg(r.imgId).then(url=>{
+    const prev = document.getElementById('elr-preview');
+    if(prev) prev.innerHTML = url
+      ? `<img src="${url}" style="width:100%;height:100%;object-fit:cover">`
+      : `<i class="ti ti-photo" style="font-size:20px;color:var(--txt3);margin:auto;display:block;margin-top:24px">`;
+  });
+}
+
+function previewLibImgEdit(inp){
+  const f = inp.files[0]; if(!f) return;
+  const prev = document.getElementById('elr-preview');
+  const reader = new FileReader();
+  reader.onload = e => { if(prev) prev.innerHTML = `<img src="${e.target.result}" style="width:100%;height:100%;object-fit:cover">`; };
+  reader.readAsDataURL(f);
+}
+
+async function confirmEditRenderLib(id){
+  ensureLib();
+  const r = S.renderLib.find(x=>x.id===id);
+  if(!r) return;
+  r.name = (document.getElementById('elr-name')?.value||'').trim() || r.name;
+  r.bgName = (document.getElementById('elr-bg')?.value||'').trim() || r.bgName;
+  r.tags = (document.getElementById('elr-tags')?.value||'').split(',').map(t=>t.trim()).filter(Boolean);
+  const file = document.getElementById('elr-file')?.files[0];
+  closeModal();
+  if(file){
+    setSyncState('syncing','Atualizando imagem...');
+    r.imgId = await uploadImage(file, 'renders', r.imgId);
+    // Clear URL cache so new image loads
+    delete urlCache[r.imgId];
+  }
+  // Update all renders using this lib entry's bgName
+  S.chapters.forEach(ch=>ch.scenes.forEach(sc=>{
+    (sc.renders||[]).forEach(ren=>{
+      if(ren.libId===id){ ren.bgName=r.bgName; ren.imgId=r.imgId; }
+    });
+  }));
+  markDirty();
+  renderLibrary();
+  _devLog('succ','LIB',`Render "${r.name}" atualizado`);
+}
+
+function delRenderLib(id){
+  if(!confirm('Excluir render da biblioteca? Os renders nas cenas que usam este serão desvinculados.'))return;
+  ensureLib();
+  const r = S.renderLib.find(x=>x.id===id);
+  // Unlink from scenes
+  S.chapters.forEach(ch=>ch.scenes.forEach(sc=>{
+    (sc.renders||[]).forEach(ren=>{ if(ren.libId===id){ delete ren.libId; } });
+  }));
+  if(r?.imgId) deleteImage(r.imgId,'renders');
+  S.renderLib = S.renderLib.filter(x=>x.id!==id);
+  markDirty(); closeModal(); renderLibrary();
+}
+
+/* ── Picker: select render from library when adding to a scene ── */
+function openLibPicker(chId, scId, rId){
+  ensureLib();
+  if(!S.renderLib.length){
+    if(confirm('Biblioteca vazia. Deseja ir para a Biblioteca e adicionar renders?')){
+      closeModal(); switchTab('library'); openAddRenderLibModal();
+    }
+    return;
+  }
+  const onSelect = (libId) => {
+    const libRen = S.renderLib.find(x=>x.id===libId);
+    const sc = gs(chId, scId);
+    const ren = gr(sc, rId);
+    if(!ren||!libRen) return;
+    ren.libId  = libRen.id;
+    ren.imgId  = libRen.imgId;
+    ren.bgName = libRen.bgName;
+    ren.label  = libRen.name;
+    markDirty(); closeModal(); renderSceneArea();
+    _devLog('succ','LIB',`Render "${libRen.name}" vinculado à cena`);
+  };
+  // Store callback ref
+  window._libPickerCb = onSelect;
+
+  const cards = S.renderLib.map(r=>`
+    <div class="lib-picker-card" id="lpc-${r.id}" onclick="libPickerSelect('${r.id}')">
+      <div class="lib-picker-img" id="lpci-${r.id}"><i class="ti ti-photo"></i></div>
+      <div class="lib-picker-label" title="${esc(r.name)}">${esc(r.name)}</div>
+      <div class="lib-picker-bg">${esc(r.bgName||'')}</div>
+    </div>`).join('');
+
+  showModal(`<h2><i class="ti ti-photos"></i> Selecionar da Biblioteca</h2>
+    <input class="lib-search" placeholder="Buscar..." oninput="filterLibPicker(this.value)"
+      style="width:100%;margin-bottom:10px">
+    <div class="lib-picker-grid" id="lib-picker-grid">${cards}</div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeModal()">Cancelar</button>
+      <button class="btn btn-primary" id="lib-picker-confirm" disabled onclick="confirmLibPicker()">
+        <i class="ti ti-check"></i> Usar este render
+      </button>
+    </div>`);
+
+  // Load thumbnails async
+  S.renderLib.forEach(async r=>{
+    const url = await resolveImg(r.imgId);
+    const el = document.getElementById('lpci-'+r.id);
+    if(el&&url) el.innerHTML = `<img src="${url}">`;
+  });
+}
+
+let _libPickerSel = null;
+function libPickerSelect(id){
+  _libPickerSel = id;
+  document.querySelectorAll('.lib-picker-card').forEach(c=>c.classList.toggle('sel', c.id==='lpc-'+id));
+  const btn = document.getElementById('lib-picker-confirm');
+  if(btn) btn.disabled = false;
+}
+function confirmLibPicker(){
+  if(_libPickerSel && window._libPickerCb){
+    window._libPickerCb(_libPickerSel);
+    _libPickerSel = null;
+  }
+}
+function filterLibPicker(q){
+  const lq = q.toLowerCase();
+  document.querySelectorAll('.lib-picker-card').forEach(c=>{
+    const id = c.id.replace('lpc-','');
+    const r = S.renderLib?.find(x=>x.id===id);
+    if(!r){ c.style.display='none'; return; }
+    const match = !lq || r.name.toLowerCase().includes(lq) || (r.bgName||'').toLowerCase().includes(lq) || (r.tags||[]).some(t=>t.toLowerCase().includes(lq));
+    c.style.display = match ? '' : 'none';
+  });
+}
 
 /* ═══════════════════════════════════════
    DEV CONSOLE
@@ -1089,23 +2021,447 @@ window.fetch = async (url, opts={})=>{
   }
 };
 
+
+/* ═══════════════════════════════════════
+   CHECKLIST DE PRODUÇÃO
+═══════════════════════════════════════ */
+let ckFilter = 'all';
+
+function ckSetFilter(f, btn){
+  ckFilter = f;
+  document.querySelectorAll('.ck-filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderCkList();
+}
+
+function analyzeScene(sc){
+  const renders = sc.renders || [];
+  const totalRenders = renders.length;
+  const rendersWithImg = renders.filter(r=>r.imgId).length;
+  const totalDialogues = renders.reduce((a,r)=>(a+(r.dialogues?.length||0)),0);
+  const rendersWithDialogues = renders.filter(r=>r.dialogues?.length>0).length;
+  const hasChars = (sc.chars||[]).length > 0;
+  const hasDesc = (sc.desc||'').trim().length > 0;
+  const hasChoicesOrJump = (sc.renders||[]).flatMap(r=>r.choices||[]).filter(c=>c.text).length > 0 ||
+    (() => { const scenes = allScenes(); const i = scenes.findIndex(x=>x.id===sc.id); return i < scenes.length-1; })();
+  const allRendersHaveImg = totalRenders > 0 && rendersWithImg === totalRenders;
+  const allRendersHaveDialogues = totalRenders > 0 && rendersWithDialogues === totalRenders;
+  const allChoicesHaveDest = (sc.renders||[]).flatMap(r=>r.choices||[]).filter(c=>c.text).every(c=>c.jumpTo);
+  const allChoicesCount = (sc.renders||[]).flatMap(r=>r.choices||[]).filter(c=>c.text).length;
+
+  // Score: each item worth 1 point
+  const checks = [
+    { key:'renders',    ok: totalRenders > 0,          warn: false,         label: `${totalRenders} render${totalRenders!==1?'s':''}`,          icon:'ti-layers-intersect' },
+    { key:'img',        ok: allRendersHaveImg,          warn: rendersWithImg>0&&!allRendersHaveImg, label: `Imagens: ${rendersWithImg}/${totalRenders}`, icon:'ti-photo' },
+    { key:'dialogues',  ok: allRendersHaveDialogues,   warn: totalDialogues>0&&!allRendersHaveDialogues, label: `Falas: ${totalDialogues} (${rendersWithDialogues}/${totalRenders} renders)`, icon:'ti-message-circle' },
+    { key:'chars',      ok: hasChars,                  warn: false,         label: hasChars?`${sc.chars.length} personagem(ns)`:'Sem personagens', icon:'ti-users' },
+    { key:'desc',       ok: hasDesc,                   warn: false,         label: hasDesc?'Descrição preenchida':'Sem descrição',               icon:'ti-file-text' },
+    { key:'flow',       ok: hasChoicesOrJump,          warn: false,         label: allChoicesCount>0?`${allChoicesCount} escolha(s)`:'Jump automático', icon:'ti-git-branch' },
+    { key:'choices',    ok: allChoicesHaveDest,        warn: (sc.renders||[]).flatMap(r=>r.choices||[]).filter(c=>c.text).length>0&&!allChoicesHaveDest, label: allChoicesHaveDest?'Escolhas com destino':'Escolhas sem destino', icon:'ti-alert-circle', skip: (sc.renders||[]).flatMap(r=>r.choices||[]).filter(c=>c.text).length===0 },
+  ].filter(c=>!c.skip);
+
+  const score = checks.filter(c=>c.ok).length;
+  const total = checks.length;
+  const pct = Math.round(score/total*100);
+  const hasWarn = checks.some(c=>c.warn);
+  const status = pct===100 ? 'complete' : pct===0 ? 'empty' : 'partial';
+
+  return { checks, score, total, pct, status, hasWarn, totalRenders, rendersWithImg, totalDialogues };
+}
+
+function renderChecklist(){
+  // Summary stats
+  const scenes = allScenes();
+  let complete=0, partial=0, empty=0, totalRenders=0, rendersWithImg=0, totalDialogues=0;
+  scenes.forEach(sc=>{
+    const a = analyzeScene(sc);
+    if(a.status==='complete') complete++;
+    else if(a.status==='partial') partial++;
+    else empty++;
+    totalRenders += a.totalRenders;
+    rendersWithImg += a.rendersWithImg;
+    totalDialogues += a.totalDialogues;
+  });
+  const overallPct = scenes.length ? Math.round(complete/scenes.length*100) : 0;
+
+  document.getElementById('ck-summary-area').innerHTML = `
+    <div class="ck-summary">
+      <div class="ck-stat">
+        <div class="ck-stat-val" style="color:var(--acc)">${scenes.length}</div>
+        <div class="ck-stat-lbl">Cenas totais</div>
+        <div class="ck-progress-wrap" style="margin-top:8px"><div class="ck-progress-bar" style="width:${overallPct}%;background:var(--acc)"></div></div>
+        <div style="font-size:10px;color:var(--txt3);margin-top:4px">${overallPct}% completo</div>
+      </div>
+      <div class="ck-stat">
+        <div class="ck-stat-val" style="color:var(--green)">${complete}</div>
+        <div class="ck-stat-lbl">Completas</div>
+      </div>
+      <div class="ck-stat">
+        <div class="ck-stat-val" style="color:var(--gold)">${partial}</div>
+        <div class="ck-stat-lbl">Incompletas</div>
+      </div>
+      <div class="ck-stat">
+        <div class="ck-stat-val" style="color:var(--coral)">${empty}</div>
+        <div class="ck-stat-lbl">Vazias</div>
+      </div>
+      <div class="ck-stat">
+        <div class="ck-stat-val" style="color:var(--teal)">${rendersWithImg}<span style="font-size:14px;color:var(--txt3)">/${totalRenders}</span></div>
+        <div class="ck-stat-lbl">Renders com imagem</div>
+        <div class="ck-progress-wrap" style="margin-top:8px"><div class="ck-progress-bar" style="width:${totalRenders?Math.round(rendersWithImg/totalRenders*100):0}%;background:var(--teal)"></div></div>
+      </div>
+      <div class="ck-stat">
+        <div class="ck-stat-val" style="color:var(--rose)">${totalDialogues}</div>
+        <div class="ck-stat-lbl">Falas totais</div>
+      </div>
+    </div>`;
+
+  renderCkList();
+}
+
+function renderCkList(){
+  const area = document.getElementById('ck-list-area');
+  if(!area) return;
+
+  let html = '';
+  S.chapters.forEach(ch=>{
+    const filtered = ch.scenes.filter(sc=>{
+      const a = analyzeScene(sc);
+      if(ckFilter==='all') return true;
+      return a.status === ckFilter;
+    });
+    if(!filtered.length) return;
+
+    html += `<div class="ck-chapter">
+      <div class="ck-chapter-title">
+        <i class="ti ti-bookmark" style="color:var(--gold)"></i>
+        ${esc(ch.name)}
+        <span style="font-size:11px;color:var(--txt3);font-weight:400">${filtered.length} cena${filtered.length!==1?'s':''}</span>
+      </div>`;
+
+    filtered.forEach(sc=>{
+      const a = analyzeScene(sc);
+      const statusCls = a.status==='complete'?'ck-complete':a.status==='partial'?'ck-partial':'ck-empty';
+      const statusLbl = a.status==='complete'?'Completa':a.status==='partial'?'Incompleta':'Vazia';
+
+      const itemsHTML = a.checks.map(c=>{
+        const cls = c.ok?'ck-ok':c.warn?'ck-warn':'ck-err';
+        const ico = c.ok?'ti-circle-check':c.warn?'ti-alert-circle':'ti-circle-x';
+        return `<div class="ck-item">
+          <i class="ti ${ico} ${cls}"></i>
+          <span class="${cls}" style="margin-right:4px">${c.ok?'✓':c.warn?'~':'✗'}</span>
+          <span>${esc(c.label)}</span>
+        </div>`;
+      }).join('');
+
+      html += `<div class="ck-scene">
+        <div class="ck-scene-header">
+          <div class="ck-scene-name">${esc(sc.name)}</div>
+          <span class="ck-status ${statusCls}">${statusLbl}</span>
+          <span style="font-size:11px;color:var(--txt3)">${a.score}/${a.total}</span>
+          <button class="btn btn-sm" onclick="selScene('${ch.id}','${sc.id}');switchTab('chapters')" style="font-size:11px;padding:2px 8px"><i class="ti ti-edit"></i> Editar</button>
+        </div>
+        <div class="ck-items">${itemsHTML}</div>
+        <div class="ck-progress-wrap">
+          <div class="ck-progress-bar" style="width:${a.pct}%;background:${a.status==='complete'?'var(--green)':a.status==='partial'?'var(--gold)':'var(--coral)'}"></div>
+        </div>
+      </div>`;
+    });
+
+    html += `</div>`;
+  });
+
+  if(!html) html = `<div class="empty-state">Nenhuma cena encontrada com esse filtro.</div>`;
+  area.innerHTML = html;
+}
+
+
+/* ═══════════════════════════════════════
+   MODO REVISÃO
+═══════════════════════════════════════ */
+function renderReview(){
+  // Build chapter sidebar
+  const chapList = document.getElementById('review-chap-list');
+  if(chapList){
+    chapList.innerHTML = `
+      <div class="scene-item" onclick="renderReviewContent('all')" style="padding:7px 11px;font-size:12px;color:var(--txt2)">
+        <span><i class="ti ti-books" style="font-size:10px;margin-right:3px"></i> Roteiro completo</span>
+      </div>
+      <div style="height:.5px;background:var(--border);margin:4px 0"></div>
+      ${S.chapters.map(ch=>`
+        <div class="chap-item" onclick="renderReviewContent('${ch.id}')" style="font-size:12px">
+          <span style="display:flex;align-items:center;gap:4px"><i class="ti ti-bookmark" style="font-size:10px"></i>${esc(ch.name)}</span>
+        </div>
+        ${ch.scenes.map(sc=>`<div class="scene-item" onclick="renderReviewContent('${ch.id}','${sc.id}')" style="padding-left:28px">
+          <span>${esc(sc.name)}</span>
+        </div>`).join('')}`).join('')}`;
+  }
+  renderReviewContent('all');
+}
+
+async function renderReviewContent(chapId, sceneId){
+  const area = document.getElementById('review-content');
+  if(!area) return;
+  area.innerHTML = `<div style="display:flex;align-items:center;justify-content:center;height:120px;color:var(--txt3)"><div class="spinner"></div></div>`;
+
+  // Determine which chapters/scenes to render
+  let chaptersToRender = [];
+  if(chapId === 'all'){
+    chaptersToRender = S.chapters;
+  } else if(!sceneId) {
+    const ch = gch(chapId); if(ch) chaptersToRender = [ch];
+  } else {
+    const ch = gch(chapId); const sc = gs(chapId, sceneId);
+    if(ch && sc) chaptersToRender = [{...ch, scenes:[sc]}];
+  }
+
+  let html = `<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:8px">
+    <div style="font-family:var(--ff);font-size:18px;font-weight:600">${chapId==='all'?'Roteiro Completo':esc(chaptersToRender[0]?.name||'')}</div>
+    <div style="display:flex;gap:6px">
+      <button class="btn btn-sm" onclick="window.print()"><i class="ti ti-printer"></i> Imprimir</button>
+    </div>
+  </div>`;
+
+  for(const ch of chaptersToRender){
+    html += `<div class="review-chapter">
+      <div class="review-chapter-title"><i class="ti ti-bookmark" style="color:var(--gold)"></i>${esc(ch.name)}</div>
+      ${ch.desc?`<div class="review-chapter-desc">${esc(ch.desc)}</div>`:''}`;
+
+    for(const sc of ch.scenes){
+      // chars chips
+      const charsChips = (sc.chars||[]).map(cid=>{
+        const c=gc(cid); if(!c) return '';
+        return `<span class="chip" style="border-color:${c.color}33;color:${c.color}">${esc(c.name)}</span>`;
+      }).join('');
+
+      html += `<div class="review-scene">
+        <div class="review-scene-title"><i class="ti ti-photo" style="color:var(--teal)"></i>${esc(sc.name)}</div>
+        <div class="review-scene-meta">
+          <span><i class="ti ti-layers-intersect" style="font-size:10px"></i> ${(sc.renders||[]).length} renders</span>
+          <span><i class="ti ti-message-circle" style="font-size:10px"></i> ${(sc.renders||[]).reduce((a,r)=>a+(r.dialogues?.length||0),0)} falas</span>
+          ${(sc.renders||[]).flatMap(r=>r.choices||[]).filter(c=>c.text).length?`<span><i class="ti ti-git-branch" style="font-size:10px"></i> ${(sc.renders||[]).flatMap(r=>r.choices||[]).filter(c=>c.text).length} escolha(s)</span>`:''}
+        </div>
+        ${sc.desc?`<div class="review-scene-desc">${esc(sc.desc)}</div>`:''}
+        ${sc.notes?`<div class="review-notes"><i class="ti ti-notes" style="font-size:11px"></i> ${esc(sc.notes)}</div>`:''}
+        ${charsChips?`<div class="review-chars">${charsChips}</div>`:''}`;
+
+      // renders + dialogues
+      for(const [ri, ren] of (sc.renders||[]).entries()){
+        const bgUrl = await resolveImg(ren.imgId);
+        html += `<div class="review-render">
+          <div class="review-render-title">
+            <i class="ti ti-photo"></i>${esc(ren.label)}
+            <span style="color:var(--acc);font-size:10px">${ren.bgName}</span>
+            <span style="color:var(--txt3)">with ${ren.transition}</span>
+          </div>
+          ${bgUrl?`<img class="review-render-img" src="${bgUrl}" alt="${esc(ren.label)}">`:''}`;
+
+        for(const d of (ren.dialogues||[])){
+          const c = gc(d.char)||{name:'Narrador',color:'#5a5275',imgId:null};
+          const cUrl = await resolveImg(c.imgId);
+          html += `<div class="review-dlg">
+            <div class="review-dlg-av" style="background:${c.color}22;color:${c.color}">
+              ${cUrl?`<img src="${cUrl}">`:`${ini(c.name)}`}
+            </div>
+            <div class="review-dlg-body">
+              <div class="review-dlg-spk" style="color:${c.color}">${esc(c.name)}</div>
+              <div class="review-dlg-txt">${esc(d.text)}</div>
+              ${d.action?`<div class="review-dlg-action"><i class="ti ti-code"></i> ${esc(d.action)}</div>`:''}
+            </div>
+          </div>`;
+        }
+        html += `</div>`;
+      }
+
+      // choices
+      const reviewChoices=(sc.renders||[]).flatMap(r=>r.choices||[]).filter(c2=>c2.text);
+      if(reviewChoices.length){
+        html += `<div class="review-choices">
+          <div style="font-size:11px;font-weight:500;color:var(--gold);margin-bottom:6px;text-transform:uppercase;letter-spacing:.05em"><i class="ti ti-git-branch"></i> Escolhas</div>
+          ${reviewChoices.map((c2,ci)=>{
+            const dest = c2.jumpTo ? findScene(c2.jumpTo)?.sc?.name||c2.jumpTo : 'continua';
+            const cond = c2.condition ? ` [if ${c2.condition}]` : '';
+            return `<div class="review-choice"><span style="color:var(--txt3)">${ci+1}.</span><span>${esc(c2.text||'...')}</span><span style="color:var(--amber);font-size:10px;font-family:monospace">${esc(cond)}</span><span style="color:var(--txt3)">→ ${esc(dest)}</span></div>`;
+          }).join('')}
+        </div>`;
+      }
+
+      html += `</div>`; // close review-scene
+    }
+    html += `</div>`; // close review-chapter
+  }
+
+  area.innerHTML = html;
+}
+
+/* ═══════════════════════════════════════
+   EXPORT ZIP — .rpy + imagens renomeadas
+═══════════════════════════════════════ */
+async function openZipExportModal(){
+  showModal(`<h2><i class="ti ti-file-zip"></i> Exportar ZIP para Ren'Py</h2>
+    <div style="font-size:12px;color:var(--txt2);margin-bottom:12px;line-height:1.6">
+      Gera um arquivo <code style="background:var(--bg3);padding:1px 5px;border-radius:4px">.zip</code> com a estrutura pronta para copiar para seu projeto Ren'Py:
+    </div>
+    <div style="background:var(--bg3);border-radius:var(--rad);padding:10px 12px;font-family:monospace;font-size:12px;color:var(--txt2);line-height:1.8;margin-bottom:12px">
+      📁 game/<br>
+      &nbsp;&nbsp;📄 script.rpy<br>
+      &nbsp;&nbsp;📁 images/<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;🖼 bg_entrada.png<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;🖼 bg_corredor.png<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;🖼 ... (todos os renders com imagem)
+    </div>
+    <div id="zip-progress-area"></div>
+    <div class="modal-footer">
+      <button class="btn" onclick="closeModal()">Cancelar</button>
+      <button class="btn btn-warning" id="zip-start-btn" onclick="runZipExport()"><i class="ti ti-file-zip"></i> Gerar ZIP</button>
+    </div>`);
+}
+
+async function runZipExport(){
+  const btn = document.getElementById('zip-start-btn');
+  const progressArea = document.getElementById('zip-progress-area');
+  if(btn) btn.disabled = true;
+
+  const zip = new JSZip();
+  const gameFolder = zip.folder('game');
+  const imagesFolder = gameFolder.folder('images');
+
+  // Collect all renders with images
+  const renderJobs = [];
+  S.chapters.forEach(ch=>{
+    ch.scenes.forEach(sc=>{
+      (sc.renders||[]).forEach(ren=>{
+        if(ren.imgId && ren.bgName){
+          renderJobs.push({imgId:ren.imgId, bgName:ren.bgName, label:ren.label});
+        }
+      });
+    });
+  });
+
+  const total = renderJobs.length + 1; // +1 for script.rpy
+  let done = 0;
+  const fileLog = [];
+
+  function updateProgress(msg, type='ok'){
+    done++;
+    fileLog.push({msg, type});
+    const pct = Math.round(done/total*100);
+    if(progressArea){
+      progressArea.innerHTML = `<div class="zip-progress">
+        <div class="zip-progress-label">${pct}% — ${msg}</div>
+        <div class="zip-progress-bar-wrap"><div class="zip-progress-bar-fill" style="width:${pct}%"></div></div>
+        <div class="zip-file-list">
+          ${fileLog.slice(-6).reverse().map(f=>`<div class="zip-file-item zip-file-${f.type}">
+            <i class="ti ${f.type==='ok'?'ti-circle-check':f.type==='warn'?'ti-alert-circle':'ti-circle-x'}"></i>
+            ${esc(f.msg)}
+          </div>`).join('')}
+        </div>
+      </div>`;
+    }
+  }
+
+  // 1. Add script.rpy
+  gameFolder.file('script.rpy', buildRenpy());
+  updateProgress('game/script.rpy gerado', 'ok');
+
+  // 2. Download + add each render image
+  for(const job of renderJobs){
+    try {
+      // Try Supabase URL first
+      const url = imgUrlMap[job.imgId];
+      if(url){
+        const resp = await fetch(url);
+        if(!resp.ok) throw new Error(`HTTP ${resp.status}`);
+        const blob = await resp.blob();
+        const ext = url.split('.').pop().split('?')[0] || 'png';
+        const filename = `${job.bgName}.${ext}`;
+        imagesFolder.file(filename, blob);
+        updateProgress(`game/images/${filename}`, 'ok');
+      } else {
+        // Fallback: try IDB
+        const blob = await idbGet(job.imgId);
+        if(blob){
+          const ext = blob.type.split('/')[1] || 'png';
+          const filename = `${job.bgName}.${ext}`;
+          imagesFolder.file(filename, blob);
+          updateProgress(`game/images/${filename} (local)`, 'ok');
+        } else {
+          updateProgress(`${job.bgName} — sem imagem (pulado)`, 'warn');
+        }
+      }
+    } catch(e){
+      updateProgress(`${job.bgName} — erro: ${e.message}`, 'err');
+      _devLog('err','ZIP',`Erro ao baixar ${job.bgName}: ${e.message}`);
+    }
+  }
+
+  // 3. Generate and download zip
+  try {
+    if(progressArea){
+      progressArea.innerHTML += `<div style="font-size:12px;color:var(--txt2);margin-top:8px">Comprimindo arquivos...</div>`;
+    }
+    const blob = await zip.generateAsync({type:'blob', compression:'DEFLATE', compressionOptions:{level:6}},
+      (meta)=>{
+        if(progressArea){
+          const existingZipBar = progressArea.querySelector('.zip-gen-bar');
+          if(!existingZipBar){
+            const bar = document.createElement('div');
+            bar.className='zip-progress-bar-wrap zip-gen-bar';
+            bar.innerHTML=`<div class="zip-progress-bar-fill" style="width:${meta.percent.toFixed(0)}%;background:var(--gold)"></div>`;
+            progressArea.appendChild(bar);
+          }
+        }
+      }
+    );
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'renpy-project.zip';
+    a.click();
+    URL.revokeObjectURL(a.href);
+    _devLog('succ','ZIP',`ZIP gerado com ${renderJobs.length} imagens + script.rpy`);
+    if(progressArea){
+      progressArea.innerHTML += `<div style="margin-top:10px;padding:8px 12px;background:rgba(94,203,111,.1);border:.5px solid rgba(94,203,111,.25);border-radius:var(--rad);font-size:12px;color:var(--green)"><i class="ti ti-circle-check"></i> ZIP gerado com sucesso! Extraia dentro da pasta do seu projeto Ren'Py.</div>`;
+    }
+    if(btn){ btn.disabled=false; btn.innerHTML='<i class="ti ti-download"></i> Baixar novamente'; btn.onclick=()=>runZipExport(); }
+  } catch(e){
+    _devLog('err','ZIP','Erro ao gerar ZIP: '+e.message);
+    if(progressArea) progressArea.innerHTML += `<div style="color:var(--coral);font-size:12px;margin-top:8px">Erro ao gerar ZIP: ${e.message}</div>`;
+    if(btn) btn.disabled=false;
+  }
+}
+
 _devLog('info','APP','VN Studio iniciando...');
 
+function showApp(){
+  document.getElementById('loading-screen').style.display='none';
+  const app=document.getElementById('app');
+  app.style.display='flex';
+  app.style.paddingBottom='28px';
+  _devLog('succ','APP','Interface carregada');
+  renderCharList();renderCharDetail();renderChapTree();renderSceneArea();
+}
+
 (async()=>{
+  // IDB always runs first
   try {
     _devLog('info','IDB','Abrindo IndexedDB...');
     await openIDB();
     _devLog('succ','IDB','IndexedDB pronto');
-    await bootSupabase();
-    document.getElementById('loading-screen').style.display='none';
-    const app=document.getElementById('app');
-    app.style.display='flex';
-    app.style.paddingBottom='28px'; // space for collapsed console
-    _devLog('succ','APP','Interface carregada');
-    renderCharList();renderCharDetail();renderChapTree();renderSceneArea();
   } catch(e){
-    console.error('Boot fatal: '+(e.message||e));
-    document.getElementById('loading-txt').textContent='Erro fatal: '+(e.message||e);
+    _devLog('warn','IDB','IndexedDB falhou: '+(e.message||e)+' — continuando sem cache local');
+  }
+
+  // Supabase with hard timeout — never blocks the app
+  try {
+    const supaPromise = bootSupabase();
+    const timeout = new Promise((_,rej)=>setTimeout(()=>rej(new Error('Timeout após 8s')),8000));
+    await Promise.race([supaPromise, timeout]);
+  } catch(e){
+    console.error('Boot Supabase: '+(e.message||e));
+    setSyncState('err','Offline — '+((e.message||'').slice(0,30)));
+    _devLog('err','SUP','Boot falhou: '+(e.message||e)+' — usando dados locais');
+  } finally {
+    // ALWAYS show the app, regardless of Supabase result
+    showApp();
   }
 })();
 </script>
